@@ -62,6 +62,7 @@ type
     FResultCode: integer;
     FResultString: string;
     FResultText: TStrings;
+    FServer: string;
     function DoAnsverLogin(FUID, FDATA:string):Boolean;
     procedure SaveHttpData(ACmdName: string);
   protected
@@ -80,6 +81,7 @@ type
     property ResultString : string read FResultString;
 
   published
+    property Server:string read FServer write FServer;
     property OnHttpStatus:TOnHttpStatusEnevent read FOnHttpStatus write FOnHttpStatus;
     property OnSignData:TOnSignDataEvent read FOnSignData write FOnSignData;
   end;
@@ -117,7 +119,7 @@ begin
   J.Free;
 
 
-  if SendCommand(hmPOST, '/auth/cert/', '', M) then
+  if SendCommand(hmPOST, 'auth/simpleSignIn', '', M, 'application/json') then
   begin
     SaveHttpData('dologin_cert');
     FDocument.Position:=0;
@@ -168,13 +170,13 @@ begin
 
   if FAuthorizationToken <> '' then
   begin
-    S:='Authorization: Bearer' + FAuthorizationToken;
-    FHTTP.AddHeader(S);
+    //S:='Authorization: Bearer' + FAuthorizationToken;
+    FHTTP.AddHeader('Authorization', 'Bearer' + FAuthorizationToken);
   end;
 
   if AMethod = hmGET then
   begin
-    FHTTP.Get(sAPIURL + '/' + ACommand + AParams, FDocument);
+    FHTTP.Get(FServer + '/' + ACommand + AParams, FDocument);
   end
   else
   begin
@@ -187,7 +189,7 @@ begin
       FHTTP.AddHeader('Content-Length', '0');
 
     FHTTP.RequestBody:=AData;
-    FHTTP.Post(sAPIURL + '/' + ACommand + AParams, FDocument);
+    FHTTP.Post(FServer + '/' + ACommand + AParams, FDocument);
   end;
 
   FResultCode := FHTTP.ResponseStatusCode;
@@ -233,6 +235,10 @@ constructor TCRPTTrueAPI.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
+  FServer:=sAPIURL;
+  FDocument:=TMemoryStream.Create;
+  FResultText:=TStringList.Create;
+
   FHTTP:=TFPHTTPClient.Create(nil);
   FHTTP.HTTPversion:='1.1';
 
@@ -243,7 +249,7 @@ end;
 destructor TCRPTTrueAPI.Destroy;
 begin
   FreeAndNil(FResultText);
-//  FreeAndNil(FProxyData);
+  FreeAndNil(FDocument);
   FreeAndNil(FHTTP);
   inherited Destroy;
 end;
@@ -258,6 +264,7 @@ procedure TCRPTTrueAPI.Clear;
 begin
   FHTTP.RequestHeaders.Clear;
   FHTTP.RequestBody:=nil;
+  FResultText.Clear;
   FDocument.Clear;
 end;
 
@@ -271,7 +278,7 @@ begin
   if (FAuthorizationToken <> '') and (FAuthorizationTokenTimeStamp > (Now - (1 / 20) * 10)) then Exit;
   FAuthorizationToken:='';
   Result:=false;
-  if SendCommand(hmGET, '/auth/cert/key', '', nil) then
+  if SendCommand(hmGET, 'auth/key', '', nil) then
   begin
     if FResultCode = 200 then
     begin
