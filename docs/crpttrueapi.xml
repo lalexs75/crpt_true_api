@@ -4,6 +4,16 @@
       </element>
     <element name="TCRPTTrueAPI.ClearAPIToken"><short>Очистка токена авторизации в ЦРПТ</short>
       </element>
+    <element name="TCRPTTrueAPI.ProductsInfo.ACis"><short>Код идентификации</short><descr>Код идентификации — последовательность
+символов, представляющая собой уникальный
+номер экземпляра товара, формируемая
+Оператором информационной системы
+мониторинга для целей идентификации
+товаров, в том числе в потребительской
+упаковке
+
+</descr>
+      </element>
     </module>
   </package>
 </fpdoc-descriptions>

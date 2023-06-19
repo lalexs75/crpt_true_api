@@ -1,19 +1,19 @@
-object CRPTTrueAPITestMainForm: TCRPTTrueAPITestMainForm
-  Left = 575
-  Height = 490
-  Top = 234
-  Width = 622
-  Caption = 'CRPTTrueAPITestMainForm'
-  ClientHeight = 490
-  ClientWidth = 622
+object CRPTTrueAPITestKIZMainForm: TCRPTTrueAPITestKIZMainForm
+  Left = 556
+  Height = 494
+  Top = 230
+  Width = 641
+  Caption = 'CRPT TrueAPI TestKIZ'
+  ClientHeight = 494
+  ClientWidth = 641
   Position = poDesktopCenter
-  SessionProperties = 'edtCryptoProSrv.Text;edtUserKey.Text'
+  SessionProperties = 'edtCryptoProSrv.Text;edtUserKey.Text;edtCIS.Text'
   LCLVersion = '2.3.0.0'
   object Button1: TButton
     AnchorSideLeft.Control = Owner
     AnchorSideLeft.Side = asrCenter
     AnchorSideTop.Control = Owner
-    Left = 288
+    Left = 297
     Height = 29
     Top = 6
     Width = 46
@@ -54,7 +54,7 @@ object CRPTTrueAPITestMainForm: TCRPTTrueAPITestMainForm
     Left = 12
     Height = 29
     Top = 122
-    Width = 604
+    Width = 623
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 6
     TabOrder = 1
@@ -68,21 +68,61 @@ object CRPTTrueAPITestMainForm: TCRPTTrueAPITestMainForm
     Left = 12
     Height = 29
     Top = 64
-    Width = 604
+    Width = 623
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 6
     TabOrder = 2
   end
   object Memo1: TMemo
     Left = 0
-    Height = 282
-    Top = 208
-    Width = 622
+    Height = 262
+    Top = 232
+    Width = 641
     Align = alBottom
     Lines.Strings = (
       'Memo1'
     )
     TabOrder = 3
+  end
+  object Label3: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = edtUserKey
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 17
+    Top = 157
+    Width = 20
+    BorderSpacing.Around = 6
+    Caption = 'CIS'
+  end
+  object Button2: TButton
+    AnchorSideTop.Control = Label3
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 551
+    Height = 29
+    Top = 180
+    Width = 84
+    Anchors = [akTop, akRight]
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Get CIS info'
+    OnClick = Button2Click
+    TabOrder = 4
+  end
+  object edtCIS: TEdit
+    AnchorSideLeft.Control = Label3
+    AnchorSideTop.Control = Label3
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Button2
+    Left = 12
+    Height = 29
+    Top = 180
+    Width = 533
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 5
   end
   object CRPTTrueAPI1: TCRPTTrueAPI
     OnHttpStatus = CRPTTrueAPI1HttpStatus

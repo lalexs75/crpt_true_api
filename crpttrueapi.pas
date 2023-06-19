@@ -79,7 +79,10 @@ type
     property ResultText:TStrings read FResultText;
     property ResultCode : integer read FResultCode;
     property ResultString : string read FResultString;
-
+  public
+    function ProductsInfo(ACis:string; AchildrenPage:Integer = 0; AChildrenLimit:Integer = 0):TJSONObject;
+//КИ
+//Номер страницы вложений в агрегат первого слоя
   published
     property Server:string read FServer write FServer;
     property OnHttpStatus:TOnHttpStatusEnevent read FOnHttpStatus write FOnHttpStatus;
@@ -97,6 +100,44 @@ procedure Register;
 begin
   RegisterComponents('TradeEquipment',[TCRPTTrueAPI]);
 end;
+
+function HTTPEncode(const AStr: String): String;
+const
+  HTTPAllowed = ['A'..'Z','a'..'z', '*','@','.','_','-', '0'..'9', '$','!','''','(',')'];
+var
+  SS,S,R: PChar;
+  H : String[2];
+  L : Integer;
+begin
+  L:=Length(AStr);
+  SetLength(Result,L*3); // Worst case scenario
+  if (L=0) then
+    exit;
+  R:=PChar(Result);
+  S:=PChar(AStr);
+  SS:=S; // Avoid #0 limit !!
+  while ((S-SS)<L) do
+  begin
+    if S^ in HTTPAllowed then
+      R^:=S^
+    else
+    if (S^=' ') then
+      R^:='+'
+    else
+    begin
+      R^:='%';
+      H:=HexStr(Ord(S^),2);
+      Inc(R);
+      R^:=H[1];
+      Inc(R);
+      R^:=H[2];
+    end;
+    Inc(R);
+    Inc(S);
+  end;
+  SetLength(Result,R-PChar(Result));
+end;
+
 
 { TCRPTTrueAPI }
 
@@ -170,8 +211,8 @@ begin
 
   if FAuthorizationToken <> '' then
   begin
-    //S:='Authorization: Bearer' + FAuthorizationToken;
     FHTTP.AddHeader('Authorization', 'Bearer' + FAuthorizationToken);
+    FHTTP.AddHeader('accept', '*/*');
   end;
 
   if AMethod = hmGET then
@@ -196,37 +237,6 @@ begin
   FResultString := FHTTP.ResponseStatusText;
   Result:=FResultCode = 200;
 
-(*
-  if AMethod = hmGET then
-  begin
-    SMethod := 'GET'
-  end
-  else
-  begin
-    SMethod := 'POST';
-
-    if AMimeType <> '' then
-      FHTTP.MimeType := AMimeType
-    else
-      FHTTP.MimeType := 'application/x-www-form-urlencoded';
-
-    if (not Assigned(AData)) or (AData.Size = 0) then
-    begin
-      FHTTP.Headers.Insert(0, 'Content-Length: 0');
-    end
-    else
-      FHTTP.Document.LoadFromStream(AData);
-  end;
-
-
-  if AParams <> '' then
-    AParams:='?' + AParams;
-
-  Result := FHTTP.HTTPMethod(SMethod, FServer + '/' + ACommand + AParams);
-  FHTTP.Document.Position:=0;
-  FResultCode := FHTTP.ResultCode;
-  FResultString := FHTTP.ResultString;
-*)
   if Assigned(FOnHttpStatus) then
     FOnHttpStatus(Self);
 end;
@@ -308,6 +318,26 @@ end;
 procedure TCRPTTrueAPI.LoadAuthorizationToken(AFileName: string);
 begin
 
+end;
+
+function TCRPTTrueAPI.ProductsInfo(ACis: string; AchildrenPage: Integer;
+  AChildrenLimit: Integer): TJSONObject;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:=HTTPEncode(StringReplace(ACis, '%', '%25', [rfReplaceAll]));
+
+  if SendCommand(hmGET, 'products/info', 'cis='+S, nil) then
+  begin
+    SaveHttpData('products_info');
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
 end;
 
 end.

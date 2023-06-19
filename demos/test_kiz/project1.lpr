@@ -22,7 +22,8 @@ begin
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;
-  Application.CreateForm(TCRPTTrueAPITestMainForm, CRPTTrueAPITestMainForm);
+  Application.CreateForm(TCRPTTrueAPITestKIZMainForm, CRPTTrueAPITestKIZMainForm
+    );
   Application.Run;
 end.
 
