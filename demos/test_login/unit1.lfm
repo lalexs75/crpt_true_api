@@ -1,0 +1,12 @@
+object Form1: TForm1
+  Left = 324
+  Height = 240
+  Top = 118
+  Width = 320
+  Caption = 'Form1'
+  LCLVersion = '2.3.0.0'
+  object CRPTTrueAPI1: TCRPTTrueAPI
+    Left = 32
+    Top = 13
+  end
+end

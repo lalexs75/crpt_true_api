@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions><package name="crpt_true_api"><module name="CRPTTrueAPI"><element name="TCRPTTrueAPI.Clear"><short>Очистка данных компонента</short>
+      </element><element name="TCRPTTrueAPI.Login"><short>Авторизация на сервере</short>
+      </element>
+    <element name="TCRPTTrueAPI.ClearAPIToken"><short>Очистка токена авторизации в ЦРПТ</short>
+      </element>
+    </module>
+  </package>
+</fpdoc-descriptions>
