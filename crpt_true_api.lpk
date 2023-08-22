@@ -7,7 +7,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Description Value="Набор объектов и структур для взаимодействия с ЦРПТ по маркировке товаров посредством True API"/>
@@ -26,6 +26,12 @@
       <OutDir Value="languages"/>
     </i18n>
     <RequiredPkgs>
+      <Item>
+        <PackageName Value="rxtools"/>
+      </Item>
+      <Item>
+        <PackageName Value="laz_synapse"/>
+      </Item>
       <Item>
         <PackageName Value="FCL"/>
       </Item>

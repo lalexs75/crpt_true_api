@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpjson, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  CRPTTrueAPI, ocrsConnectionUnit, RxIniPropStorage;
+  CRPTTrueAPI, ocrsConnectionUnit, crpt_cmp, RxIniPropStorage, Unit2;
 
 type
 
@@ -15,24 +15,32 @@ type
   TCRPTTrueAPITestKIZMainForm = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    CRPTComponent1: TCRPTComponent;
     CRPTTrueAPI1: TCRPTTrueAPI;
+    edtOMSID: TEdit;
     edtCIS: TEdit;
     edtUserKey: TEdit;
     edtCryptoProSrv: TEdit;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    Label4: TLabel;
     Memo1: TMemo;
     OptCryptoServer1: TOptCryptoServer;
     RxIniPropStorage1: TRxIniPropStorage;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
     procedure CRPTTrueAPI1HttpStatus(Sender: TCRPTTrueAPI);
     procedure CRPTTrueAPI1SignData(Sender: TCRPTTrueAPI; AData: string; out
       ASign: string);
+    procedure FormCreate(Sender: TObject);
     procedure OptCryptoServer1HttpStatus(Sender: TOptCryptoServer);
   private
-
+    FCRPTSuzAPI:TCRPTSuzAPI;
+    procedure CRPTSuzAPI1HttpStatus(Sender: TCRPTSuzAPI);
   public
 
   end;
@@ -41,6 +49,7 @@ var
   CRPTTrueAPITestKIZMainForm: TCRPTTrueAPITestKIZMainForm;
 
 implementation
+uses rxlogging;
 
 {$R *.lfm}
 
@@ -61,6 +70,15 @@ begin
     Memo1.Lines.Add(J.AsJSON);
     J.Free;
   end;
+end;
+
+procedure TCRPTTrueAPITestKIZMainForm.Button4Click(Sender: TObject);
+begin
+  CRPTTrueAPI1.Login;
+  FCRPTSuzAPI.AuthorizationToken:=CRPTTrueAPI1.AuthorizationToken;
+  RxWriteLog(etDebug, 'TOKEN = %s', [CRPTTrueAPI1.AuthorizationToken]);
+  FCRPTSuzAPI.OmsId:=edtOMSID.Text;
+  FCRPTSuzAPI.LoadOrdersStatus(tires);
 end;
 
 procedure TCRPTTrueAPITestKIZMainForm.CRPTTrueAPI1HttpStatus(Sender: TCRPTTrueAPI);
@@ -92,9 +110,24 @@ begin
   end;
 end;
 
+procedure TCRPTTrueAPITestKIZMainForm.FormCreate(Sender: TObject);
+begin
+  FCRPTSuzAPI:=TCRPTSuzAPI.Create(Self);
+  FCRPTSuzAPI.OnHttpStatus:=@CRPTSuzAPI1HttpStatus;
+end;
+
 procedure TCRPTTrueAPITestKIZMainForm.OptCryptoServer1HttpStatus(Sender: TOptCryptoServer);
 begin
   //
+end;
+
+procedure TCRPTTrueAPITestKIZMainForm.CRPTSuzAPI1HttpStatus(Sender: TCRPTSuzAPI
+  );
+begin
+  Memo1.Lines.Add('%d: %s', [Sender.ResultCode, Sender.ResultString]);
+  Memo1.Lines.Add('ResultText:');
+  Memo1.Lines.Add(Sender.ResultText.Text);
+//  if Sender.HTTP.;
 end;
 
 end.

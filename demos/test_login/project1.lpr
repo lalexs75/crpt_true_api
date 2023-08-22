@@ -12,13 +12,14 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms,
   opensslsockets,
-  rxnew,
+  rxlogging, lazcontrols,
   unit1
   { you can add units after this };
 
 {$R *.res}
 
 begin
+  OnRxLoggerEvent:=@RxLogWriter;
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;

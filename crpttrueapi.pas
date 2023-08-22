@@ -36,9 +36,10 @@ unit CRPTTrueAPI;
 interface
 
 uses
-  Classes, SysUtils, fphttpclient, fpJSON;
+  Classes, SysUtils, fphttpclient, ssockets, sslsockets, fpJSON;
 
 const
+  sAPIURL_sandbox = 'https://markirovka.sandbox.crptech.ru/api/v3/true-api';
   sAPIURL = 'https://markirovka.crpt.ru/api/v3/true-api';
 
 type
@@ -52,7 +53,7 @@ type
 
   TCRPTTrueAPI = class(TComponent)
   private
-    FHTTP: TFPHTTPClient;
+    FHTTP:TFPHTTPClient;
     FAuthorizationToken:string;
     FAuthorizationTokenTimeStamp:TDateTime;
     FOnHttpStatus: TOnHttpStatusEnevent;
@@ -65,6 +66,10 @@ type
     FServer: string;
     function DoAnsverLogin(FUID, FDATA:string):Boolean;
     procedure SaveHttpData(ACmdName: string);
+
+    procedure DoHaveSocketHandler(Sender: TObject; AHandler: TSocketHandler);
+    procedure DoVerifyCertificate(Sender: TObject; AHandler: TSSLSocketHandler; var aAllow: Boolean);
+
   protected
     function SendCommand(AMethod:THttpMethod; ACommand:string; AParams:string; AData:TStream; AMimeType:string = ''):Boolean;
   public
@@ -81,8 +86,10 @@ type
     property ResultString : string read FResultString;
   public
     function ProductsInfo(ACis:string; AchildrenPage:Integer = 0; AChildrenLimit:Integer = 0):TJSONObject;
+//    function
 //КИ
 //Номер страницы вложений в агрегат первого слоя
+    property AuthorizationToken:string read FAuthorizationToken write FAuthorizationToken;
   published
     property Server:string read FServer write FServer;
     property OnHttpStatus:TOnHttpStatusEnevent read FOnHttpStatus write FOnHttpStatus;
@@ -91,8 +98,10 @@ type
 
 procedure Register;
 
+procedure AddURLParam(var S:string; AParam, AValue:string); overload;
+procedure AddURLParam(var S:string; AParam:string); overload;
 implementation
-uses jsonparser;
+uses rxlogging, jsonparser;
 
 {$R crpt_true_api.res}
 
@@ -136,6 +145,24 @@ begin
     Inc(S);
   end;
   SetLength(Result,R-PChar(Result));
+end;
+
+procedure AddURLParam(var S: string; AParam, AValue: string);
+begin
+  if S<>'' then S:=S + '&';
+  if AValue <>'' then
+  begin
+    //AValue:=StringReplace(AValue, '#', '%23', [rfReplaceAll]);
+    AValue:=StringReplace(AValue, '%', '%25', [rfReplaceAll]);
+    S:=S + AParam + '=' + HTTPEncode(AValue)
+  end
+  else
+    S:=S + AParam
+end;
+
+procedure AddURLParam(var S: string; AParam: string);
+begin
+  AddURLParam(S, AParam, '');
 end;
 
 
@@ -196,12 +223,41 @@ begin
   FDocument.SaveToStream(F);
   F.Free;
   FDocument.Position:=P;
+{  if ExtractFileExt(ACmdName) = '' then
+    ACmdName := ACmdName + '.bin';
+  S:=GetTempDir(false) + PathDelim + ACmdName;
+  F:=TFileStream.Create(S, fmCreate);
+  P:=FHTTP.Document.Position;
+  FHTTP.Document.Position:=0;
+  FHTTP.Document.SaveToStream(F);
+  F.Free;
+  FHTTP.Document.Position:=P;}
+end;
+
+procedure TCRPTTrueAPI.DoHaveSocketHandler(Sender: TObject;
+  AHandler: TSocketHandler);
+var
+  SSLHandler :  TSSLSocketHandler absolute aHandler;
+begin
+  if (aHandler is TSSLSocketHandler) then
+  begin
+    SSLHandler.CertificateData.TrustedCertsDir:='/etc/ssl/certs/';
+  end
+end;
+
+procedure TCRPTTrueAPI.DoVerifyCertificate(Sender: TObject;
+  AHandler: TSSLSocketHandler; var aAllow: Boolean);
+var
+  S: String;
+begin
+{  RxWriteLog(etDebug, 'SSL Certificate verification requested, allowing');
+  S:=TEncoding.ASCII.GetAnsiString( aHandler.CertificateData.Certificate.Value);
+  RxWriteLog(etDebug, 'Cert: %s',[S]);}
+  aAllow:=True;
 end;
 
 function TCRPTTrueAPI.SendCommand(AMethod: THttpMethod; ACommand: string;
   AParams: string; AData: TStream; AMimeType: string): Boolean;
-var
-  S: String;
 begin
   Clear;
   if AParams <> '' then
@@ -211,8 +267,8 @@ begin
 
   if FAuthorizationToken <> '' then
   begin
-    FHTTP.AddHeader('Authorization', 'Bearer' + FAuthorizationToken);
-    FHTTP.AddHeader('accept', '*/*');
+    FHTTP.AddHeader('Authorization', 'Bearer ' + FAuthorizationToken);
+    //FHTTP.AddHeader('accept', '*/*');
   end;
 
   if AMethod = hmGET then
@@ -221,7 +277,7 @@ begin
   end
   else
   begin
-    if AMimeType<>'' then
+   if AMimeType<>'' then
       FHTTP.AddHeader('Content-Type',AMimeType)
     else
       FHTTP.AddHeader('Content-Type','application/x-www-form-urlencoded');
@@ -241,6 +297,7 @@ begin
     FOnHttpStatus(Self);
 end;
 
+
 constructor TCRPTTrueAPI.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -249,8 +306,14 @@ begin
   FDocument:=TMemoryStream.Create;
   FResultText:=TStringList.Create;
 
+{  FHTTP := THTTPSend.Create;
+  FHTTP.Protocol:='1.1'; }
+
   FHTTP:=TFPHTTPClient.Create(nil);
   FHTTP.HTTPversion:='1.1';
+  FHTTP.OnVerifySSLCertificate:=@DoVerifyCertificate;
+  FHTTP.AfterSocketHandlerCreate:=@DoHaveSocketHandler;
+  FHTTP.VerifySSlCertificate:=false;
 
 //  FProxyData:=TProxyData.Create;
 //  FResultText:=TStringList.Create;
@@ -272,6 +335,7 @@ end;
 
 procedure TCRPTTrueAPI.Clear;
 begin
+  FHTTP.Cookies.Clear;
   FHTTP.RequestHeaders.Clear;
   FHTTP.RequestBody:=nil;
   FResultText.Clear;
@@ -300,18 +364,14 @@ begin
       FDATA:=J.GetPath('data').AsString;
       J.Free;
       B.Free;
-
       if FDATA<> '' then
-      begin
         Result:=DoAnsverLogin(FUID, FDATA);
-      end;
     end;
   end;
 end;
 
 function TCRPTTrueAPI.Login: Boolean;
 begin
-  Clear;
   Result:=DoLogin;
 end;
 
@@ -328,9 +388,16 @@ var
 begin
   Result:=nil;
   DoLogin;
-  S:=HTTPEncode(StringReplace(ACis, '%', '%25', [rfReplaceAll]));
+  S:='';
+  AddURLParam(S, 'cis', ACis);
 
-  if SendCommand(hmGET, 'products/info', 'cis='+S, nil) then
+  if AchildrenPage>0 then
+   AddURLParam(S, 'childrenPage', IntToStr(AchildrenPage));
+
+  if AchildrenLimit>0 then
+    AddURLParam(S, 'childrenLimit', IntToStr(AChildrenLimit));
+
+  if SendCommand(hmGET, 'products/info', S, nil) then
   begin
     SaveHttpData('products_info');
     FDocument.Position:=0;

@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="crpt"/>
+      </Item>
+      <Item>
         <PackageName Value="rxnew"/>
       </Item>
       <Item>
@@ -49,6 +52,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
+      </Unit>
+      <Unit>
+        <Filename Value="unit2.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Unit2"/>
       </Unit>
     </Units>
   </ProjectOptions>

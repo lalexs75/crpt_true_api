@@ -13,12 +13,20 @@ uses
   Forms,
   opensslsockets,
   rxnew,
-  unit1
+  ssl_openssl,
+  ssl_openssl_lib,
+  rxlogging,
+  unit1, unit2
   { you can add units after this };
 
 {$R *.res}
 
+var
+  B: Boolean;
 begin
+  B:=IsSSLloaded;
+
+  InitRxLogs;
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;
