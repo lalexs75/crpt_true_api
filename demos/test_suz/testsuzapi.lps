@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="testsuzapi.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TestSUZApi"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="32"/>
+        <UsageCount Value="25"/>
+      </Unit>
+      <Unit>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CRPTSuzTestForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="CRPTSuzTestMainUnit"/>
+        <TopLine Value="233"/>
+        <CursorPos X="13" Y="161"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <UnitName Value="CRPTTrueAPI"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="17" Y="32"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/home/alexs/install/source/fpcsrc/packages/fcl-web/src/base/fphttpclient.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="217"/>
+        <CursorPos X="15" Y="229"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/home/alexs/install/source/fpcsrc/rtl/inc/astrings.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="130"/>
+        <CursorPos Y="153"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../crpttrueapi_consts.pas"/>
+        <UnitName Value="CRPTTrueAPI_Consts"/>
+        <EditorIndex Value="5"/>
+        <CursorPos X="24" Y="33"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdabstractunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdAbstractFrame"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdAbstractUnit"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="46"/>
+        <CursorPos Y="53"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdServiceFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdServiceUnit"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="26"/>
+        <CursorPos Y="55"/>
+        <UsageCount Value="21"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdorderunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdOrderFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdOrderUnit"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="46"/>
+        <CursorPos X="59" Y="76"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../rxnew/rxcontrols/rxinipropstorage.pas"/>
+        <UnitName Value="RxIniPropStorage"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="52"/>
+        <CursorPos X="21" Y="75"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../rxnew/rxcontrols/rxapputils.pas"/>
+        <UnitName Value="rxAppUtils"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="309"/>
+        <CursorPos X="3" Y="313"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="204" Column="33" TopLine="190"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret TopLine="22"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="157" Column="38" TopLine="134"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="82" Column="15" TopLine="59"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="239" Column="43" TopLine="216"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="81" Column="27" TopLine="67"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="239" Column="7" TopLine="215"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="241" TopLine="211"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="74" Column="27" TopLine="66"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="161" TopLine="156"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="81" Column="15" TopLine="66"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="237" Column="3" TopLine="220"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="80" Column="82" TopLine="65"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="223" Column="21" TopLine="210"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="80" Column="73" TopLine="65"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="233" Column="17" TopLine="210"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="80" Column="75" TopLine="65"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="223" TopLine="210"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="257" Column="49" TopLine="226"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmsuzcmdabstractunit.pas"/>
+        <Caret Line="38" Column="80" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmsuzcmdabstractunit.pas"/>
+        <Caret Line="66" Column="35" TopLine="45"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmsuzcmdabstractunit.pas"/>
+        <Caret Line="52" Column="25" TopLine="46"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="189" Column="27" TopLine="173"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmsuzcmdorderunit.pas"/>
+        <Caret Line="39" Column="34" TopLine="34"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmsuzcmdorderunit.pas"/>
+        <Caret Line="52" Column="15" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmsuzcmdorderunit.pas"/>
+        <Caret Line="69" Column="3" TopLine="46"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="189" TopLine="173"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="246" Column="28" TopLine="232"/>
+      </Position>
+      <Position>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="161" Column="13" TopLine="233"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../rxnew/rxcontrols/rxapputils.pas"/>
+        <Caret Line="59" Column="10" TopLine="43"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
