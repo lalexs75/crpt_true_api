@@ -1,0 +1,17 @@
+inherited frmSUZCmdOrderFrame: TfrmSUZCmdOrderFrame
+  object Label8: TLabel[0]
+    Left = 7
+    Height = 17
+    Top = 10
+    Width = 112
+    Caption = 'Код товара (GTIN)'
+  end
+  object Edit2: TEdit[1]
+    Left = 24
+    Height = 29
+    Top = 37
+    Width = 80
+    TabOrder = 0
+    Text = 'Edit2'
+  end
+end

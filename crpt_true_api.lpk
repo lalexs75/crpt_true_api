@@ -19,6 +19,10 @@
         <HasRegisterProc Value="True"/>
         <UnitName Value="CRPTTrueAPI"/>
       </Item>
+      <Item>
+        <Filename Value="crpttrueapi_consts.pas"/>
+        <UnitName Value="crpttrueapi_consts"/>
+      </Item>
     </Files>
     <LazDoc Paths="docs"/>
     <i18n>
@@ -28,9 +32,6 @@
     <RequiredPkgs>
       <Item>
         <PackageName Value="rxtools"/>
-      </Item>
-      <Item>
-        <PackageName Value="laz_synapse"/>
       </Item>
       <Item>
         <PackageName Value="FCL"/>

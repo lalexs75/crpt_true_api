@@ -36,24 +36,33 @@ unit CRPTTrueAPI;
 interface
 
 uses
-  Classes, SysUtils, fphttpclient, ssockets, sslsockets, fpJSON;
+  Classes, SysUtils, fphttpclient, ssockets, sslsockets, fpJSON, CRPTTrueAPI_Consts;
 
 const
-  sAPIURL_sandbox = 'https://markirovka.sandbox.crptech.ru/api/v3/true-api';
-  sAPIURL = 'https://markirovka.crpt.ru/api/v3/true-api';
+  //TrueAPI
+  sAPIURL_sandbox = 'https://markirovka.sandbox.crptech.ru/api/v3/true-api/';
+  sAPIURL = 'https://markirovka.crpt.ru/api/v3/true-api/';
+
+  //SUZ
+  sAPISuzURL = 'https://suzgrid.crpt.ru/';
+  sAPISuzURL_sandbox1 = 'https://suz.sandbox.crptech.ru/';
+  sAPISuzURL_sandbox2 = 'https://suz-integrator.sandbox.crptech.ru/';
+
 
 type
+  TCustomCRPTApi = class;
   TCRPTTrueAPI = class;
 
   THttpMethod = (hmGET, hmPOST);
-  TOnHttpStatusEnevent = procedure (Sender:TCRPTTrueAPI) of object;
-  TOnSignDataEvent = procedure(Sender:TCRPTTrueAPI; AData:string; out ASign:string) of object;
+  TOnHttpStatusEnevent = procedure (Sender:TCustomCRPTApi) of object;
+  TOnSignDataEvent = procedure(Sender:TCustomCRPTApi; AData:string; out ASign:string) of object;
 
-  { TCRPTTrueAPI }
+  { TCustomCRPTApi }
 
-  TCRPTTrueAPI = class(TComponent)
+  TCustomCRPTApi = class(TComponent)
   private
     FHTTP:TFPHTTPClient;
+    FServer: string;
     FAuthorizationToken:string;
     FAuthorizationTokenTimeStamp:TDateTime;
     FOnHttpStatus: TOnHttpStatusEnevent;
@@ -63,37 +72,76 @@ type
     FResultCode: integer;
     FResultString: string;
     FResultText: TStrings;
-    FServer: string;
-    function DoAnsverLogin(FUID, FDATA:string):Boolean;
-    procedure SaveHttpData(ACmdName: string);
-
     procedure DoHaveSocketHandler(Sender: TObject; AHandler: TSocketHandler);
     procedure DoVerifyCertificate(Sender: TObject; AHandler: TSSLSocketHandler; var aAllow: Boolean);
-
+    function DoAnsverLogin(ALoginServer, FUID, FDATA:string):Boolean;
+    procedure SetServer(AValue: string);
   protected
-    function SendCommand(AMethod:THttpMethod; ACommand:string; AParams:string; AData:TStream; AMimeType:string = ''):Boolean;
+    function SendCommand(AMethod:THttpMethod; ACommand:string; AParams:string; AData:TStream; const AllowedResponseCodes : array of integer; AMimeType:string = ''):Boolean;
+    function DoLogin:Boolean;
+    procedure SaveHttpData(ACmdName: string);
+    procedure InternalMakeLoginParams(var ALoginParams:string); virtual;
+    procedure InternalMakeClientToken; virtual;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    procedure Clear;
+    function Login:Boolean;
+  protected
+    property AuthorizationToken:string read FAuthorizationToken write FAuthorizationToken;
+    property Server:string read FServer write SetServer;
+
+    property OnHttpStatus:TOnHttpStatusEnevent read FOnHttpStatus write FOnHttpStatus;
+    property OnSignData:TOnSignDataEvent read FOnSignData write FOnSignData;
+  public
+    property ResultText:TStrings read FResultText;
+    property ResultCode : integer read FResultCode;
+    property ResultString : string read FResultString;
+  end;
+
+  { TCRPTTrueAPI }
+
+  TCRPTTrueAPI = class(TCustomCRPTApi)
+  private
+  protected
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure ClearAPIToken;
-    procedure Clear;
-    function DoLogin:Boolean;
-    function Login:Boolean;
     procedure LoadAuthorizationToken(AFileName:string);
 
-    property ResultText:TStrings read FResultText;
-    property ResultCode : integer read FResultCode;
-    property ResultString : string read FResultString;
   public
     function ProductsInfo(ACis:string; AchildrenPage:Integer = 0; AChildrenLimit:Integer = 0):TJSONObject;
 //    function
 //КИ
 //Номер страницы вложений в агрегат первого слоя
-    property AuthorizationToken:string read FAuthorizationToken write FAuthorizationToken;
+    property AuthorizationToken;
   published
-    property Server:string read FServer write FServer;
-    property OnHttpStatus:TOnHttpStatusEnevent read FOnHttpStatus write FOnHttpStatus;
-    property OnSignData:TOnSignDataEvent read FOnSignData write FOnSignData;
+    property Server;
+    property OnHttpStatus;
+    property OnSignData;
+  end;
+
+  { TCRPTSuzAPI }
+
+  TCRPTSuzAPI = class(TCustomCRPTApi)
+  private
+    FOmsConnection: string;
+    FOmsID: string;
+    procedure SetOmsConnection(AValue: string);
+    procedure SetOmsID(AValue: string);
+  protected
+    procedure InternalMakeLoginParams(var ALoginParams:string); override;
+    procedure InternalMakeClientToken; override;
+  public
+    function Ping(AProductGroup:TCRPTProductGroup):TJSONObject;
+    property AuthorizationToken;
+  published
+    property OmsConnection:string read FOmsConnection write SetOmsConnection;
+    property OmsID:string read FOmsID write SetOmsID;
+    property Server;
+    property OnHttpStatus;
+    property OnSignData;
   end;
 
 procedure Register;
@@ -101,13 +149,13 @@ procedure Register;
 procedure AddURLParam(var S:string; AParam, AValue:string); overload;
 procedure AddURLParam(var S:string; AParam:string); overload;
 implementation
-uses rxlogging, jsonparser;
+uses opensslsockets, rxlogging, jsonparser;
 
 {$R crpt_true_api.res}
 
 procedure Register;
 begin
-  RegisterComponents('TradeEquipment',[TCRPTTrueAPI]);
+  RegisterComponents('TradeEquipment',[TCRPTTrueAPI, TCRPTSuzAPI]);
 end;
 
 function HTTPEncode(const AStr: String): String;
@@ -168,162 +216,15 @@ end;
 
 { TCRPTTrueAPI }
 
-function TCRPTTrueAPI.DoAnsverLogin(FUID, FDATA: string): Boolean;
-var
-  S1: string;
-  J, R: TJSONObject;
-  M: TStringStream;
-  P: TJSONParser;
-begin
-  if not Assigned(FOnSignData) then Exit;
-
-  FOnSignData(Self, FDATA, S1);
-
-  J:=TJSONObject.Create;
-  J.Add('uuid', FUID);
-  J.Add('data', S1);
-  M:=TStringStream.Create(J.FormatJSON);
-  M.Position:=0;
-  J.Free;
-
-
-  if SendCommand(hmPOST, 'auth/simpleSignIn', '', M, 'application/json') then
-  begin
-    SaveHttpData('dologin_cert');
-    FDocument.Position:=0;
-    try
-      P:=TJSONParser.Create(FDocument);
-      R:=P.Parse as TJSONObject;
-      if FResultCode = 200 then
-      begin
-        FAuthorizationToken:=JSONStringToString( R.GetPath('token').AsString );
-        FAuthorizationTokenTimeStamp:=Now;
-      end;
-    finally
-      P.Free;
-      R.Free;
-    end;
-    FDocument.Position:=0;
-  end;
-  M.Free;
-end;
-
-procedure TCRPTTrueAPI.SaveHttpData(ACmdName: string);
-var
-  S: String;
-  F: TFileStream;
-  P: Int64;
-begin
-  if ExtractFileExt(ACmdName) = '' then
-    ACmdName := ACmdName + '.bin';
-  S:=GetTempDir(false) + PathDelim + ACmdName;
-  F:=TFileStream.Create(S, fmCreate);
-  P:=FDocument.Position;
-  FDocument.Position:=0;
-  FDocument.SaveToStream(F);
-  F.Free;
-  FDocument.Position:=P;
-{  if ExtractFileExt(ACmdName) = '' then
-    ACmdName := ACmdName + '.bin';
-  S:=GetTempDir(false) + PathDelim + ACmdName;
-  F:=TFileStream.Create(S, fmCreate);
-  P:=FHTTP.Document.Position;
-  FHTTP.Document.Position:=0;
-  FHTTP.Document.SaveToStream(F);
-  F.Free;
-  FHTTP.Document.Position:=P;}
-end;
-
-procedure TCRPTTrueAPI.DoHaveSocketHandler(Sender: TObject;
-  AHandler: TSocketHandler);
-var
-  SSLHandler :  TSSLSocketHandler absolute aHandler;
-begin
-  if (aHandler is TSSLSocketHandler) then
-  begin
-    SSLHandler.CertificateData.TrustedCertsDir:='/etc/ssl/certs/';
-  end
-end;
-
-procedure TCRPTTrueAPI.DoVerifyCertificate(Sender: TObject;
-  AHandler: TSSLSocketHandler; var aAllow: Boolean);
-var
-  S: String;
-begin
-{  RxWriteLog(etDebug, 'SSL Certificate verification requested, allowing');
-  S:=TEncoding.ASCII.GetAnsiString( aHandler.CertificateData.Certificate.Value);
-  RxWriteLog(etDebug, 'Cert: %s',[S]);}
-  aAllow:=True;
-end;
-
-function TCRPTTrueAPI.SendCommand(AMethod: THttpMethod; ACommand: string;
-  AParams: string; AData: TStream; AMimeType: string): Boolean;
-begin
-  Clear;
-  if AParams <> '' then
-    AParams:='?' + AParams;
-
-  FHTTP.KeepConnection:=true;
-
-  if FAuthorizationToken <> '' then
-  begin
-    FHTTP.AddHeader('Authorization', 'Bearer ' + FAuthorizationToken);
-    //FHTTP.AddHeader('accept', '*/*');
-  end;
-
-  if AMethod = hmGET then
-  begin
-    FHTTP.Get(FServer + '/' + ACommand + AParams, FDocument);
-  end
-  else
-  begin
-   if AMimeType<>'' then
-      FHTTP.AddHeader('Content-Type',AMimeType)
-    else
-      FHTTP.AddHeader('Content-Type','application/x-www-form-urlencoded');
-
-    if (not Assigned(AData)) or (AData.Size = 0) then
-      FHTTP.AddHeader('Content-Length', '0');
-
-    FHTTP.RequestBody:=AData;
-    FHTTP.Post(FServer + '/' + ACommand + AParams, FDocument);
-  end;
-
-  FResultCode := FHTTP.ResponseStatusCode;
-  FResultString := FHTTP.ResponseStatusText;
-  Result:=FResultCode = 200;
-
-  if Assigned(FOnHttpStatus) then
-    FOnHttpStatus(Self);
-end;
-
-
 constructor TCRPTTrueAPI.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
   FServer:=sAPIURL;
-  FDocument:=TMemoryStream.Create;
-  FResultText:=TStringList.Create;
-
-{  FHTTP := THTTPSend.Create;
-  FHTTP.Protocol:='1.1'; }
-
-  FHTTP:=TFPHTTPClient.Create(nil);
-  FHTTP.HTTPversion:='1.1';
-  FHTTP.OnVerifySSLCertificate:=@DoVerifyCertificate;
-  FHTTP.AfterSocketHandlerCreate:=@DoHaveSocketHandler;
-  FHTTP.VerifySSlCertificate:=false;
-
-//  FProxyData:=TProxyData.Create;
-//  FResultText:=TStringList.Create;
 end;
 
 destructor TCRPTTrueAPI.Destroy;
 begin
-  FreeAndNil(FResultText);
-  FreeAndNil(FDocument);
-  FreeAndNil(FHTTP);
   inherited Destroy;
 end;
 
@@ -331,48 +232,6 @@ procedure TCRPTTrueAPI.ClearAPIToken;
 begin
   FAuthorizationToken:='';
   FAuthorizationTokenTimeStamp:=0;
-end;
-
-procedure TCRPTTrueAPI.Clear;
-begin
-  FHTTP.Cookies.Clear;
-  FHTTP.RequestHeaders.Clear;
-  FHTTP.RequestBody:=nil;
-  FResultText.Clear;
-  FDocument.Clear;
-end;
-
-function TCRPTTrueAPI.DoLogin: Boolean;
-var
-  B: TJSONParser;
-  J: TJSONData;
-  FDATA, FUID: TJSONStringType;
-  R: Int64;
-begin
-  if (FAuthorizationToken <> '') and (FAuthorizationTokenTimeStamp > (Now - (1 / 20) * 10)) then Exit;
-  FAuthorizationToken:='';
-  Result:=false;
-  if SendCommand(hmGET, 'auth/key', '', nil) then
-  begin
-    if FResultCode = 200 then
-    begin
-      R:=FDocument.Size;
-      FDocument.Position:=0;
-      B:=TJSONParser.Create(FDocument);
-      J:=B.Parse;
-      FUID:=J.GetPath('uuid').AsString;
-      FDATA:=J.GetPath('data').AsString;
-      J.Free;
-      B.Free;
-      if FDATA<> '' then
-        Result:=DoAnsverLogin(FUID, FDATA);
-    end;
-  end;
-end;
-
-function TCRPTTrueAPI.Login: Boolean;
-begin
-  Result:=DoLogin;
 end;
 
 procedure TCRPTTrueAPI.LoadAuthorizationToken(AFileName: string);
@@ -397,14 +256,279 @@ begin
   if AchildrenLimit>0 then
     AddURLParam(S, 'childrenLimit', IntToStr(AChildrenLimit));
 
-  if SendCommand(hmGET, 'products/info', S, nil) then
+  if SendCommand(hmGET, 'products/info', S, nil, [200, 400, 404]) then
   begin
-    SaveHttpData('products_info');
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument);
     Result:=P.Parse as TJSONObject;
     P.Free;
   end;
+  SaveHttpData('products_info');
+end;
+
+{ TCRPTSuzAPI }
+
+procedure TCRPTSuzAPI.SetOmsConnection(AValue: string);
+begin
+  if FOMSConnection=AValue then Exit;
+  FOMSConnection:=AValue;
+end;
+
+procedure TCRPTSuzAPI.SetOmsID(AValue: string);
+begin
+  if FOmsID=AValue then Exit;
+  FOmsID:=AValue;
+end;
+
+procedure TCRPTSuzAPI.InternalMakeLoginParams(var ALoginParams: string);
+begin
+  ALoginParams:=FOMSConnection;
+end;
+
+procedure TCRPTSuzAPI.InternalMakeClientToken;
+begin
+  FHTTP.AddHeader('clientToken', FAuthorizationToken);
+end;
+
+function TCRPTSuzAPI.Ping(AProductGroup: TCRPTProductGroup): TJSONObject;
+var
+  S: String;
+  P: TJSONParser;
+begin
+//  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+
+  if SendCommand(hmGET, 'api/v3/ping', S, nil, [200, 400, 404]) then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_ping');
+end;
+
+{ TCustomCRPTApi }
+
+procedure TCustomCRPTApi.DoHaveSocketHandler(Sender: TObject;
+  AHandler: TSocketHandler);
+var
+  SSLHandler :  TSSLSocketHandler absolute aHandler;
+begin
+  if (aHandler is TSSLSocketHandler) then
+  begin
+    SSLHandler.CertificateData.TrustedCertsDir:='/etc/ssl/certs/';
+  end
+end;
+
+procedure TCustomCRPTApi.DoVerifyCertificate(Sender: TObject;
+  AHandler: TSSLSocketHandler; var aAllow: Boolean);
+begin
+  {  RxWriteLog(etDebug, 'SSL Certificate verification requested, allowing');
+    S:=TEncoding.ASCII.GetAnsiString( aHandler.CertificateData.Certificate.Value);
+    RxWriteLog(etDebug, 'Cert: %s',[S]);}
+  aAllow:=True;
+end;
+
+function TCustomCRPTApi.DoAnsverLogin(ALoginServer, FUID, FDATA: string
+  ): Boolean;
+var
+  S1, S: string;
+  J, R: TJSONObject;
+  M: TStringStream;
+  P: TJSONParser;
+begin
+  if not Assigned(FOnSignData) then Exit;
+
+  S:='';
+  InternalMakeLoginParams(S);
+  if S<>'' then S:='/' + S;
+
+  FOnSignData(Self, FDATA, S1);
+
+  J:=TJSONObject.Create;
+  J.Add('uuid', FUID);
+  J.Add('data', S1);
+  M:=TStringStream.Create(J.FormatJSON);
+  M.Position:=0;
+  J.Free;
+
+
+  if SendCommand(hmPOST, ALoginServer + 'auth/simpleSignIn' + S, '', M, [200], 'application/json') then
+  begin
+    SaveHttpData('auth_simpleSignIn');
+    FDocument.Position:=0;
+    try
+      P:=TJSONParser.Create(FDocument);
+      R:=P.Parse as TJSONObject;
+      if FResultCode = 200 then
+      begin
+        FAuthorizationToken:=JSONStringToString( R.GetPath('token').AsString );
+        FAuthorizationTokenTimeStamp:=Now;
+      end;
+    finally
+      P.Free;
+      R.Free;
+    end;
+    FDocument.Position:=0;
+  end;
+  M.Free;
+end;
+
+procedure TCustomCRPTApi.SetServer(AValue: string);
+begin
+  if FServer=AValue then Exit;
+  if AValue <> '' then
+  begin
+    if AValue[Length(AValue)]<>'/' then
+      AValue:=AValue + '/';
+  end;
+  FServer:=AValue;
+end;
+
+function TCustomCRPTApi.SendCommand(AMethod: THttpMethod; ACommand: string;
+  AParams: string; AData: TStream;
+  const AllowedResponseCodes: array of integer; AMimeType: string): Boolean;
+var
+  FSrv: String;
+begin
+  Clear;
+  if AParams <> '' then
+    AParams:='?' + AParams;
+
+  FHTTP.KeepConnection:=true;
+
+  if FAuthorizationToken <> '' then
+  begin
+    InternalMakeClientToken;
+    FHTTP.AddHeader('accept', '*/*');
+  end;
+
+  if Copy(ACommand, 1, 8) <> 'https://' then
+    FSrv:=FServer
+  else
+    FSrv:='';
+
+  if AMethod = hmGET then
+  begin
+    FHTTP.HTTPMethod('GET',FSrv + ACommand + AParams,FDocument, AllowedResponseCodes);
+  end
+  else
+  begin
+   if AMimeType<>'' then
+      FHTTP.AddHeader('Content-Type',AMimeType)
+    else
+      FHTTP.AddHeader('Content-Type','application/x-www-form-urlencoded');
+
+    if (not Assigned(AData)) or (AData.Size = 0) then
+      FHTTP.AddHeader('Content-Length', '0');
+
+    FHTTP.RequestBody:=AData;
+    FHTTP.Post(FSrv + ACommand + AParams, FDocument);
+  end;
+
+  FResultCode := FHTTP.ResponseStatusCode;
+  FResultString := FHTTP.ResponseStatusText;
+  Result:=FResultCode = 200;
+
+  if Assigned(FOnHttpStatus) then
+    FOnHttpStatus(Self);
+end;
+
+function TCustomCRPTApi.DoLogin: Boolean;
+var
+  B: TJSONParser;
+  J: TJSONData;
+  FDATA, FUID: TJSONStringType;
+  R: Int64;
+  FLoginServer: String;
+begin
+  if (FAuthorizationToken <> '') and (FAuthorizationTokenTimeStamp > (Now - (1 / 20) * 10)) then Exit;
+  FAuthorizationToken:='';
+  Result:=false;
+  if (FServer = sAPISuzURL_sandbox1) or (FServer = sAPISuzURL_sandbox2) then
+    FLoginServer:=sAPIURL_sandbox
+  else
+    FLoginServer:=sAPIURL;
+
+  if SendCommand(hmGET, FLoginServer + 'auth/key', '', nil, [200]) then
+  begin
+    SaveHttpData('auth_key');
+    if FResultCode = 200 then
+    begin
+      R:=FDocument.Size;
+      FDocument.Position:=0;
+      B:=TJSONParser.Create(FDocument);
+      J:=B.Parse;
+      FUID:=J.GetPath('uuid').AsString;
+      FDATA:=J.GetPath('data').AsString;
+      J.Free;
+      B.Free;
+      if FDATA<> '' then
+        Result:=DoAnsverLogin(FLoginServer, FUID, FDATA);
+    end;
+  end;
+end;
+
+procedure TCustomCRPTApi.SaveHttpData(ACmdName: string);
+var
+  F: TFileStream;
+  P: Int64;
+begin
+  if ExtractFileExt(ACmdName) = '' then
+    ACmdName := ACmdName + '.bin';
+  F:=TFileStream.Create(GetTempDir(false) + PathDelim + ACmdName, fmCreate);
+  P:=FDocument.Position;
+  FDocument.Position:=0;
+  FDocument.SaveToStream(F);
+  F.Free;
+  FDocument.Position:=P;
+end;
+
+procedure TCustomCRPTApi.InternalMakeLoginParams(var ALoginParams: string);
+begin
+
+end;
+
+procedure TCustomCRPTApi.InternalMakeClientToken;
+begin
+  FHTTP.AddHeader('Authorization', 'Bearer ' + FAuthorizationToken);
+end;
+
+constructor TCustomCRPTApi.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FDocument:=TMemoryStream.Create;
+  FResultText:=TStringList.Create;
+  FHTTP:=TFPHTTPClient.Create(nil);
+  FHTTP.HTTPversion:='1.1';
+  FHTTP.OnVerifySSLCertificate:=@DoVerifyCertificate;
+  FHTTP.AfterSocketHandlerCreate:=@DoHaveSocketHandler;
+  FHTTP.VerifySSlCertificate:=false;
+end;
+
+destructor TCustomCRPTApi.Destroy;
+begin
+  FreeAndNil(FResultText);
+  FreeAndNil(FDocument);
+  FreeAndNil(FHTTP);
+  inherited Destroy;
+end;
+
+procedure TCustomCRPTApi.Clear;
+begin
+  FHTTP.Cookies.Clear;
+  FHTTP.RequestHeaders.Clear;
+  FHTTP.RequestBody:=nil;
+  FResultText.Clear;
+  FDocument.Clear;
+end;
+
+function TCustomCRPTApi.Login: Boolean;
+begin
+  Result:=DoLogin;
 end;
 
 end.

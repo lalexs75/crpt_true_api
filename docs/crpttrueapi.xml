@@ -14,6 +14,10 @@
 
 </descr>
       </element>
+    <element name="TCRPTSuzAPI.Ping"><short>Метод «Проверить доступность СУЗ»</short><descr>Этот метод проверяет доступность СУЗ и использует следующие параметры: маркер
+безопасности (token) и идентификатор СУЗ.
+</descr>
+      </element>
     </module>
   </package>
 </fpdoc-descriptions>

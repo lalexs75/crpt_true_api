@@ -1,0 +1,37 @@
+inherited frmSUZCmdServiceFrame: TfrmSUZCmdServiceFrame
+  object Button2: TButton[0]
+    Left = 6
+    Height = 29
+    Top = 6
+    Width = 39
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Ping'
+    TabOrder = 0
+    OnClick = Button2Click
+  end
+  object Label5: TLabel[1]
+    Left = 8
+    Height = 17
+    Top = 104
+    Width = 74
+    Caption = 'Интеграция'
+  end
+  object Edit1: TEdit[2]
+    Left = 16
+    Height = 29
+    Top = 120
+    Width = 80
+    TabOrder = 1
+    Text = 'Edit1'
+  end
+  object Button1: TButton[3]
+    Left = 192
+    Height = 29
+    Top = 120
+    Width = 86
+    AutoSize = True
+    Caption = 'Интеграция'
+    TabOrder = 2
+  end
+end

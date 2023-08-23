@@ -1,0 +1,229 @@
+{ CRPT TrueAPI interface library for FPC and Lazarus
+
+  Copyright (C) 2023 Lagunov Aleksey alexs75@yandex.ru
+
+  This library is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Library General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or (at your
+  option) any later version with the following modification:
+
+  As a special exception, the copyright holders of this library give you
+  permission to link this library with independent modules to produce an
+  executable, regardless of the license terms of these independent modules,and
+  to copy and distribute the resulting executable under terms of your choice,
+  provided that you also meet, for each linked independent module, the terms
+  and conditions of the license of that module. An independent module is a
+  module which is not derived from or based on this library. If you modify
+  this library, you may extend this exception to your version of the library,
+  but you are not obligated to do so. If you do not wish to do so, delete this
+  exception statement from your version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
+  for more details.
+
+  You should have received a copy of the GNU Library General Public License
+  along with this library; if not, write to the Free Software Foundation,
+  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+}
+
+unit CRPTSuzTestMainUnit;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  ComCtrls, ExtCtrls, DividerBevel, ocrsConnectionUnit, CRPTTrueAPI,
+  PlasticCardFictive, RxIniPropStorage, CRPTTrueAPI_Consts;
+
+type
+
+  { TCRPTSuzTestForm }
+
+  TCRPTSuzTestForm = class(TForm)
+    btnLogin: TButton;
+    ComboBox1: TComboBox;
+    CRPTSuzAPI1: TCRPTSuzAPI;
+    DividerBevel1: TDividerBevel;
+    edtOMSID: TEdit;
+    edtOMSConnection: TEdit;
+    edtCryptoProSrv: TEdit;
+    edtUserKey: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label4: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Memo1: TMemo;
+    OptCryptoServer1: TOptCryptoServer;
+    PageControl1: TPageControl;
+    Panel1: TPanel;
+    ConfigPanel: TPanel;
+    RadioGroup1: TRadioGroup;
+    RxIniPropStorage1: TRxIniPropStorage;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TreeView1: TTreeView;
+    procedure btnLoginClick(Sender: TObject);
+    procedure CRPTSuzAPI1HttpStatus(Sender: TCustomCRPTApi);
+    procedure CRPTSuzAPI1SignData(Sender: TCustomCRPTApi; AData: string; out
+      ASign: string);
+    procedure FormCreate(Sender: TObject);
+    procedure TreeView1Click(Sender: TObject);
+  private
+    OldFrame:TFrame;
+    procedure DoFillProductGroup;
+    function SelectedGroup:TCRPTProductGroup;
+    procedure AddCRPTOperFrame(AGroup, AName:string; AFrame:TFrame);
+  public
+
+  end;
+
+var
+  CRPTSuzTestForm: TCRPTSuzTestForm;
+
+procedure RxLogWriter(ALogType: TEventType; const ALogMessage: string);
+implementation
+uses rxlogging, frmSUZCmdAbstractUnit,
+  frmSUZCmdServiceUnit,
+  frmSUZCmdOrderUnit;
+
+{$R *.lfm}
+
+procedure RxLogWriter(ALogType: TEventType; const ALogMessage: string);
+const
+  sEventNames : array [TEventType] of string =
+    ('CUSTOM','INFO','WARNING','ERROR','DEBUG');
+
+begin
+  RxDefaultWriteLog(ALogType, ALogMessage);
+  if Assigned(CRPTSuzTestForm) then
+    CRPTSuzTestForm.Memo1.Lines.Add(sEventNames[ALogType] + ' : ' + ALogMessage);
+end;
+
+
+{ TCRPTSuzTestForm }
+
+procedure TCRPTSuzTestForm.btnLoginClick(Sender: TObject);
+begin
+  case RadioGroup1.ItemIndex of
+    0:CRPTSuzAPI1.Server:=sAPISuzURL_sandbox1;
+    1:CRPTSuzAPI1.Server:=sAPISuzURL;
+  end;
+  CRPTSuzAPI1.OMSConnection:=edtOMSConnection.Text;
+  CRPTSuzAPI1.OmsID:=edtOMSID.Text;
+  CRPTSuzAPI1.Login;
+  if CRPTSuzAPI1.ResultCode = 200 then
+  begin
+    TabSheet2.TabVisible:=true;
+    PageControl1.ActivePageIndex:=1;
+    RxWriteLog(etDebug, 'AuthorizationToken = %s', [CRPTSuzAPI1.AuthorizationToken]);
+  end;
+end;
+
+procedure TCRPTSuzTestForm.CRPTSuzAPI1HttpStatus(Sender: TCustomCRPTApi);
+begin
+  Memo1.Lines.Add('%d: %s', [Sender.ResultCode, Sender.ResultString]);
+end;
+
+procedure TCRPTSuzTestForm.CRPTSuzAPI1SignData(Sender: TCustomCRPTApi;
+  AData: string; out ASign: string);
+var
+  ADetached: Boolean;
+  M: TStream;
+begin
+  OptCryptoServer1.Server:=edtCryptoProSrv.Text;
+  ADetached:=false;
+  ASign:='';
+  M:=OptCryptoServer1.SignDoc(edtUserKey.Text, AData, ADetached);
+  if Assigned(M) then
+  begin
+    if M.Size > 0 then
+    begin
+      M.Position:=0;
+      SetLength(ASign, M.Size);
+      M.Read(ASign[1], M.Size);
+    end;
+    M.Free;
+  end;
+end;
+
+procedure TCRPTSuzTestForm.FormCreate(Sender: TObject);
+begin
+  DoFillProductGroup;
+  AddCRPTOperFrame('Общее', 'Сервисные', TfrmSUZCmdServiceFrame.Create(Self));
+  AddCRPTOperFrame('Маркировка', 'Заказ', TfrmSUZCmdOrderFrame.Create(Self));
+
+  PageControl1.ActivePageIndex:=0;
+  TabSheet2.TabVisible:=false;
+end;
+
+procedure TCRPTSuzTestForm.TreeView1Click(Sender: TObject);
+procedure DoSelectFrame(Cfg: TfrmSUZCmdAbstractFrame);
+begin
+  if Assigned(OldFrame) then
+    OldFrame.Visible:=false;
+  OldFrame:=Cfg;
+  OldFrame.BringToFront;
+  OldFrame.Visible:=true;
+end;
+
+begin
+  if Assigned(TreeView1.Selected) then
+  begin
+    if Assigned(TreeView1.Selected.Data) then
+      DoSelectFrame(TfrmSUZCmdAbstractFrame(TreeView1.Selected.Data))
+    else
+    begin
+      if (TreeView1.Selected.Count>0) and Assigned(TreeView1.Selected.GetFirstChild.Data) then
+        DoSelectFrame(TfrmSUZCmdAbstractFrame(TreeView1.Selected.GetFirstChild.Data))
+    end;
+  end;
+end;
+
+procedure TCRPTSuzTestForm.DoFillProductGroup;
+var
+  P: TCRPTProductGroup;
+begin
+  ComboBox1.Items.BeginUpdate;
+  ComboBox1.Items.Clear;
+  for P in TCRPTProductGroup do
+    ComboBox1.Items.Add(CRPTProductGroupStr[P] + ' : ' + CRPTProductGroupNames[P]);
+  ComboBox1.Items.EndUpdate;
+  ComboBox1.ItemIndex:=0;
+end;
+
+function TCRPTSuzTestForm.SelectedGroup: TCRPTProductGroup;
+begin
+  Result:=TCRPTProductGroup(ComboBox1.ItemIndex);
+end;
+
+procedure TCRPTSuzTestForm.AddCRPTOperFrame(AGroup, AName: string;
+  AFrame: TFrame);
+procedure DoAddFrame(Cfg:TfrmSUZCmdAbstractFrame; RootNode:TTreeNode);
+var
+  Node:TTreeNode;
+begin
+  if not Assigned(Cfg) then exit;
+  Node:=TreeView1.Items.AddChild(RootNode, Cfg.FrameName);
+  Node.Data:=Cfg;
+  Cfg.FCRPTSuzAPI:=CRPTSuzAPI1;
+  Cfg.Parent:=ConfigPanel;
+  Cfg.Align:=alClient;
+  Cfg.LoadParams;
+end;
+
+var
+  RN: TTreeNode;
+begin
+  RN:=TreeView1.Items.FindNodeWithText(AGroup);
+  if not Assigned(RN) then
+    RN:=TreeView1.Items.AddChild(nil, AGroup);
+  DoAddFrame(AFrame as TfrmSUZCmdAbstractFrame, RN)
+end;
+
+end.
+
