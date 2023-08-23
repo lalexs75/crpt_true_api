@@ -55,7 +55,7 @@ type
 
   THttpMethod = (hmGET, hmPOST);
   TOnHttpStatusEnevent = procedure (Sender:TCustomCRPTApi) of object;
-  TOnSignDataEvent = procedure(Sender:TCustomCRPTApi; AData:string; out ASign:string) of object;
+  TOnSignDataEvent = procedure(Sender:TCustomCRPTApi; AData:string; ADetached:Boolean; out ASign:string) of object;
 
   { TCustomCRPTApi }
 
@@ -77,11 +77,12 @@ type
     function DoAnsverLogin(ALoginServer, FUID, FDATA:string):Boolean;
     procedure SetServer(AValue: string);
   protected
-    function SendCommand(AMethod:THttpMethod; ACommand:string; AParams:string; AData:TStream; const AllowedResponseCodes : array of integer; AMimeType:string = ''):Boolean;
+    function SendCommand(AMethod:THttpMethod; ACommand:string; AParams:string; AData:TStream; const AllowedResponseCodes : array of integer; AMimeType:string = ''; ANeedSign:Boolean = false):Boolean;
     function DoLogin:Boolean;
     procedure SaveHttpData(ACmdName: string);
     procedure InternalMakeLoginParams(var ALoginParams:string); virtual;
     procedure InternalMakeClientToken; virtual;
+    procedure DoSignRequestData(const AData:TStream); virtual;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -135,6 +136,7 @@ type
     procedure InternalMakeClientToken; override;
   public
     function Ping(AProductGroup:TCRPTProductGroup):TJSONObject;
+    function Order(AProductGroup:TCRPTProductGroup; AOrder:TJSONObject):TJSONObject;
     property AuthorizationToken;
   published
     property OmsConnection:string read FOmsConnection write SetOmsConnection;
@@ -295,7 +297,7 @@ var
   S: String;
   P: TJSONParser;
 begin
-//  Result:=nil;
+  Result:=nil;
   DoLogin;
   S:='';
   AddURLParam(S, 'omsId', FOmsID);
@@ -308,6 +310,36 @@ begin
     P.Free;
   end;
   SaveHttpData('oms_api_v3_ping');
+end;
+
+function TCRPTSuzAPI.Order(AProductGroup: TCRPTProductGroup; AOrder: TJSONObject
+  ): TJSONObject;
+var
+  FMS: TMemoryStream;
+  S: String;
+  S1: TJSONStringType;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  FMS:=TMemoryStream.Create;
+  S1:=AOrder.FormatJSON;
+  FMS.Write(S[1], Length(S[1]));
+  FMS.Position:=0;
+  try
+    if SendCommand(hmPOST, 'api/v3/order', S, FMS, [200, 400, 404], 'application/json') then
+    begin
+      FDocument.Position:=0;
+      P:=TJSONParser.Create(FDocument);
+      Result:=P.Parse as TJSONObject;
+      P.Free;
+    end;
+  except
+  end;
+  SaveHttpData('oms_api_v3_order');
+  FMS.Free;
 end;
 
 { TCustomCRPTApi }
@@ -346,7 +378,7 @@ begin
   InternalMakeLoginParams(S);
   if S<>'' then S:='/' + S;
 
-  FOnSignData(Self, FDATA, S1);
+  FOnSignData(Self, FDATA, false, S1);
 
   J:=TJSONObject.Create;
   J.Add('uuid', FUID);
@@ -390,7 +422,8 @@ end;
 
 function TCustomCRPTApi.SendCommand(AMethod: THttpMethod; ACommand: string;
   AParams: string; AData: TStream;
-  const AllowedResponseCodes: array of integer; AMimeType: string): Boolean;
+  const AllowedResponseCodes: array of integer; AMimeType: string;
+  ANeedSign: Boolean): Boolean;
 var
   FSrv: String;
 begin
@@ -421,6 +454,9 @@ begin
       FHTTP.AddHeader('Content-Type',AMimeType)
     else
       FHTTP.AddHeader('Content-Type','application/x-www-form-urlencoded');
+
+    if ANeedSign and Assigned(FOnSignData) then
+      DoSignRequestData(AData);
 
     if (not Assigned(AData)) or (AData.Size = 0) then
       FHTTP.AddHeader('Content-Length', '0');
@@ -495,6 +531,17 @@ end;
 procedure TCustomCRPTApi.InternalMakeClientToken;
 begin
   FHTTP.AddHeader('Authorization', 'Bearer ' + FAuthorizationToken);
+end;
+
+procedure TCustomCRPTApi.DoSignRequestData(const AData: TStream);
+var
+  S, FSig:string;
+begin
+  if (not Assigned(FOnSignData)) or (AData.Size = 0) then Exit;
+  SetLength(S, AData.Size);
+  FOnSignData(Self, S, true, FSig);
+
+  FHTTP.AddHeader('X-Signature',FSig)
 end;
 
 constructor TCustomCRPTApi.Create(AOwner: TComponent);

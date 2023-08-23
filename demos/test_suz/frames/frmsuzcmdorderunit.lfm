@@ -1,17 +1,110 @@
 inherited frmSUZCmdOrderFrame: TfrmSUZCmdOrderFrame
+  Width = 440
+  ClientWidth = 440
   object Label8: TLabel[0]
+    AnchorSideTop.Control = Owner
     Left = 7
     Height = 17
-    Top = 10
+    Top = 6
     Width = 112
+    BorderSpacing.Around = 6
     Caption = 'Код товара (GTIN)'
   end
-  object Edit2: TEdit[1]
-    Left = 24
+  object edtGTIN: TEdit[1]
+    AnchorSideLeft.Control = Label8
+    AnchorSideTop.Control = Label8
+    AnchorSideTop.Side = asrBottom
+    Left = 13
     Height = 29
-    Top = 37
-    Width = 80
+    Top = 29
+    Width = 147
+    BorderSpacing.Around = 6
     TabOrder = 0
-    Text = 'Edit2'
+    Text = 'edtGTIN'
+  end
+  object Label1: TLabel[2]
+    AnchorSideLeft.Control = edtGTIN
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = Owner
+    Left = 166
+    Height = 17
+    Top = 6
+    Width = 45
+    BorderSpacing.Around = 6
+    Caption = 'Кол-во'
+  end
+  object edtCnt: TEdit[3]
+    AnchorSideLeft.Control = Label1
+    AnchorSideTop.Control = Label1
+    AnchorSideTop.Side = asrBottom
+    Left = 172
+    Height = 29
+    Top = 29
+    Width = 80
+    BorderSpacing.Around = 6
+    TabOrder = 1
+    Text = '10'
+  end
+  object Label2: TLabel[4]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = edtGTIN
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 17
+    Top = 64
+    Width = 50
+    BorderSpacing.Around = 6
+    Caption = 'ТИП CIS'
+  end
+  object edtCISType: TEdit[5]
+    AnchorSideLeft.Control = Label2
+    AnchorSideTop.Control = Label2
+    AnchorSideTop.Side = asrBottom
+    Left = 12
+    Height = 29
+    Top = 87
+    Width = 140
+    BorderSpacing.Around = 6
+    TabOrder = 2
+    Text = 'UNIT'
+  end
+  object Label3: TLabel[6]
+    AnchorSideLeft.Control = edtCnt
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = Owner
+    Left = 258
+    Height = 17
+    Top = 6
+    Width = 102
+    BorderSpacing.Around = 6
+    Caption = 'serviceProviderId'
+  end
+  object edtServiceProviderId: TEdit[7]
+    AnchorSideLeft.Control = Label3
+    AnchorSideTop.Control = Label3
+    AnchorSideTop.Side = asrBottom
+    Left = 264
+    Height = 29
+    Top = 29
+    Width = 272
+    BorderSpacing.Around = 6
+    TabOrder = 3
+    Text = 'c5fe527a-564a-4075-b7dd-72f08cb9a8b1'
+  end
+  object Button1: TButton[8]
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 387
+    Height = 29
+    Top = 205
+    Width = 47
+    Anchors = [akRight, akBottom]
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Заказ'
+    TabOrder = 4
+    OnClick = Button1Click
   end
 end

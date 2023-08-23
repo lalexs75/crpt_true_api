@@ -69,15 +69,18 @@ type
     TreeView1: TTreeView;
     procedure btnLoginClick(Sender: TObject);
     procedure CRPTSuzAPI1HttpStatus(Sender: TCustomCRPTApi);
-    procedure CRPTSuzAPI1SignData(Sender: TCustomCRPTApi; AData: string; out
-      ASign: string);
+    procedure CRPTSuzAPI1SignData(Sender: TCustomCRPTApi; AData: string;
+      ADetached: Boolean; out ASign: string);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure TreeView1Click(Sender: TObject);
   private
     OldFrame:TFrame;
     procedure DoFillProductGroup;
     function SelectedGroup:TCRPTProductGroup;
-    procedure AddCRPTOperFrame(AGroup, AName:string; AFrame:TFrame);
+    function AddCRPTOperFrame(AGroup, AName:string; AFrame:TFrame):TFrame;
+    procedure CreatePages;
+    procedure SavePages;
   public
 
   end;
@@ -87,7 +90,8 @@ var
 
 procedure RxLogWriter(ALogType: TEventType; const ALogMessage: string);
 implementation
-uses rxlogging, frmSUZCmdAbstractUnit,
+uses rxlogging, IniFiles, rxAppUtils,
+  frmSUZCmdAbstractUnit,
   frmSUZCmdServiceUnit,
   frmSUZCmdOrderUnit;
 
@@ -130,13 +134,11 @@ begin
 end;
 
 procedure TCRPTSuzTestForm.CRPTSuzAPI1SignData(Sender: TCustomCRPTApi;
-  AData: string; out ASign: string);
+  AData: string; ADetached: Boolean; out ASign: string);
 var
-  ADetached: Boolean;
   M: TStream;
 begin
   OptCryptoServer1.Server:=edtCryptoProSrv.Text;
-  ADetached:=false;
   ASign:='';
   M:=OptCryptoServer1.SignDoc(edtUserKey.Text, AData, ADetached);
   if Assigned(M) then
@@ -151,14 +153,19 @@ begin
   end;
 end;
 
+procedure TCRPTSuzTestForm.FormClose(Sender: TObject;
+  var CloseAction: TCloseAction);
+begin
+  SavePages;
+end;
+
 procedure TCRPTSuzTestForm.FormCreate(Sender: TObject);
 begin
   DoFillProductGroup;
-  AddCRPTOperFrame('Общее', 'Сервисные', TfrmSUZCmdServiceFrame.Create(Self));
-  AddCRPTOperFrame('Маркировка', 'Заказ', TfrmSUZCmdOrderFrame.Create(Self));
+  CreatePages;
 
-  PageControl1.ActivePageIndex:=0;
-  TabSheet2.TabVisible:=false;
+//  PageControl1.ActivePageIndex:=0;
+//  TabSheet2.TabVisible:=false;
 end;
 
 procedure TCRPTSuzTestForm.TreeView1Click(Sender: TObject);
@@ -193,7 +200,7 @@ begin
   for P in TCRPTProductGroup do
     ComboBox1.Items.Add(CRPTProductGroupStr[P] + ' : ' + CRPTProductGroupNames[P]);
   ComboBox1.Items.EndUpdate;
-  ComboBox1.ItemIndex:=0;
+  ComboBox1.ItemIndex:=Ord(tires);
 end;
 
 function TCRPTSuzTestForm.SelectedGroup: TCRPTProductGroup;
@@ -201,8 +208,8 @@ begin
   Result:=TCRPTProductGroup(ComboBox1.ItemIndex);
 end;
 
-procedure TCRPTSuzTestForm.AddCRPTOperFrame(AGroup, AName: string;
-  AFrame: TFrame);
+function TCRPTSuzTestForm.AddCRPTOperFrame(AGroup, AName: string; AFrame: TFrame
+  ): TFrame;
 procedure DoAddFrame(Cfg:TfrmSUZCmdAbstractFrame; RootNode:TTreeNode);
 var
   Node:TTreeNode;
@@ -213,16 +220,43 @@ begin
   Cfg.FCRPTSuzAPI:=CRPTSuzAPI1;
   Cfg.Parent:=ConfigPanel;
   Cfg.Align:=alClient;
-  Cfg.LoadParams;
 end;
 
 var
   RN: TTreeNode;
 begin
+  Result:=AFrame;
   RN:=TreeView1.Items.FindNodeWithText(AGroup);
   if not Assigned(RN) then
     RN:=TreeView1.Items.AddChild(nil, AGroup);
   DoAddFrame(AFrame as TfrmSUZCmdAbstractFrame, RN)
+end;
+
+procedure TCRPTSuzTestForm.CreatePages;
+var
+  Ini: TIniFile;
+  P: TTreeNode;
+begin
+  Ini:=TIniFile.Create(GetDefaultIniName);
+  AddCRPTOperFrame('Общее', 'Сервисные', TfrmSUZCmdServiceFrame.Create(Self));
+  AddCRPTOperFrame('Маркировка', 'Заказ', TfrmSUZCmdOrderFrame.Create(Self));
+
+  for P in TreeView1.Items do
+    if Assigned(P.Data) then
+      TfrmSUZCmdAbstractFrame(P.Data).LoadParams(Ini);
+  Ini.Free;
+end;
+
+procedure TCRPTSuzTestForm.SavePages;
+var
+  Ini: TIniFile;
+  P: TTreeNode;
+begin
+  Ini:=TIniFile.Create(GetDefaultIniName);
+  for P in TreeView1.Items do
+    if Assigned(P.Data) then
+      TfrmSUZCmdAbstractFrame(P.Data).SaveParams(Ini);
+  Ini.Free;
 end;
 
 end.

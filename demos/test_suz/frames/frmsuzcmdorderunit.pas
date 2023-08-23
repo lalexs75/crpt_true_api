@@ -36,30 +36,100 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  frmSUZCmdAbstractUnit;
+  frmSUZCmdAbstractUnit, IniFiles;
 
 type
 
   { TfrmSUZCmdOrderFrame }
 
   TfrmSUZCmdOrderFrame = class(TfrmSUZCmdAbstractFrame)
-    Edit2: TEdit;
+    Button1: TButton;
+    edtCnt: TEdit;
+    edtServiceProviderId: TEdit;
+    edtCISType: TEdit;
+    edtGTIN: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     Label8: TLabel;
+    procedure Button1Click(Sender: TObject);
   private
 
   public
-    function FrameName:string;override;
+    function FrameName:string; override;
+    procedure LoadParams(AIni:TIniFile); override;
+    procedure SaveParams(AIni:TIniFile); override;
   end;
 
 implementation
-
+uses rxlogging, fpjson, CRPTTrueAPI_Consts;
 {$R *.lfm}
 
 { TfrmSUZCmdOrderFrame }
 
+procedure TfrmSUZCmdOrderFrame.Button1Click(Sender: TObject);
+var
+  P, PA, P1: TJSONObject;
+  S: String;
+  PAA: TJSONArray;
+begin
+  P:=TJSONObject.Create;
+  P.Add('productGroup', 'tires');
+  P.Add('serviceProviderId', edtServiceProviderId.Text);
+
+
+  PAA:=TJSONArray.Create;
+  P.Add('products', PAA);
+  PA:=TJSONObject.Create;
+  PAA.Add(PA);
+
+  PA.Add('gtin', edtGTIN.Text);
+  PA.Add('quantity', StrToInt(edtCnt.Text));
+  PA.Add('serialNumberType', 'SELF_MADE');
+  PA.Add('serialNumbers', TJSONArray.Create(['QIQ8BQCXmSJJ', 'GLTP9kqZn5QR']));
+  PA.Add('templateId', 7);
+  PA.Add('cisType', edtCISType.Text);
+
+  PA:=TJSONObject.Create;
+  P.Add('attributes', PA);
+  S:='Иванов П.А.';
+  PA.Add('contactPerson',S);
+  PA.Add('releaseMethodType','IMPORT');
+  PA.Add('createMethodType','CM');
+  PA.Add('productionOrderId','08528091-808a-41ba-a55d-d6230c64b332');
+
+  RxWriteLog(etInfo, P.FormatJSON);
+  P1:=FCRPTSuzAPI.Order(tires, P);
+  if Assigned(P1) then
+  begin
+    RxWriteLog(etInfo, P1.FormatJSON);
+    P1.Free;
+  end;
+  P.Free;
+
+end;
+
 function TfrmSUZCmdOrderFrame.FrameName: string;
 begin
-  Result:='Заказ'
+  Result:='Заказ на эмиссию'
+end;
+
+procedure TfrmSUZCmdOrderFrame.LoadParams(AIni: TIniFile);
+begin
+  inherited LoadParams(AIni);
+  edtGTIN.Text:=AIni.ReadString(ClassName, 'edtGTIN_Text', '');
+  edtServiceProviderId.Text:=AIni.ReadString(ClassName, 'edtServiceProviderId_Text', '');
+  edtCnt.Text:=AIni.ReadString(ClassName, 'edtCnt_Text', '');
+  edtCISType.Text:=AIni.ReadString(ClassName, 'edtCISType_Text', '');
+end;
+
+procedure TfrmSUZCmdOrderFrame.SaveParams(AIni: TIniFile);
+begin
+  inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtGTIN_Text', edtGTIN.Text);
+  AIni.WriteString(ClassName, 'edtServiceProviderId_Text', edtServiceProviderId.Text);
+  AIni.WriteString(ClassName, 'edtCnt_Text', edtCnt.Text);
+  AIni.WriteString(ClassName, 'edtCISType_Text', edtCISType.Text);
 end;
 
 end.

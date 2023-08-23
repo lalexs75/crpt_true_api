@@ -9,6 +9,7 @@ object CRPTSuzTestForm: TCRPTSuzTestForm
   Position = poScreenCenter
   SessionProperties = 'edtCryptoProSrv.Text;edtOMSConnection.Text;edtUserKey.Text;edtOMSID.Text'
   LCLVersion = '3.99.0.0'
+  OnClose = FormClose
   OnCreate = FormCreate
   object DividerBevel1: TDividerBevel
     AnchorSideLeft.Control = Owner
@@ -204,10 +205,11 @@ object CRPTSuzTestForm: TCRPTSuzTestForm
         Top = 66
         Width = 138
         Align = alLeft
+        AutoExpand = True
         ReadOnly = True
         RowSelect = True
         TabOrder = 0
-        Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoRowSelect, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+        Options = [tvoAutoExpand, tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoRowSelect, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
         OnClick = TreeView1Click
       end
       object Panel1: TPanel

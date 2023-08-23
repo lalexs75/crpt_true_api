@@ -35,7 +35,7 @@ unit frmSUZCmdAbstractUnit;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, CRPTTrueAPI, CRPTTrueAPI_Consts;
+  Classes, SysUtils, Forms, Controls, CRPTTrueAPI, CRPTTrueAPI_Consts, IniFiles;
 
 type
 
@@ -48,7 +48,8 @@ type
     FCRPTSuzAPI: TCRPTSuzAPI;
     function SelectedGroup:TCRPTProductGroup;
     function FrameName:string;virtual;abstract;
-    procedure LoadParams;
+    procedure LoadParams(AIni:TIniFile); virtual;
+    procedure SaveParams(AIni:TIniFile); virtual;
   end;
 
 implementation
@@ -62,9 +63,14 @@ begin
 
 end;
 
-procedure TfrmSUZCmdAbstractFrame.LoadParams;
+procedure TfrmSUZCmdAbstractFrame.LoadParams(AIni: TIniFile);
 begin
   //
+end;
+
+procedure TfrmSUZCmdAbstractFrame.SaveParams(AIni: TIniFile);
+begin
+
 end;
 
 end.

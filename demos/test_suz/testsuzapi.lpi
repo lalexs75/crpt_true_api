@@ -61,6 +61,7 @@
         <Filename Value="frames/frmsuzcmdabstractunit.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSUZCmdAbstractFrame"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdAbstractUnit"/>
       </Unit>
