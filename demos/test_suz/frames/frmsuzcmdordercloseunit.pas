@@ -28,37 +28,74 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
+unit frmSUZCmdOrderCloseUnit;
 
-program TestSUZApi;
+{$mode ObjFPC}{$H+}
 
-{$mode objfpc}{$H+}
+interface
 
 uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  {$IFDEF HASAMIGA}
-  athreads,
-  {$ENDIF}
-  Interfaces, // this includes the LCL widgetset
-  Forms,
-  lazcontrols,
-  rxlogging,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  frmSUZCmdAbstractUnit, IniFiles, fpjson;
 
-CRPTSuzTestMainUnit, frmSUZCmdAbstractUnit, frmSUZCmdServiceUnit,
-frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit, frmSUZCmdOrderStatusUnit,
-frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit, 
-frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit, 
-frmSUZCmdOrderCloseUnit;
+type
 
-{$R *.res}
+  { TfrmSUZCmdOrderCloseFrame }
 
+  TfrmSUZCmdOrderCloseFrame = class(TfrmSUZCmdAbstractFrame)
+    Button1: TButton;
+    edtGTIN: TEdit;
+    edtOrderID: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+  private
+
+  public
+    function FrameName:string; override;
+    procedure LoadParams(AIni:TIniFile); override;
+    procedure SaveParams(AIni:TIniFile); override;
+  end;
+
+implementation
+uses rxlogging;
+
+{$R *.lfm}
+
+{ TfrmSUZCmdOrderCloseFrame }
+
+procedure TfrmSUZCmdOrderCloseFrame.Button1Click(Sender: TObject);
+var
+  P1: TJSONData;
 begin
-  OnRxLoggerEvent:=@RxLogWriter;
-  RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
-  Application.Initialize;
-  Application.CreateForm(TCRPTSuzTestForm, CRPTSuzTestForm);
-  Application.Run;
+  P1:=FCRPTSuzAPI.OrderClose(edtOrderID.Text, edtGTIN.Text);
+  if Assigned(P1) then
+  begin
+    Memo1.Lines.Text:=P1.FormatJSON;
+    RxWriteLog(etInfo, P1.FormatJSON);
+    P1.Free;
+  end;
+end;
+
+function TfrmSUZCmdOrderCloseFrame.FrameName: string;
+begin
+  Result:='Закрыть заказ';
+end;
+
+procedure TfrmSUZCmdOrderCloseFrame.LoadParams(AIni: TIniFile);
+begin
+  inherited LoadParams(AIni);
+  edtOrderID.Text:=AIni.ReadString(ClassName, 'edtOrderID_Text', '');
+  edtGTIN.Text:=AIni.ReadString(ClassName, 'edtGTIN_Text', '');
+end;
+
+procedure TfrmSUZCmdOrderCloseFrame.SaveParams(AIni: TIniFile);
+begin
+  inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtOrderID_Text', edtOrderID.Text);
+  AIni.WriteString(ClassName, 'edtGTIN_Text', edtGTIN.Text);
+end;
+
 end.
 

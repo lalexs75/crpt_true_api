@@ -98,7 +98,8 @@ implementation
 uses rxlogging, IniFiles, rxAppUtils, frmSUZCmdAbstractUnit,
   frmSUZCmdServiceUnit, frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit,
   frmSUZCmdOrderStatusUnit, frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit,
-  frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit;
+  frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit,
+  frmSUZCmdOrderCloseUnit;
 
 {$R *.lfm}
 
@@ -258,6 +259,7 @@ begin
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdCodesFromOrderFrame.Create(Self));
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdCodesBlocksFrame.Create(Self));
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdCodesBlocksRetryFrame.Create(Self));
+  AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderCloseFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then
