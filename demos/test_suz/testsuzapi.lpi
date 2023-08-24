@@ -111,6 +111,14 @@
         <UnitName Value="frmSUZCmdCodesFromOrderUnit"/>
       </Unit>
       <Unit>
+        <Filename Value="frames/frmsuzcmdcodesblocksretryunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdCodesBlocksRetryFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdCodesBlocksRetryUnit"/>
+      </Unit>
+      <Unit>
         <Filename Value="frames/frmsuzcmdcodesblocksunit.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSUZCmdCodesBlocksFrame"/>

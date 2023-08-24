@@ -143,7 +143,7 @@ type
     function OrderStatus(AOrderID, AGTIN: string): TJSONData;
     function OrdersList: TJSONData;
     function OrderCodes(AOrderID, AGTIN: string; AQuantity: Integer): TJSONData;
-    function OrderBlocks(AOrderID, AGTIN: string; AQuantity: Integer): TJSONData;
+    function OrderBlocks(AOrderID, AGTIN: string): TJSONData;
     function OrderCodesRetry(ABlockID: string): TJSONData;
     function Providers:TJSONObject;
   public
@@ -461,8 +461,7 @@ begin
   SaveHttpData('oms_api_v3_codes');
 end;
 
-function TCRPTSuzAPI.OrderBlocks(AOrderID, AGTIN: string; AQuantity: Integer
-  ): TJSONData;
+function TCRPTSuzAPI.OrderBlocks(AOrderID, AGTIN: string): TJSONData;
 var
   S: String;
   P: TJSONParser;

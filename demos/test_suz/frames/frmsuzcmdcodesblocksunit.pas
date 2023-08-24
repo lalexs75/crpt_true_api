@@ -44,7 +44,8 @@ type
 
   TfrmSUZCmdCodesBlocksFrame = class(TfrmSUZCmdAbstractFrame)
     Button1: TButton;
-    edtBlockID: TEdit;
+    edtGTIN: TEdit;
+    edtOrderID: TEdit;
     Label1: TLabel;
     Label2: TLabel;
     Memo1: TMemo;
@@ -68,7 +69,7 @@ procedure TfrmSUZCmdCodesBlocksFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.OrderCodesRetry(edtBlockID.Text);
+  P1:=FCRPTSuzAPI.OrderBlocks(edtOrderID.Text, edtGTIN.Text);
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;
@@ -79,19 +80,21 @@ end;
 
 function TfrmSUZCmdCodesBlocksFrame.FrameName: string;
 begin
-  Result:='Повторное получение КИЗ';
+  Result:='Получить список пакетов';
 end;
 
 procedure TfrmSUZCmdCodesBlocksFrame.LoadParams(AIni: TIniFile);
 begin
   inherited LoadParams(AIni);
-  edtBlockID.Text:=AIni.ReadString(ClassName, 'edtBlockID_Text', '');
+  edtOrderID.Text:=AIni.ReadString(ClassName, 'edtOrderID_Text', '');
+  edtGTIN.Text:=AIni.ReadString(ClassName, 'edtGTIN_Text', '');
 end;
 
 procedure TfrmSUZCmdCodesBlocksFrame.SaveParams(AIni: TIniFile);
 begin
   inherited SaveParams(AIni);
-  AIni.WriteString(ClassName, 'edtBlockID_Text', edtBlockID.Text);
+  AIni.WriteString(ClassName, 'edtOrderID_Text', edtOrderID.Text);
+  AIni.WriteString(ClassName, 'edtGTIN_Text', edtGTIN.Text);
 end;
 
 end.

@@ -1,0 +1,58 @@
+inherited frmSUZCmdCodesBlocksRetryFrame: TfrmSUZCmdCodesBlocksRetryFrame
+  Width = 449
+  ClientWidth = 449
+  object Label1: TLabel[0]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 6
+    Height = 17
+    Top = 6
+    Width = 49
+    BorderSpacing.Around = 6
+    Caption = 'Block ID'
+  end
+  object edtBlockID: TEdit[1]
+    AnchorSideLeft.Control = Label1
+    AnchorSideTop.Control = Label1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Button1
+    Left = 12
+    Height = 29
+    Top = 29
+    Width = 261
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 0
+  end
+  object Button1: TButton[2]
+    AnchorSideTop.Control = Label1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 279
+    Height = 29
+    Top = 29
+    Width = 164
+    Anchors = [akTop, akRight]
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Повторно получить КИЗ'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Memo1: TMemo[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 176
+    Top = 64
+    Width = 449
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 2
+  end
+end

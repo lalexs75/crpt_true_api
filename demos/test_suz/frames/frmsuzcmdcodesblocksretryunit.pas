@@ -28,36 +28,71 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
+unit frmSUZCmdCodesBlocksRetryUnit;
 
-program TestSUZApi;
+{$mode ObjFPC}{$H+}
 
-{$mode objfpc}{$H+}
+interface
 
 uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  {$IFDEF HASAMIGA}
-  athreads,
-  {$ENDIF}
-  Interfaces, // this includes the LCL widgetset
-  Forms,
-  lazcontrols,
-  rxlogging,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
+  fpjson, frmSUZCmdAbstractUnit;
 
-CRPTSuzTestMainUnit, frmSUZCmdAbstractUnit, frmSUZCmdServiceUnit,
-frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit, frmSUZCmdOrderStatusUnit,
-frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit, 
-frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit;
+type
 
-{$R *.res}
+  { TfrmSUZCmdCodesBlocksRetryFrame }
 
+  TfrmSUZCmdCodesBlocksRetryFrame = class(TfrmSUZCmdAbstractFrame)
+    Button1: TButton;
+    edtBlockID: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+  private
+
+  public
+    function FrameName:string; override;
+    procedure LoadParams(AIni:TIniFile); override;
+    procedure SaveParams(AIni:TIniFile); override;
+  end;
+
+implementation
+uses rxlogging;
+
+{$R *.lfm}
+
+{ TfrmSUZCmdCodesBlocksRetryFrame }
+
+procedure TfrmSUZCmdCodesBlocksRetryFrame.Button1Click(Sender: TObject);
+var
+  P1: TJSONData;
 begin
-  OnRxLoggerEvent:=@RxLogWriter;
-  RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
-  Application.Initialize;
-  Application.CreateForm(TCRPTSuzTestForm, CRPTSuzTestForm);
-  Application.Run;
+  P1:=FCRPTSuzAPI.OrderCodesRetry(edtBlockID.Text);
+  if Assigned(P1) then
+  begin
+    Memo1.Lines.Text:=P1.FormatJSON;
+    RxWriteLog(etInfo, P1.FormatJSON);
+    P1.Free;
+  end;
+end;
+
+function TfrmSUZCmdCodesBlocksRetryFrame.FrameName: string;
+begin
+  Result:='Повторное получение КИЗ';
+end;
+
+procedure TfrmSUZCmdCodesBlocksRetryFrame.LoadParams(AIni: TIniFile);
+begin
+  inherited LoadParams(AIni);
+  edtBlockID.Text:=AIni.ReadString(ClassName, 'edtBlockID_Text', '');
+end;
+
+procedure TfrmSUZCmdCodesBlocksRetryFrame.SaveParams(AIni: TIniFile);
+begin
+  inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtBlockID_Text', edtBlockID.Text);
+end;
+
 end.
 
