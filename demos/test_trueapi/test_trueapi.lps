@@ -5,22 +5,21 @@
     <BuildModes Active="Default"/>
     <Units>
       <Unit>
-        <Filename Value="project1.lpr"/>
+        <Filename Value="test_trueapi.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="23"/>
         <UsageCount Value="63"/>
       </Unit>
       <Unit>
-        <Filename Value="unit1.pas"/>
+        <Filename Value="trueapi_mainunit.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="CRPTTrueAPITestMainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="103"/>
-        <CursorPos Y="106"/>
+        <CursorPos X="72" Y="129"/>
         <UsageCount Value="63"/>
         <Bookmarks Count="1">
           <Item0 Y="90" ID="2"/>
@@ -181,7 +180,7 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
+    <JumpHistory HistoryIndex="26">
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
         <Caret Line="129" Column="77" TopLine="97"/>
@@ -289,18 +288,6 @@
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
         <Caret Line="464" Column="5" TopLine="435"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="95" Column="3" TopLine="91"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="71" TopLine="45"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="129" TopLine="108"/>
       </Position>
     </JumpHistory>
     <RunParams>

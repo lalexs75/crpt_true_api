@@ -1,4 +1,4 @@
-program project1;
+program test_trueapi;
 
 {$mode objfpc}{$H+}
 
@@ -13,7 +13,7 @@ uses
   Forms,
   opensslsockets,
   rxlogging, lazcontrols,
-  unit1
+  trueapi_mainunit
   { you can add units after this };
 
 {$R *.res}

@@ -202,7 +202,7 @@ object CRPTTrueAPITestMainForm: TCRPTTrueAPITestMainForm
     end
   end
   object CRPTTrueAPI1: TCRPTTrueAPI
-    Server = 'https://ismp.crpt.ru/api/v3'
+    Server = 'https://ismp.crpt.ru/api/v3/'
     OnHttpStatus = CRPTTrueAPI1HttpStatus
     OnSignData = CRPTTrueAPI1SignData
     Left = 48
