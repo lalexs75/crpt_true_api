@@ -139,7 +139,9 @@ begin
   begin
     Memo2.Lines.Assign(Sender.ErrorText);
     RxWriteLog(etError, 'Error: %s', [Sender.ErrorText.Text]);
-  end;
+  end
+  else
+    Memo2.Lines.Clear;
 end;
 
 procedure TCRPTSuzTestForm.CRPTSuzAPI1SignData(Sender: TCustomCRPTApi;
