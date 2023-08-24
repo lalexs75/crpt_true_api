@@ -145,6 +145,7 @@ type
     function OrderCodes(AOrderID, AGTIN: string; AQuantity: Integer): TJSONData;
     function OrderBlocks(AOrderID, AGTIN: string): TJSONData;
     function OrderCodesRetry(ABlockID: string): TJSONData;
+    function OrderClose(AOrderID, AGTIN: string): TJSONData;
     function Providers:TJSONObject;
   public
     property AuthorizationToken;
@@ -502,6 +503,40 @@ begin
   SaveHttpData('oms_api_v3_order_codes_retry');
 end;
 
+function TCRPTSuzAPI.OrderClose(AOrderID, AGTIN: string): TJSONData;
+var
+  JP: TJSONObject;
+  ST: TMemoryStream;
+  S: String;
+  S1: TJSONStringType;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+
+  JP:=TJSONObject.Create;
+  JP.Add('orderId', AOrderID);
+  if AGTIN <> '' then
+  JP.Add('gtin', AGTIN);
+  S1:=JP.FormatJSON;
+  JP.Free;
+
+  ST:=TMemoryStream.Create;
+  ST.Write(S1[1], Length(S1));
+
+  if SendCommand(hmPOST, 'api/v3/order/close', S, ST, [200, 400, 404], 'application/json', true) then
+  begin
+    SaveHttpData('oms_api_v3_order_close');
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  ST.Free;
+end;
+
 function TCRPTSuzAPI.Providers: TJSONObject;
 var
   P: TJSONParser;
@@ -723,9 +758,14 @@ end;
 procedure TCustomCRPTApi.DoSignRequestData(const AData: TStream);
 var
   S, FSig:string;
+  P: Int64;
 begin
   if (not Assigned(FOnSignData)) or (AData.Size = 0) then Exit;
+  P:=AData.Position;
+  AData.Position:=0;
   SetLength(S, AData.Size);
+  AData.Read(S[1], AData.Size);
+  AData.Position:=P;
   FOnSignData(Self, S, true, FSig);
 
   FHTTP.AddHeader('X-Signature',FSig)
