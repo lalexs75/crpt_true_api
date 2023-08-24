@@ -143,6 +143,8 @@ type
     function OrderStatus(AOrderID, AGTIN: string): TJSONData;
     function OrdersList: TJSONData;
     function OrderCodes(AOrderID, AGTIN: string; AQuantity: Integer): TJSONData;
+    function OrderBlocks(AOrderID, AGTIN: string; AQuantity: Integer): TJSONData;
+    function OrderCodesRetry(ABlockID: string): TJSONData;
     function Providers:TJSONObject;
   public
     property AuthorizationToken;
@@ -434,7 +436,7 @@ begin
     Result:=P.Parse as TJSONData;
     P.Free;
   end;
-  SaveHttpData('oms_api_v3_order_status');
+  SaveHttpData('oms_api_v3_order_list');
 end;
 
 function TCRPTSuzAPI.OrderCodes(AOrderID, AGTIN: string; AQuantity:Integer): TJSONData;
@@ -456,7 +458,49 @@ begin
     Result:=P.Parse as TJSONObject;
     P.Free;
   end;
-  SaveHttpData('oms_api_v3_providers');
+  SaveHttpData('oms_api_v3_codes');
+end;
+
+function TCRPTSuzAPI.OrderBlocks(AOrderID, AGTIN: string; AQuantity: Integer
+  ): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  AddURLParam(S, 'orderId', AOrderID);
+  AddURLParam(S, 'gtin', AGTIN);
+  if SendCommand(hmGET, 'api/v3/order/codes/blocks', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_order_codes_blocks');
+end;
+
+function TCRPTSuzAPI.OrderCodesRetry(ABlockID: string): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  AddURLParam(S, 'blockId', ABlockID);
+  if SendCommand(hmGET, 'api/v3/order/codes/retry', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_order_codes_retry');
 end;
 
 function TCRPTSuzAPI.Providers: TJSONObject;

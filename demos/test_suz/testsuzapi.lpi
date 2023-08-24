@@ -110,6 +110,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdCodesFromOrderUnit"/>
       </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdcodesblocksunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdCodesBlocksFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdCodesBlocksUnit"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

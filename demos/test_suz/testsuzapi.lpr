@@ -47,7 +47,7 @@ uses
 
 CRPTSuzTestMainUnit, frmSUZCmdAbstractUnit, frmSUZCmdServiceUnit,
 frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit, frmSUZCmdOrderStatusUnit,
-frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit;
+frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit, frmSUZCmdCodesBlocksUnit;
 
 {$R *.res}
 

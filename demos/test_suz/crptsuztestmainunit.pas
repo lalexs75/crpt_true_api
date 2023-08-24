@@ -97,7 +97,8 @@ procedure RxLogWriter(ALogType: TEventType; const ALogMessage: string);
 implementation
 uses rxlogging, IniFiles, rxAppUtils, frmSUZCmdAbstractUnit,
   frmSUZCmdServiceUnit, frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit,
-  frmSUZCmdOrderStatusUnit, frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit;
+  frmSUZCmdOrderStatusUnit, frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit,
+  frmSUZCmdCodesBlocksUnit;
 
 {$R *.lfm}
 
@@ -255,6 +256,7 @@ begin
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderListFrame.Create(Self));
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderStatusFrame.Create(Self));
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdCodesFromOrderFrame.Create(Self));
+  AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdCodesBlocksFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then
