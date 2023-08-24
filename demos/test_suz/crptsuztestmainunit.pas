@@ -1,4 +1,4 @@
-{ CRPT TrueAPI interface library for FPC and Lazarus
+{ CRPT SUZ interface library demo for FPC and Lazarus
 
   Copyright (C) 2023 Lagunov Aleksey alexs75@yandex.ru
 
@@ -64,6 +64,7 @@ type
     ConfigPanel: TPanel;
     RadioGroup1: TRadioGroup;
     RxIniPropStorage1: TRxIniPropStorage;
+    Splitter1: TSplitter;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TreeView1: TTreeView;
@@ -130,7 +131,7 @@ end;
 
 procedure TCRPTSuzTestForm.CRPTSuzAPI1HttpStatus(Sender: TCustomCRPTApi);
 begin
-  Memo1.Lines.Add('%d: %s', [Sender.ResultCode, Sender.ResultString]);
+  RxWriteLog(etDebug, '%d: %s', [Sender.ResultCode, Sender.ResultString]);
 end;
 
 procedure TCRPTSuzTestForm.CRPTSuzAPI1SignData(Sender: TCustomCRPTApi;

@@ -250,13 +250,19 @@ object CRPTSuzTestForm: TCRPTSuzTestForm
         end
       end
       object ConfigPanel: TPanel
-        Left = 138
+        Left = 143
         Height = 311
         Top = 66
-        Width = 671
+        Width = 666
         Align = alClient
         Caption = 'ConfigPanel'
         TabOrder = 2
+      end
+      object Splitter1: TSplitter
+        Left = 138
+        Height = 311
+        Top = 66
+        Width = 5
       end
     end
   end

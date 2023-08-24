@@ -1,4 +1,4 @@
-{ CRPT TrueAPI interface library for FPC and Lazarus
+{ CRPT SUZ interface library demo for FPC and Lazarus
 
   Copyright (C) 2023 Lagunov Aleksey alexs75@yandex.ru
 
