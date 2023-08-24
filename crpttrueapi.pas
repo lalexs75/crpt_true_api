@@ -260,7 +260,7 @@ begin
   if AchildrenLimit>0 then
     AddURLParam(S, 'childrenLimit', IntToStr(AChildrenLimit));
 
-  if SendCommand(hmGET, 'products/info', S, nil, [200, 400, 404]) then
+  if SendCommand(hmGET, 'products/info', S, nil, [200, 400, 401, 404]) then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument);
@@ -507,7 +507,7 @@ begin
   if (FAuthorizationToken <> '') and (FAuthorizationTokenTimeStamp > (Now - (1 / 20) * 10)) then Exit;
   FAuthorizationToken:='';
   Result:=false;
-  if (FServer = sAPISuzURL_sandbox1) or (FServer = sAPISuzURL_sandbox2) then
+  if (FServer = sAPISuzURL_sandbox1) or (FServer = sAPISuzURL_sandbox2) or (FServer = sAPIURL_sandbox) then
     FLoginServer:=sAPIURL_sandbox
   else
     FLoginServer:=sAPIURL;
