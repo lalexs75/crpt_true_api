@@ -72,6 +72,7 @@ type
     FResultCode: integer;
     FResultString: string;
     FResultText: TStrings;
+    FErrorText: TStrings;
     procedure DoHaveSocketHandler(Sender: TObject; AHandler: TSocketHandler);
     procedure DoVerifyCertificate(Sender: TObject; AHandler: TSSLSocketHandler; var aAllow: Boolean);
     function DoAnsverLogin(ALoginServer, FUID, FDATA:string):Boolean;
@@ -96,6 +97,7 @@ type
     property OnSignData:TOnSignDataEvent read FOnSignData write FOnSignData;
   public
     property ResultText:TStrings read FResultText;
+    property ErrorText: TStrings read FErrorText;
     property ResultCode : integer read FResultCode;
     property ResultString : string read FResultString;
   end;
@@ -113,7 +115,8 @@ type
 
   public
     function ProductsInfo(ACis:string; AchildrenPage:Integer = 0; AChildrenLimit:Integer = 0):TJSONObject;
-//    function
+    function BalanceAll:TJSONData;
+    function Balance(AProductGroupId: Integer): TJSONData;
 //КИ
 //Номер страницы вложений в агрегат первого слоя
     property AuthorizationToken;
@@ -151,9 +154,10 @@ type
 procedure Register;
 
 procedure AddURLParam(var S:string; AParam, AValue:string); overload;
+procedure AddURLParam(var S: string; AParam:string; AValue: Integer); inline; overload;
 procedure AddURLParam(var S:string; AParam:string); overload;
 implementation
-uses opensslsockets, rxlogging, jsonparser;
+uses opensslsockets, rxlogging, jsonparser, jsonscanner;
 
 {$R crpt_true_api.res}
 
@@ -212,7 +216,12 @@ begin
     S:=S + AParam
 end;
 
-procedure AddURLParam(var S: string; AParam: string);
+procedure AddURLParam(var S: string; AParam:string; AValue: Integer); inline;
+begin
+  AddURLParam(S, AParam, IntToStr(AValue));
+end;
+
+procedure AddURLParam(var S: string; AParam: string); inline;
 begin
   AddURLParam(S, AParam, '');
 end;
@@ -263,11 +272,48 @@ begin
   if SendCommand(hmGET, 'products/info', S, nil, [200, 400, 401, 404]) then
   begin
     FDocument.Position:=0;
-    P:=TJSONParser.Create(FDocument);
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
     Result:=P.Parse as TJSONObject;
     P.Free;
   end;
   SaveHttpData('products_info');
+end;
+
+function TCRPTTrueAPI.BalanceAll: TJSONData;
+var
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+
+  if SendCommand(hmGET, 'elk/product-groups/balance/all', '', nil, [200, 400, 401, 404]) then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  SaveHttpData('balance_all');
+end;
+
+function TCRPTTrueAPI.Balance(AProductGroupId: Integer): TJSONData;
+var
+  P: TJSONParser;
+  S: String;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'productGroupId', AProductGroupId);
+
+  if SendCommand(hmGET, 'elk/product-groups/balance', S, nil, [200, 400, 401, 404]) then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  SaveHttpData('balance_all');
 end;
 
 { TCRPTSuzAPI }
@@ -307,7 +353,7 @@ begin
   if SendCommand(hmGET, 'api/v3/ping', S, nil, [200, 400, 404]) then
   begin
     FDocument.Position:=0;
-    P:=TJSONParser.Create(FDocument);
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
     Result:=P.Parse as TJSONObject;
     P.Free;
   end;
@@ -336,7 +382,7 @@ begin
     if SendCommand(hmPOST, 'api/v3/order', S, FMS, [200, 400, 404], 'application/json', true) then
     begin
       FDocument.Position:=0;
-      P:=TJSONParser.Create(FDocument);
+      P:=TJSONParser.Create(FDocument, DefaultOptions);
       Result:=P.Parse as TJSONObject;
       P.Free;
     end;
@@ -358,7 +404,7 @@ begin
   if SendCommand(hmGET, 'api/v3/providers', S, nil, [200, 400, 404], 'application/json') then
   begin
     FDocument.Position:=0;
-    P:=TJSONParser.Create(FDocument);
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
     Result:=P.Parse as TJSONObject;
     P.Free;
   end;
@@ -395,6 +441,7 @@ var
   M: TStringStream;
   P: TJSONParser;
 begin
+  Result:=false;
   if not Assigned(FOnSignData) then Exit;
 
   S:='';
@@ -416,13 +463,14 @@ begin
     SaveHttpData('auth_simpleSignIn');
     FDocument.Position:=0;
     try
-      P:=TJSONParser.Create(FDocument);
+      P:=TJSONParser.Create(FDocument, DefaultOptions);
       R:=P.Parse as TJSONObject;
       if FResultCode = 200 then
       begin
         FAuthorizationToken:=JSONStringToString( R.GetPath('token').AsString );
         FAuthorizationTokenTimeStamp:=Now;
       end;
+      Result:=true;
     finally
       P.Free;
       R.Free;
@@ -449,6 +497,7 @@ function TCustomCRPTApi.SendCommand(AMethod: THttpMethod; ACommand: string;
   ANeedSign: Boolean): Boolean;
 var
   FSrv: String;
+  P: Int64;
 begin
   Clear;
   if AParams <> '' then
@@ -492,6 +541,14 @@ begin
   FResultString := FHTTP.ResponseStatusText;
   Result:=FResultCode = 200;
 
+  if (not Result) and (FDocument.Size > 0) then
+  begin
+    P:=FDocument.Position;
+    FDocument.Position:=0;
+    FErrorText.LoadFromStream(FDocument);
+    FDocument.Position:=P;
+  end;
+
   if Assigned(FOnHttpStatus) then
     FOnHttpStatus(Self);
 end;
@@ -519,7 +576,7 @@ begin
     begin
       R:=FDocument.Size;
       FDocument.Position:=0;
-      B:=TJSONParser.Create(FDocument);
+      B:=TJSONParser.Create(FDocument, DefaultOptions);
       J:=B.Parse;
       FUID:=J.GetPath('uuid').AsString;
       FDATA:=J.GetPath('data').AsString;
@@ -533,16 +590,13 @@ end;
 
 procedure TCustomCRPTApi.SaveHttpData(ACmdName: string);
 var
-  F: TFileStream;
   P: Int64;
 begin
   if ExtractFileExt(ACmdName) = '' then
     ACmdName := ACmdName + '.bin';
-  F:=TFileStream.Create(GetTempDir(false) + PathDelim + ACmdName, fmCreate);
   P:=FDocument.Position;
   FDocument.Position:=0;
-  FDocument.SaveToStream(F);
-  F.Free;
+  FDocument.SaveToFile(GetTempDir(false) + PathDelim + ACmdName);
   FDocument.Position:=P;
 end;
 
@@ -572,6 +626,7 @@ begin
   inherited Create(AOwner);
   FDocument:=TMemoryStream.Create;
   FResultText:=TStringList.Create;
+  FErrorText:=TStringList.Create;
   FHTTP:=TFPHTTPClient.Create(nil);
   FHTTP.HTTPversion:='1.1';
   FHTTP.OnVerifySSLCertificate:=@DoVerifyCertificate;
@@ -584,6 +639,7 @@ begin
   FreeAndNil(FResultText);
   FreeAndNil(FDocument);
   FreeAndNil(FHTTP);
+  FreeAndNil(FErrorText);
   inherited Destroy;
 end;
 
@@ -594,6 +650,7 @@ begin
   FHTTP.RequestBody:=nil;
   FResultText.Clear;
   FDocument.Clear;
+  FErrorText.Clear;
 end;
 
 function TCustomCRPTApi.Login: Boolean;

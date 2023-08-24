@@ -11,47 +11,18 @@ object CRPTSuzTestForm: TCRPTSuzTestForm
   LCLVersion = '3.99.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
-  object DividerBevel1: TDividerBevel
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Side = asrBottom
-    AnchorSideRight.Control = Owner
-    AnchorSideRight.Side = asrBottom
-    Left = 0
-    Height = 17
-    Top = 408
-    Width = 819
-    Caption = 'Протокол'
-    Anchors = [akTop, akLeft, akRight]
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object Memo1: TMemo
-    AnchorSideTop.Control = DividerBevel1
-    AnchorSideTop.Side = asrBottom
-    Left = 0
-    Height = 304
-    Top = 425
-    Width = 819
-    Align = alBottom
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    TabOrder = 0
-  end
   object PageControl1: TPageControl
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    AnchorSideRight.Side = asrBottom
     Left = 0
-    Height = 408
+    Height = 524
     Top = 0
     Width = 819
     ActivePage = TabSheet2
-    Anchors = [akTop, akLeft, akRight]
+    Align = alClient
     TabIndex = 1
-    TabOrder = 1
+    TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Подключение'
-      ClientHeight = 377
+      ClientHeight = 493
       ClientWidth = 809
       object RadioGroup1: TRadioGroup
         AnchorSideLeft.Control = TabSheet1
@@ -197,11 +168,11 @@ object CRPTSuzTestForm: TCRPTSuzTestForm
     end
     object TabSheet2: TTabSheet
       Caption = 'Операции'
-      ClientHeight = 377
+      ClientHeight = 493
       ClientWidth = 809
       object TreeView1: TTreeView
         Left = 0
-        Height = 311
+        Height = 427
         Top = 66
         Width = 138
         Align = alLeft
@@ -251,7 +222,7 @@ object CRPTSuzTestForm: TCRPTSuzTestForm
       end
       object ConfigPanel: TPanel
         Left = 143
-        Height = 311
+        Height = 427
         Top = 66
         Width = 666
         Align = alClient
@@ -260,9 +231,55 @@ object CRPTSuzTestForm: TCRPTSuzTestForm
       end
       object Splitter1: TSplitter
         Left = 138
-        Height = 311
+        Height = 427
         Top = 66
         Width = 5
+      end
+    end
+  end
+  object Splitter2: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 524
+    Width = 819
+    Align = alBottom
+    ResizeAnchor = akBottom
+  end
+  object PageControl2: TPageControl
+    Left = 0
+    Height = 200
+    Top = 529
+    Width = 819
+    ActivePage = TabSheet3
+    Align = alBottom
+    TabIndex = 0
+    TabOrder = 2
+    TabPosition = tpBottom
+    object TabSheet3: TTabSheet
+      Caption = 'Протокол работы'
+      ClientHeight = 169
+      ClientWidth = 809
+      object Memo1: TMemo
+        Left = 0
+        Height = 169
+        Top = 0
+        Width = 809
+        Align = alClient
+        TabOrder = 0
+      end
+    end
+    object TabSheet4: TTabSheet
+      Caption = 'Сообщение об ошибке'
+      ClientHeight = 169
+      ClientWidth = 809
+      object Memo2: TMemo
+        Left = 0
+        Height = 169
+        Top = 0
+        Width = 809
+        Align = alClient
+        TabOrder = 0
       end
     end
   end

@@ -49,15 +49,16 @@ type
     ComboBox1: TComboBox;
     ConfigPanel: TPanel;
     CRPTTrueAPI1: TCRPTTrueAPI;
-    DividerBevel1: TDividerBevel;
     edtUserKey: TEdit;
     edtCryptoProSrv: TEdit;
     Label1: TLabel;
     Label2: TLabel;
     Label6: TLabel;
     Memo1: TMemo;
+    Memo2: TMemo;
     OptCryptoServer1: TOptCryptoServer;
     PageControl1: TPageControl;
+    PageControl2: TPageControl;
     Panel1: TPanel;
     RadioGroup1: TRadioGroup;
     RxIniPropStorage1: TRxIniPropStorage;
@@ -65,6 +66,8 @@ type
     Splitter2: TSplitter;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
     TreeView1: TTreeView;
     procedure btnLoginClick(Sender: TObject);
     procedure CRPTTrueAPI1HttpStatus(Sender: TCustomCRPTApi);
@@ -133,6 +136,11 @@ procedure TCRPTTrueAPITestMainForm.CRPTTrueAPI1HttpStatus(Sender: TCustomCRPTApi
   );
 begin
   RxWriteLog(etInfo, '%d: %s', [Sender.ResultCode, Sender.ResultString]);
+  if (Sender.ResultCode<>200) and (Sender.ErrorText.Count>0) then
+  begin
+    Memo2.Lines.Assign(Sender.ErrorText);
+    RxWriteLog(etError, 'Error: %s', [Sender.ErrorText.Text]);
+  end;
 end;
 
 procedure TCRPTTrueAPITestMainForm.CRPTTrueAPI1SignData(Sender: TCustomCRPTApi;

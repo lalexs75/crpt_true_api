@@ -47,7 +47,6 @@ type
     btnLogin: TButton;
     ComboBox1: TComboBox;
     CRPTSuzAPI1: TCRPTSuzAPI;
-    DividerBevel1: TDividerBevel;
     edtOMSID: TEdit;
     edtOMSConnection: TEdit;
     edtCryptoProSrv: TEdit;
@@ -58,15 +57,20 @@ type
     Label6: TLabel;
     Label7: TLabel;
     Memo1: TMemo;
+    Memo2: TMemo;
     OptCryptoServer1: TOptCryptoServer;
     PageControl1: TPageControl;
+    PageControl2: TPageControl;
     Panel1: TPanel;
     ConfigPanel: TPanel;
     RadioGroup1: TRadioGroup;
     RxIniPropStorage1: TRxIniPropStorage;
     Splitter1: TSplitter;
+    Splitter2: TSplitter;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
     TreeView1: TTreeView;
     procedure btnLoginClick(Sender: TObject);
     procedure CRPTSuzAPI1HttpStatus(Sender: TCustomCRPTApi);
@@ -91,10 +95,9 @@ var
 
 procedure RxLogWriter(ALogType: TEventType; const ALogMessage: string);
 implementation
-uses rxlogging, IniFiles, rxAppUtils,
-  frmSUZCmdAbstractUnit,
-  frmSUZCmdServiceUnit,
-  frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit;
+uses rxlogging, IniFiles, rxAppUtils, frmSUZCmdAbstractUnit,
+  frmSUZCmdServiceUnit, frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit,
+  frmSUZCmdOrderStatusUnit;
 
 {$R *.lfm}
 
@@ -132,6 +135,11 @@ end;
 procedure TCRPTSuzTestForm.CRPTSuzAPI1HttpStatus(Sender: TCustomCRPTApi);
 begin
   RxWriteLog(etDebug, '%d: %s', [Sender.ResultCode, Sender.ResultString]);
+  if (Sender.ResultCode<>200) and (Sender.ErrorText.Count>0) then
+  begin
+    Memo2.Lines.Assign(Sender.ErrorText);
+    RxWriteLog(etError, 'Error: %s', [Sender.ErrorText.Text]);
+  end;
 end;
 
 procedure TCRPTSuzTestForm.CRPTSuzAPI1SignData(Sender: TCustomCRPTApi;
@@ -241,7 +249,8 @@ begin
   Ini:=TIniFile.Create(GetDefaultIniName);
   AddCRPTOperFrame('Общее', TfrmSUZCmdServiceFrame.Create(Self));
   AddCRPTOperFrame('Общее', TfrmSUZCmdServiceProvidersListFrame.Create(Self));
-  AddCRPTOperFrame('Маркировка', TfrmSUZCmdOrderFrame.Create(Self));
+  AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderFrame.Create(Self));
+  AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderStatusFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then

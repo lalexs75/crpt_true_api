@@ -36,14 +36,20 @@ unit frmTrueAPICmdBalanceUnit;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, IniFiles,
-    frmTrueAPICmdAbstractUnit;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
+  fpjson, frmTrueAPICmdAbstractUnit;
 
 type
 
   { TfrmTrueAPICmdBalanceFrame }
 
   TfrmTrueAPICmdBalanceFrame = class(TfrmTrueAPICmdAbstractFrame)
+    Button1: TButton;
+    edtProdGroupID: TEdit;
+    Memo1: TMemo;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    procedure Button1Click(Sender: TObject);
   private
 
   public
@@ -53,10 +59,28 @@ type
   end;
 
 implementation
+uses rxlogging;
 
 {$R *.lfm}
 
 { TfrmTrueAPICmdBalanceFrame }
+
+procedure TfrmTrueAPICmdBalanceFrame.Button1Click(Sender: TObject);
+var
+  R: TJSONData;
+begin
+  Memo1.Lines.Clear;
+  if RadioButton1.Checked then
+    R:=FCRPTTrueAPI.BalanceAll
+  else
+    R:=FCRPTTrueAPI.Balance(StrToInt(edtProdGroupID.Text));
+  if Assigned(R) then
+  begin
+    Memo1.Lines.Text:=R.FormatJSON;
+    RxWriteLog(etInfo, R.FormatJSON);
+    R.Free;
+  end;
+end;
 
 function TfrmTrueAPICmdBalanceFrame.FrameName: string;
 begin
@@ -66,11 +90,13 @@ end;
 procedure TfrmTrueAPICmdBalanceFrame.LoadParams(AIni: TIniFile);
 begin
   inherited LoadParams(AIni);
+  edtProdGroupID.Text:=AIni.ReadString(ClassName, 'edtProdGroupID_Text', '0');
 end;
 
 procedure TfrmTrueAPICmdBalanceFrame.SaveParams(AIni: TIniFile);
 begin
   inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtProdGroupID_Text', edtProdGroupID.Text);
 end;
 
 end.
