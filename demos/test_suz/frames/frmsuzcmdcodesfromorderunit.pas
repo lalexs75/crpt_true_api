@@ -27,7 +27,8 @@
   along with this library; if not, write to the Free Software Foundation,
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
-unit frmSUZCmdOrderStatusUnit;
+
+unit frmSUZCmdCodesFromOrderUnit;
 
 {$mode ObjFPC}{$H+}
 
@@ -39,12 +40,16 @@ uses
 
 type
 
-  { TfrmSUZCmdOrderStatusFrame }
+  { TfrmSUZCmdCodesFromOrderFrame }
 
-  TfrmSUZCmdOrderStatusFrame = class(TfrmSUZCmdAbstractFrame)
+  TfrmSUZCmdCodesFromOrderFrame = class(TfrmSUZCmdAbstractFrame)
     Button1: TButton;
+    edtQuantity: TEdit;
     edtOrderID: TEdit;
+    edtGTIN: TEdit;
     Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
   private
@@ -60,13 +65,13 @@ uses rxlogging;
 
 {$R *.lfm}
 
-{ TfrmSUZCmdOrderStatusFrame }
+{ TfrmSUZCmdCodesFromOrderFrame }
 
-procedure TfrmSUZCmdOrderStatusFrame.Button1Click(Sender: TObject);
+procedure TfrmSUZCmdCodesFromOrderFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.OrderStatus(edtOrderID.Text, '');
+  P1:=FCRPTSuzAPI.OrderCodes(edtOrderID.Text, edtGTIN.Text, StrToInt(edtQuantity.Text));
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;
@@ -75,21 +80,25 @@ begin
   end;
 end;
 
-function TfrmSUZCmdOrderStatusFrame.FrameName: string;
+function TfrmSUZCmdCodesFromOrderFrame.FrameName: string;
 begin
-  Result:='Статус заказа'
+  Result:='Список КИЗ из заказа';
 end;
 
-procedure TfrmSUZCmdOrderStatusFrame.LoadParams(AIni: TIniFile);
+procedure TfrmSUZCmdCodesFromOrderFrame.LoadParams(AIni: TIniFile);
 begin
   inherited LoadParams(AIni);
   edtOrderID.Text:=AIni.ReadString(ClassName, 'edtOrderID_Text', '');
+  edtGTIN.Text:=AIni.ReadString(ClassName, 'edtGTIN_Text', '');
+  edtQuantity.Text:=AIni.ReadString(ClassName, 'edtQuantity_Text', '1');
 end;
 
-procedure TfrmSUZCmdOrderStatusFrame.SaveParams(AIni: TIniFile);
+procedure TfrmSUZCmdCodesFromOrderFrame.SaveParams(AIni: TIniFile);
 begin
   inherited SaveParams(AIni);
   AIni.WriteString(ClassName, 'edtOrderID_Text', edtOrderID.Text);
+  AIni.WriteString(ClassName, 'edtGTIN_Text', edtGTIN.Text);
+  AIni.WriteString(ClassName, 'edtQuantity_Text', edtQuantity.Text);
 end;
 
 end.

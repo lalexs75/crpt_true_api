@@ -25,9 +25,6 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="alexs_trade_abstract"/>
-      </Item>
-      <Item>
         <PackageName Value="crpt_true_api"/>
       </Item>
       <Item>
@@ -96,6 +93,22 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderStatusUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdorderlistunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdOrderListFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdOrderListUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdcodesfromorderunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdCodesFromOrderFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdCodesFromOrderUnit"/>
       </Unit>
     </Units>
   </ProjectOptions>

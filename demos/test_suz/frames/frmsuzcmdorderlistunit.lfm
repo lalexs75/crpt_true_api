@@ -1,0 +1,31 @@
+inherited frmSUZCmdOrderListFrame: TfrmSUZCmdOrderListFrame
+  object Button1: TButton[0]
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideTop.Control = Owner
+    Left = 106
+    Height = 29
+    Top = 6
+    Width = 109
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Список заказов'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Memo1: TMemo[1]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 199
+    Top = 41
+    Width = 320
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 1
+  end
+end

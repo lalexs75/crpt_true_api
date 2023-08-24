@@ -141,6 +141,8 @@ type
     function Ping(AProductGroup:TCRPTProductGroup):TJSONObject;
     function Order(AProductGroup:TCRPTProductGroup; AOrder:string {TJSONObject}):TJSONObject;
     function OrderStatus(AOrderID, AGTIN: string): TJSONData;
+    function OrdersList: TJSONData;
+    function OrderCodes(AOrderID, AGTIN: string; AQuantity: Integer): TJSONData;
     function Providers:TJSONObject;
   public
     property AuthorizationToken;
@@ -411,6 +413,47 @@ begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
     Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_order_status');
+end;
+
+function TCRPTSuzAPI.OrdersList: TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  if SendCommand(hmGET, 'api/v3/order/list', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_order_status');
+end;
+
+function TCRPTSuzAPI.OrderCodes(AOrderID, AGTIN: string; AQuantity:Integer): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  AddURLParam(S, 'orderId', AOrderID);
+  AddURLParam(S, 'gtin', AGTIN);
+  AddURLParam(S, 'quantity', AQuantity);
+  if SendCommand(hmGET, 'api/v3/codes', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
     P.Free;
   end;
   SaveHttpData('oms_api_v3_providers');

@@ -36,8 +36,8 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, ExtCtrls, DividerBevel, ocrsConnectionUnit, CRPTTrueAPI,
-  PlasticCardFictive, RxIniPropStorage, CRPTTrueAPI_Consts;
+  ComCtrls, ExtCtrls, ocrsConnectionUnit, CRPTTrueAPI,
+  RxIniPropStorage, CRPTTrueAPI_Consts;
 
 type
 
@@ -97,7 +97,7 @@ procedure RxLogWriter(ALogType: TEventType; const ALogMessage: string);
 implementation
 uses rxlogging, IniFiles, rxAppUtils, frmSUZCmdAbstractUnit,
   frmSUZCmdServiceUnit, frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit,
-  frmSUZCmdOrderStatusUnit;
+  frmSUZCmdOrderStatusUnit, frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit;
 
 {$R *.lfm}
 
@@ -175,8 +175,8 @@ begin
   DoFillProductGroup;
   CreatePages;
 
-//  PageControl1.ActivePageIndex:=0;
-//  TabSheet2.TabVisible:=false;
+  PageControl1.ActivePageIndex:=0;
+  TabSheet2.TabVisible:=false;
 end;
 
 procedure TCRPTSuzTestForm.TreeView1Click(Sender: TObject);
@@ -252,7 +252,9 @@ begin
   AddCRPTOperFrame('Общее', TfrmSUZCmdServiceFrame.Create(Self));
   AddCRPTOperFrame('Общее', TfrmSUZCmdServiceProvidersListFrame.Create(Self));
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderFrame.Create(Self));
+  AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderListFrame.Create(Self));
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderStatusFrame.Create(Self));
+  AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdCodesFromOrderFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then

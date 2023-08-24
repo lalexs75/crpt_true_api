@@ -27,7 +27,8 @@
   along with this library; if not, write to the Free Software Foundation,
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
-unit frmSUZCmdOrderStatusUnit;
+
+unit frmSUZCmdOrderListUnit;
 
 {$mode ObjFPC}{$H+}
 
@@ -39,12 +40,10 @@ uses
 
 type
 
-  { TfrmSUZCmdOrderStatusFrame }
+  { TfrmSUZCmdOrderListFrame }
 
-  TfrmSUZCmdOrderStatusFrame = class(TfrmSUZCmdAbstractFrame)
+  TfrmSUZCmdOrderListFrame = class(TfrmSUZCmdAbstractFrame)
     Button1: TButton;
-    edtOrderID: TEdit;
-    Label1: TLabel;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
   private
@@ -60,13 +59,13 @@ uses rxlogging;
 
 {$R *.lfm}
 
-{ TfrmSUZCmdOrderStatusFrame }
+{ TfrmSUZCmdOrderListFrame }
 
-procedure TfrmSUZCmdOrderStatusFrame.Button1Click(Sender: TObject);
+procedure TfrmSUZCmdOrderListFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.OrderStatus(edtOrderID.Text, '');
+  P1:=FCRPTSuzAPI.OrdersList;
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;
@@ -75,21 +74,19 @@ begin
   end;
 end;
 
-function TfrmSUZCmdOrderStatusFrame.FrameName: string;
+function TfrmSUZCmdOrderListFrame.FrameName: string;
 begin
-  Result:='Статус заказа'
+  Result:='Список заказов';
 end;
 
-procedure TfrmSUZCmdOrderStatusFrame.LoadParams(AIni: TIniFile);
+procedure TfrmSUZCmdOrderListFrame.LoadParams(AIni: TIniFile);
 begin
   inherited LoadParams(AIni);
-  edtOrderID.Text:=AIni.ReadString(ClassName, 'edtOrderID_Text', '');
 end;
 
-procedure TfrmSUZCmdOrderStatusFrame.SaveParams(AIni: TIniFile);
+procedure TfrmSUZCmdOrderListFrame.SaveParams(AIni: TIniFile);
 begin
   inherited SaveParams(AIni);
-  AIni.WriteString(ClassName, 'edtOrderID_Text', edtOrderID.Text);
 end;
 
 end.

@@ -46,7 +46,8 @@ uses
   rxlogging,
 
 CRPTSuzTestMainUnit, frmSUZCmdAbstractUnit, frmSUZCmdServiceUnit,
-frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit, frmSUZCmdOrderStatusUnit;
+frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit, frmSUZCmdOrderStatusUnit,
+frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit;
 
 {$R *.res}
 
