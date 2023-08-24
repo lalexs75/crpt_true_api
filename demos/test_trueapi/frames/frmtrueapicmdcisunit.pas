@@ -47,17 +47,19 @@ end;
 
 function TfrmTrueAPICmdCISFrame.FrameName: string;
 begin
-
+  Result:='КИЗ';
 end;
 
 procedure TfrmTrueAPICmdCISFrame.LoadParams(AIni: TIniFile);
 begin
   inherited LoadParams(AIni);
+  edtCIS.Text:=AIni.ReadString(ClassName, 'edtCIS_Text', '');
 end;
 
 procedure TfrmTrueAPICmdCISFrame.SaveParams(AIni: TIniFile);
 begin
   inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtCIS_Text', edtCIS.Text);
 end;
 
 end.

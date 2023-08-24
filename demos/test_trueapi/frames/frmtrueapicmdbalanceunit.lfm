@@ -1,0 +1,3 @@
+inherited frmTrueAPICmdBalanceFrame: TfrmTrueAPICmdBalanceFrame
+  TabOrder = 0
+end

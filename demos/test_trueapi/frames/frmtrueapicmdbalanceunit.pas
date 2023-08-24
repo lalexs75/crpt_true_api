@@ -28,33 +28,50 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-program test_trueapi;
 
-{$mode objfpc}{$H+}
+unit frmTrueAPICmdBalanceUnit;
+
+{$mode ObjFPC}{$H+}
+
+interface
 
 uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  {$IFDEF HASAMIGA}
-  athreads,
-  {$ENDIF}
-  Interfaces, // this includes the LCL widgetset
-  Forms,
-  opensslsockets,
-  rxlogging, lazcontrols,
-  trueapi_mainunit, frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit, 
-frmTrueAPICmdBalanceUnit
-  { you can add units after this };
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, IniFiles,
+    frmTrueAPICmdAbstractUnit;
 
-{$R *.res}
+type
 
+  { TfrmTrueAPICmdBalanceFrame }
+
+  TfrmTrueAPICmdBalanceFrame = class(TfrmTrueAPICmdAbstractFrame)
+  private
+
+  public
+    function FrameName:string; override;
+    procedure LoadParams(AIni:TIniFile); override;
+    procedure SaveParams(AIni:TIniFile); override;
+  end;
+
+implementation
+
+{$R *.lfm}
+
+{ TfrmTrueAPICmdBalanceFrame }
+
+function TfrmTrueAPICmdBalanceFrame.FrameName: string;
 begin
-  OnRxLoggerEvent:=@RxLogWriter;
-  RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
-  Application.Initialize;
-  Application.CreateForm(TCRPTTrueAPITestMainForm, CRPTTrueAPITestMainForm);
-  Application.Run;
+  Result:='Баланс';
+end;
+
+procedure TfrmTrueAPICmdBalanceFrame.LoadParams(AIni: TIniFile);
+begin
+  inherited LoadParams(AIni);
+end;
+
+procedure TfrmTrueAPICmdBalanceFrame.SaveParams(AIni: TIniFile);
+begin
+  inherited SaveParams(AIni);
+end;
+
 end.
 

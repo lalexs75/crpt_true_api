@@ -74,6 +74,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmTrueAPICmdCISUnit"/>
       </Unit>
+      <Unit>
+        <Filename Value="frames/frmtrueapicmdbalanceunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTrueAPICmdBalanceFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmTrueAPICmdBalanceUnit"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

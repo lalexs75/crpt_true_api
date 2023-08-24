@@ -92,7 +92,7 @@ procedure RxLogWriter( ALogType:TEventType; const ALogMessage:string);
 implementation
 uses
   rxlogging, IniFiles, rxAppUtils,
-  frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit,
+  frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit,
 
   fpopenssl,
   opensslsockets
@@ -246,6 +246,7 @@ var
 begin
   Ini:=TIniFile.Create(GetDefaultIniName);
   AddCRPTOperFrame('КИЗ', TfrmTrueAPICmdCISFrame.Create(Self));
+  AddCRPTOperFrame('Финансовое', TfrmTrueAPICmdBalanceFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then
