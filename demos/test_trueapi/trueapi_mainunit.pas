@@ -1,3 +1,33 @@
+{ CRPT TrueAPI interface library demo for FPC and Lazarus
+
+  Copyright (C) 2023 Lagunov Aleksey alexs75@yandex.ru
+
+  This library is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Library General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or (at your
+  option) any later version with the following modification:
+
+  As a special exception, the copyright holders of this library give you
+  permission to link this library with independent modules to produce an
+  executable, regardless of the license terms of these independent modules,and
+  to copy and distribute the resulting executable under terms of your choice,
+  provided that you also meet, for each linked independent module, the terms
+  and conditions of the license of that module. An independent module is a
+  module which is not derived from or based on this library. If you modify
+  this library, you may extend this exception to your version of the library,
+  but you are not obligated to do so. If you do not wish to do so, delete this
+  exception statement from your version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
+  for more details.
+
+  You should have received a copy of the GNU Library General Public License
+  along with this library; if not, write to the Free Software Foundation,
+  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+}
+
 unit TrueAPI_MainUnit;
 
 {$mode objfpc}{$H+}
@@ -7,7 +37,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   ComCtrls, CRPTTrueAPI, ocrsConnectionUnit, DividerBevel, crpt_cmp,
-  RxIniPropStorage, sslsockets, ssockets, fpjson
+  RxIniPropStorage, sslsockets, ssockets, fpjson, CRPTTrueAPI_Consts
   ;
 
 type
@@ -16,31 +46,41 @@ type
 
   TCRPTTrueAPITestMainForm = class(TForm)
     btnLogin: TButton;
-    Button2: TButton;
-    Button3: TButton;
+    ComboBox1: TComboBox;
+    ConfigPanel: TPanel;
     CRPTTrueAPI1: TCRPTTrueAPI;
     DividerBevel1: TDividerBevel;
-    edtCIS: TEdit;
     edtUserKey: TEdit;
     edtCryptoProSrv: TEdit;
     Label1: TLabel;
     Label2: TLabel;
-    Label3: TLabel;
+    Label6: TLabel;
     Memo1: TMemo;
     OptCryptoServer1: TOptCryptoServer;
     PageControl1: TPageControl;
+    Panel1: TPanel;
     RadioGroup1: TRadioGroup;
     RxIniPropStorage1: TRxIniPropStorage;
+    Splitter1: TSplitter;
+    Splitter2: TSplitter;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
+    TreeView1: TTreeView;
     procedure btnLoginClick(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure CRPTTrueAPI1HttpStatus(Sender: TCRPTTrueAPI);
-    procedure CRPTTrueAPI1SignData(Sender: TCRPTTrueAPI; AData: string; out
-      ASign: string);
+    procedure CRPTTrueAPI1HttpStatus(Sender: TCustomCRPTApi);
+    procedure CRPTTrueAPI1SignData(Sender: TCustomCRPTApi; AData: string;
+      ADetached: Boolean; out ASign: string);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure OptCryptoServer1HttpStatus(Sender: TOptCryptoServer);
+    procedure TreeView1Click(Sender: TObject);
   private
+    OldFrame:TFrame;
+    procedure DoFillProductGroup;
+    function SelectedGroup:TCRPTProductGroup;
+    function AddCRPTOperFrame(AGroup:string; AFrame:TFrame):TFrame;
+    procedure CreatePages;
+    procedure SavePages;
   public
 
   end;
@@ -51,8 +91,9 @@ var
 procedure RxLogWriter( ALogType:TEventType; const ALogMessage:string);
 implementation
 uses
-  rxlogging,
-  fphttpclient,
+  rxlogging, IniFiles, rxAppUtils,
+  frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit,
+
   fpopenssl,
   opensslsockets
 ;
@@ -88,31 +129,18 @@ begin
   end;
 end;
 
-procedure TCRPTTrueAPITestMainForm.Button3Click(Sender: TObject);
-var
-  R: TJSONObject;
+procedure TCRPTTrueAPITestMainForm.CRPTTrueAPI1HttpStatus(Sender: TCustomCRPTApi
+  );
 begin
-  R:=CRPTTrueAPI1.ProductsInfo(edtCIS.Text);
-  if Assigned(R) then
-  begin
-    RxWriteLog(etInfo, R.FormatJSON);
-    R.Free;
-  end;
+  RxWriteLog(etInfo, '%d: %s', [Sender.ResultCode, Sender.ResultString]);
 end;
 
-procedure TCRPTTrueAPITestMainForm.CRPTTrueAPI1HttpStatus(Sender: TCRPTTrueAPI);
-begin
-  Memo1.Lines.Add('%d: %s', [Sender.ResultCode, Sender.ResultString]);
-end;
-
-procedure TCRPTTrueAPITestMainForm.CRPTTrueAPI1SignData(Sender: TCRPTTrueAPI; AData: string; out
-  ASign: string);
+procedure TCRPTTrueAPITestMainForm.CRPTTrueAPI1SignData(Sender: TCustomCRPTApi;
+  AData: string; ADetached: Boolean; out ASign: string);
 var
-  ADetached: Boolean;
   M: TStream;
 begin
   OptCryptoServer1.Server:=edtCryptoProSrv.Text;
-  ADetached:=false;
   ASign:='';
   M:=OptCryptoServer1.SignDoc(edtUserKey.Text, AData, ADetached);
   if Assigned(M) then
@@ -127,16 +155,114 @@ begin
   end;
 end;
 
+procedure TCRPTTrueAPITestMainForm.FormClose(Sender: TObject;
+  var CloseAction: TCloseAction);
+begin
+  SavePages;
+end;
+
 procedure TCRPTTrueAPITestMainForm.FormCreate(Sender: TObject);
 begin
+  DoFillProductGroup;
+  CreatePages;
+
   PageControl1.ActivePageIndex:=0;
   TabSheet2.TabVisible:=false;
-  Memo1.Lines.Clear;
 end;
 
 procedure TCRPTTrueAPITestMainForm.OptCryptoServer1HttpStatus(Sender: TOptCryptoServer);
 begin
   RxWriteLog(etDebug, 'OptCryptoServer.ResultCode=%d', [Sender.ResultCode]);//
+end;
+
+procedure TCRPTTrueAPITestMainForm.TreeView1Click(Sender: TObject);
+procedure DoSelectFrame(Cfg: TfrmTrueAPICmdAbstractFrame);
+begin
+  if Assigned(OldFrame) then
+    OldFrame.Visible:=false;
+  OldFrame:=Cfg;
+  OldFrame.BringToFront;
+  OldFrame.Visible:=true;
+end;
+
+begin
+  if Assigned(TreeView1.Selected) then
+  begin
+    if Assigned(TreeView1.Selected.Data) then
+      DoSelectFrame(TfrmTrueAPICmdAbstractFrame(TreeView1.Selected.Data))
+    else
+    begin
+      if (TreeView1.Selected.Count>0) and Assigned(TreeView1.Selected.GetFirstChild.Data) then
+        DoSelectFrame(TfrmTrueAPICmdAbstractFrame(TreeView1.Selected.GetFirstChild.Data))
+    end;
+  end;
+end;
+
+procedure TCRPTTrueAPITestMainForm.DoFillProductGroup;
+var
+  P: TCRPTProductGroup;
+begin
+  ComboBox1.Items.BeginUpdate;
+  ComboBox1.Items.Clear;
+  for P in TCRPTProductGroup do
+    ComboBox1.Items.Add(CRPTProductGroupStr[P] + ' : ' + CRPTProductGroupNames[P]);
+  ComboBox1.Items.EndUpdate;
+  ComboBox1.ItemIndex:=Ord(tires);
+end;
+
+function TCRPTTrueAPITestMainForm.SelectedGroup: TCRPTProductGroup;
+begin
+  Result:=TCRPTProductGroup(ComboBox1.ItemIndex);
+end;
+
+function TCRPTTrueAPITestMainForm.AddCRPTOperFrame(AGroup: string;
+  AFrame: TFrame): TFrame;
+procedure DoAddFrame(Cfg:TfrmTrueAPICmdAbstractFrame; RootNode:TTreeNode);
+var
+  Node:TTreeNode;
+begin
+  if not Assigned(Cfg) then exit;
+  Node:=TreeView1.Items.AddChild(RootNode, Cfg.FrameName);
+  Node.Data:=Cfg;
+  Cfg.FCRPTTrueAPI:=CRPTTrueAPI1;
+  Cfg.Parent:=ConfigPanel;
+  Cfg.Align:=alClient;
+end;
+
+var
+  RN: TTreeNode;
+begin
+  Result:=AFrame;
+  RN:=TreeView1.Items.FindNodeWithText(AGroup);
+  if not Assigned(RN) then
+    RN:=TreeView1.Items.AddChild(nil, AGroup);
+  DoAddFrame(AFrame as TfrmTrueAPICmdAbstractFrame, RN)
+end;
+
+procedure TCRPTTrueAPITestMainForm.CreatePages;
+var
+  Ini: TIniFile;
+  P: TTreeNode;
+begin
+  Ini:=TIniFile.Create(GetDefaultIniName);
+  AddCRPTOperFrame('КИЗ', TfrmTrueAPICmdCISFrame.Create(Self));
+
+  for P in TreeView1.Items do
+    if Assigned(P.Data) then
+      TfrmTrueAPICmdAbstractFrame(P.Data).LoadParams(Ini);
+  Ini.Free;
+end;
+
+procedure TCRPTTrueAPITestMainForm.SavePages;
+var
+  Ini: TIniFile;
+  P: TTreeNode;
+begin
+  Ini:=TIniFile.Create(GetDefaultIniName);
+  for P in TreeView1.Items do
+    if Assigned(P.Data) then
+      TfrmTrueAPICmdAbstractFrame(P.Data).SaveParams(Ini);
+  Ini.Free;
 end;
 
 

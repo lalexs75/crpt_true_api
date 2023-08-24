@@ -57,6 +57,22 @@
         <ComponentName Value="CRPTTrueAPITestMainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="TrueAPI_MainUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmtrueapicmdabstractunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTrueAPICmdAbstractFrame"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmTrueAPICmdAbstractUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmtrueapicmdcisunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTrueAPICmdCISFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmTrueAPICmdCISUnit"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -67,6 +83,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="frames"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
