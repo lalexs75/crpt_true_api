@@ -35,7 +35,7 @@ unit frmSUZCmdOrderUnit;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
   frmSUZCmdAbstractUnit, IniFiles;
 
 type
@@ -52,6 +52,10 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label8: TLabel;
+    Memo1: TMemo;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
     procedure Button1Click(Sender: TObject);
   private
 
@@ -72,6 +76,7 @@ var
   P, PA, P1: TJSONObject;
   S: String;
   PAA: TJSONArray;
+  S11: TJSONStringType;
 begin
   P:=TJSONObject.Create;
   P.Add('productGroup', 'tires');
@@ -98,8 +103,13 @@ begin
   PA.Add('createMethodType','CM');
   PA.Add('productionOrderId','08528091-808a-41ba-a55d-d6230c64b332');
 
-  RxWriteLog(etInfo, P.FormatJSON);
-  P1:=FCRPTSuzAPI.Order(tires, P);
+  if PageControl1.ActivePageIndex = 0 then
+    S11:=P.FormatJSON
+  else
+    S11:=Memo1.Lines.Text;
+
+  RxWriteLog(etInfo, S11 {P.FormatJSON});
+  P1:=FCRPTSuzAPI.Order(tires, S11 {P});
   if Assigned(P1) then
   begin
     RxWriteLog(etInfo, P1.FormatJSON);

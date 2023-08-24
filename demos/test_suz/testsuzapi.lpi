@@ -81,6 +81,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderUnit"/>
       </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdServiceProvidersListFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdServiceProvidersListUnit"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

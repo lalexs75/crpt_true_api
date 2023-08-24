@@ -10,7 +10,7 @@
         <UnitName Value="TestSUZApi"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="32"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="29"/>
       </Unit>
       <Unit>
         <Filename Value="crptsuztestmainunit.pas"/>
@@ -19,9 +19,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="CRPTSuzTestMainUnit"/>
-        <TopLine Value="125"/>
-        <CursorPos X="3" Y="143"/>
-        <UsageCount Value="25"/>
+        <TopLine Value="226"/>
+        <CursorPos X="47" Y="242"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -35,7 +35,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="33"/>
         <CursorPos Y="53"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="25"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
@@ -47,7 +47,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="47"/>
         <CursorPos Y="67"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="25"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdorderunit.pas"/>
@@ -56,21 +56,20 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderUnit"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="77"/>
-        <CursorPos X="25" Y="90"/>
-        <UsageCount Value="21"/>
+        <TopLine Value="91"/>
+        <CursorPos Y="119"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../crpttrueapi.pas"/>
         <UnitName Value="CRPTTrueAPI"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="524"/>
-        <CursorPos X="19" Y="540"/>
-        <UsageCount Value="12"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="339"/>
+        <CursorPos X="87" Y="358"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -90,9 +89,9 @@
       <Unit>
         <Filename Value="../../crpttrueapi_consts.pas"/>
         <UnitName Value="CRPTTrueAPI_Consts"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="24" Y="33"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -118,127 +117,142 @@
         <CursorPos Y="1648"/>
         <UsageCount Value="10"/>
       </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdServiceProvidersListFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdServiceProvidersListUnit"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="47"/>
+        <CursorPos Y="57"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="460" Column="3" TopLine="443"/>
+        <Caret Line="139" Column="14" TopLine="122"/>
       </Position>
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="58" Column="87" TopLine="31"/>
+        <Caret Line="334" Column="93" TopLine="315"/>
       </Position>
       <Position>
-        <Filename Value="crptsuztestmainunit.pas"/>
-        <Caret Line="74" TopLine="72"/>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="80" Column="14" TopLine="65"/>
       </Position>
       <Position>
-        <Filename Value="crptsuztestmainunit.pas"/>
-        <Caret Line="153" TopLine="135"/>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="460" TopLine="444"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="461" TopLine="444"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="463" TopLine="444"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="466" TopLine="444"/>
       </Position>
       <Position>
         <Filename Value="frames/frmsuzcmdorderunit.pas"/>
-        <Caret Line="96" Column="19" TopLine="89"/>
+        <Caret Line="111" Column="24" TopLine="90"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="396" Column="17" TopLine="374"/>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="82" Column="15" TopLine="62"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="80" Column="24" TopLine="57"/>
+        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
+        <Caret Line="49" TopLine="21"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="458" Column="25" TopLine="435"/>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="241" Column="69" TopLine="231"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="85" Column="52" TopLine="64"/>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="81" Column="14" TopLine="66"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="543" Column="40" TopLine="540"/>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="228" Column="3" TopLine="210"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="77" Column="15" TopLine="71"/>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="211" Column="60" TopLine="195"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="382" TopLine="365"/>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="81" Column="37" TopLine="81"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="81" Column="14" TopLine="61"/>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="243" Column="44" TopLine="226"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="489" Column="3" TopLine="481"/>
+        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
+        <Caret Line="60" Column="60" TopLine="31"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="85" Column="14" TopLine="66"/>
+        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
+        <Caret Line="61" Column="60" TopLine="31"/>
       </Position>
       <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="548" Column="3" TopLine="540"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="80" Column="15" TopLine="70"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="455" TopLine="425"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="85" Column="14" TopLine="64"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="549" Column="38" TopLine="540"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="80" Column="15" TopLine="70"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="460" TopLine="437"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="85" Column="14" TopLine="64"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="545" TopLine="535"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="540" Column="29" TopLine="524"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="69" Column="5" TopLine="53"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="58" Column="19" TopLine="52"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="69" Column="34" TopLine="52"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="96" Column="41" TopLine="70"/>
+        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
+        <Caret Line="67" Column="60" TopLine="35"/>
       </Position>
       <Position>
         <Filename Value="frames/frmsuzcmdorderunit.pas"/>
-        <Caret Line="55" Column="15" TopLine="38"/>
+        <Caret Line="59" Column="27" TopLine="43"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="467" Column="24" TopLine="444"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="140" Column="24" TopLine="111"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="351" Column="3" TopLine="349"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="139" Column="14" TopLine="124"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="329" TopLine="317"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="140" Column="14" TopLine="123"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="364" Column="37" TopLine="334"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
+        <Caret Line="65" Column="3" TopLine="34"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
+        <Caret Line="69" Column="3" TopLine="38"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
+        <Caret Line="65" Column="28" TopLine="47"/>
       </Position>
     </JumpHistory>
     <RunParams>

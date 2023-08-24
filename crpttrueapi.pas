@@ -136,7 +136,9 @@ type
     procedure InternalMakeClientToken; override;
   public
     function Ping(AProductGroup:TCRPTProductGroup):TJSONObject;
-    function Order(AProductGroup:TCRPTProductGroup; AOrder:TJSONObject):TJSONObject;
+    function Order(AProductGroup:TCRPTProductGroup; AOrder:string {TJSONObject}):TJSONObject;
+    function Providers:TJSONObject;
+  public
     property AuthorizationToken;
   published
     property OmsConnection:string read FOmsConnection write SetOmsConnection;
@@ -312,7 +314,7 @@ begin
   SaveHttpData('oms_api_v3_ping');
 end;
 
-function TCRPTSuzAPI.Order(AProductGroup: TCRPTProductGroup; AOrder: TJSONObject
+function TCRPTSuzAPI.Order(AProductGroup: TCRPTProductGroup; AOrder: string {TJSONObject}
   ): TJSONObject;
 var
   FMS: TMemoryStream;
@@ -325,11 +327,13 @@ begin
   S:='';
   AddURLParam(S, 'omsId', FOmsID);
   FMS:=TMemoryStream.Create;
-  S1:=AOrder.FormatJSON;
-  FMS.Write(S[1], Length(S[1]));
+  S1:=AOrder{.FormatJSON};
+  FMS.Write(S1[1], Length(S1));
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/Order_json.json');
   FMS.Position:=0;
   try
-    if SendCommand(hmPOST, 'api/v3/order', S, FMS, [200, 400, 404], 'application/json') then
+    if SendCommand(hmPOST, 'api/v3/order', S, FMS, [200, 400, 404], 'application/json', true) then
     begin
       FDocument.Position:=0;
       P:=TJSONParser.Create(FDocument);
@@ -340,6 +344,25 @@ begin
   end;
   SaveHttpData('oms_api_v3_order');
   FMS.Free;
+end;
+
+function TCRPTSuzAPI.Providers: TJSONObject;
+var
+  P: TJSONParser;
+  S: String;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  if SendCommand(hmGET, 'api/v3/providers', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_providers');
 end;
 
 { TCustomCRPTApi }

@@ -45,7 +45,8 @@ uses
   lazcontrols,
   rxlogging,
 
-CRPTSuzTestMainUnit, frmSUZCmdAbstractUnit, frmSUZCmdServiceUnit, frmSUZCmdOrderUnit;
+CRPTSuzTestMainUnit, frmSUZCmdAbstractUnit, frmSUZCmdServiceUnit,
+frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit;
 
 {$R *.res}
 

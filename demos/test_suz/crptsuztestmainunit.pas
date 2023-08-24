@@ -78,7 +78,7 @@ type
     OldFrame:TFrame;
     procedure DoFillProductGroup;
     function SelectedGroup:TCRPTProductGroup;
-    function AddCRPTOperFrame(AGroup, AName:string; AFrame:TFrame):TFrame;
+    function AddCRPTOperFrame(AGroup:string; AFrame:TFrame):TFrame;
     procedure CreatePages;
     procedure SavePages;
   public
@@ -93,7 +93,7 @@ implementation
 uses rxlogging, IniFiles, rxAppUtils,
   frmSUZCmdAbstractUnit,
   frmSUZCmdServiceUnit,
-  frmSUZCmdOrderUnit;
+  frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit;
 
 {$R *.lfm}
 
@@ -208,7 +208,7 @@ begin
   Result:=TCRPTProductGroup(ComboBox1.ItemIndex);
 end;
 
-function TCRPTSuzTestForm.AddCRPTOperFrame(AGroup, AName: string; AFrame: TFrame
+function TCRPTSuzTestForm.AddCRPTOperFrame(AGroup: string; AFrame: TFrame
   ): TFrame;
 procedure DoAddFrame(Cfg:TfrmSUZCmdAbstractFrame; RootNode:TTreeNode);
 var
@@ -238,8 +238,9 @@ var
   P: TTreeNode;
 begin
   Ini:=TIniFile.Create(GetDefaultIniName);
-  AddCRPTOperFrame('Общее', 'Сервисные', TfrmSUZCmdServiceFrame.Create(Self));
-  AddCRPTOperFrame('Маркировка', 'Заказ', TfrmSUZCmdOrderFrame.Create(Self));
+  AddCRPTOperFrame('Общее', TfrmSUZCmdServiceFrame.Create(Self));
+  AddCRPTOperFrame('Общее', TfrmSUZCmdServiceProvidersListFrame.Create(Self));
+  AddCRPTOperFrame('Маркировка', TfrmSUZCmdOrderFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then
