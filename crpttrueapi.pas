@@ -546,6 +546,9 @@ begin
 end;
 
 function TCRPTSuzAPI.OrderProduct(AOrderID: string): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
 begin
   Result:=nil;
   DoLogin;
