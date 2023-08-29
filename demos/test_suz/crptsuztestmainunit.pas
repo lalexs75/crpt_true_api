@@ -99,7 +99,8 @@ uses rxlogging, IniFiles, rxAppUtils, frmSUZCmdAbstractUnit,
   frmSUZCmdServiceUnit, frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit,
   frmSUZCmdOrderStatusUnit, frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit,
   frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit,
-  frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit, frmSUZCmdReceiptSearchUnit;
+  frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit, frmSUZCmdReceiptSearchUnit,
+  frmSUZCmdReceiptGetDocUnit;
 
 {$R *.lfm}
 
@@ -260,8 +261,9 @@ begin
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdCodesBlocksFrame.Create(Self));
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdCodesBlocksRetryFrame.Create(Self));
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderCloseFrame.Create(Self));
-  AddCRPTOperFrame('Документы', TfrmSUZCmdReceiptDocFrame.Create(Self));
-  AddCRPTOperFrame('Документы', TfrmSUZCmdReceiptSearchFrame.Create(Self));
+  AddCRPTOperFrame('Квитанции', TfrmSUZCmdReceiptDocFrame.Create(Self));
+  AddCRPTOperFrame('Квитанции', TfrmSUZCmdReceiptSearchFrame.Create(Self));
+  AddCRPTOperFrame('Квитанции', TfrmSUZCmdReceiptGetDocFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then

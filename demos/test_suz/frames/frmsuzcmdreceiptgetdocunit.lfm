@@ -1,4 +1,4 @@
-inherited frmSUZCmdReceiptDocFrame: TfrmSUZCmdReceiptDocFrame
+inherited frmSUZCmdReceiptGetDocFrame: TfrmSUZCmdReceiptGetDocFrame
   object Label2: TLabel[0]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
@@ -40,17 +40,41 @@ inherited frmSUZCmdReceiptDocFrame: TfrmSUZCmdReceiptDocFrame
   end
   object Memo1: TMemo[3]
     AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Button1
+    AnchorSideTop.Control = edtDocId
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Left = 0
-    Height = 176
-    Top = 64
+    Height = 118
+    Top = 122
     Width = 320
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabOrder = 2
+  end
+  object Label3: TLabel[4]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = edtResultDocId
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 17
+    Top = 64
+    Width = 35
+    BorderSpacing.Around = 6
+    Caption = 'DocId'
+  end
+  object edtDocId: TEdit[5]
+    AnchorSideLeft.Control = Label3
+    AnchorSideTop.Control = Label3
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Button1
+    Left = 12
+    Height = 29
+    Top = 87
+    Width = 154
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 3
   end
 end

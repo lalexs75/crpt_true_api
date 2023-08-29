@@ -28,38 +28,74 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
+unit frmSUZCmdReceiptGetDocUnit;
 
-program TestSUZApi;
+{$mode ObjFPC}{$H+}
 
-{$mode objfpc}{$H+}
+interface
 
 uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  {$IFDEF HASAMIGA}
-  athreads,
-  {$ENDIF}
-  Interfaces, // this includes the LCL widgetset
-  Forms,
-  lazcontrols,
-  rxlogging,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  frmSUZCmdAbstractUnit, IniFiles, fpjson;
 
-CRPTSuzTestMainUnit, frmSUZCmdAbstractUnit, frmSUZCmdServiceUnit,
-frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit, frmSUZCmdOrderStatusUnit,
-frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit,
-frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit,
-frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit, frmSUZCmdReceiptSearchUnit,
-frmSUZCmdReceiptGetDocUnit;
+type
 
-{$R *.res}
+  { TfrmSUZCmdReceiptGetDocFrame }
 
+  TfrmSUZCmdReceiptGetDocFrame = class(TfrmSUZCmdAbstractFrame)
+    Button1: TButton;
+    edtResultDocId: TEdit;
+    edtDocId: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+  private
+
+  public
+    function FrameName:string; override;
+    procedure LoadParams(AIni:TIniFile); override;
+    procedure SaveParams(AIni:TIniFile); override;
+  end;
+
+implementation
+uses rxlogging;
+
+{$R *.lfm}
+
+{ TfrmSUZCmdReceiptGetDocFrame }
+
+procedure TfrmSUZCmdReceiptGetDocFrame.Button1Click(Sender: TObject);
+var
+  P1: TJSONData;
 begin
-  OnRxLoggerEvent:=@RxLogWriter;
-  RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
-  Application.Initialize;
-  Application.CreateForm(TCRPTSuzTestForm, CRPTSuzTestForm);
-  Application.Run;
+  P1:=FCRPTSuzAPI.ReceiptDocument(edtResultDocId.Text, edtDocId.Text);
+  if Assigned(P1) then
+  begin
+    Memo1.Lines.Text:=P1.FormatJSON;
+    RxWriteLog(etInfo, P1.FormatJSON);
+    P1.Free;
+  end;
+end;
+
+function TfrmSUZCmdReceiptGetDocFrame.FrameName: string;
+begin
+  Result:='Документ из квитанци';
+end;
+
+procedure TfrmSUZCmdReceiptGetDocFrame.LoadParams(AIni: TIniFile);
+begin
+  inherited LoadParams(AIni);
+  edtResultDocId.Text:=AIni.ReadString(ClassName, 'edtResultDocId_Text', '');
+  edtDocId.Text:=AIni.ReadString(ClassName, 'edtDocId_Text', '');
+end;
+
+procedure TfrmSUZCmdReceiptGetDocFrame.SaveParams(AIni: TIniFile);
+begin
+  inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtResultDocId_Text', edtResultDocId.Text);
+  AIni.WriteString(ClassName, 'edtDocId_Text', edtDocId.Text);
+end;
+
 end.
 
