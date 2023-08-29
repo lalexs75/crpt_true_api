@@ -134,6 +134,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderCloseUnit"/>
       </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdreceiptdocunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdReceiptDocFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdReceiptDocUnit"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
