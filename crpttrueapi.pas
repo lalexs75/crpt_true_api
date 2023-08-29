@@ -152,6 +152,7 @@ type
     function ReceiptDocument(AResultDocId, ADocId:string): TJSONData;
     function DocumentsSearch(ADdocumentType:string; ALimit, ASkip: Integer): TJSONData;
     function Providers:TJSONObject;
+    function QualityInfo(AOrderId:string; ALimit, ASkip: Integer):TJSONObject;
   public
     property AuthorizationToken;
   published
@@ -668,6 +669,35 @@ begin
     P.Free;
   end;
   SaveHttpData('oms_api_v3_providers');
+end;
+
+function TCRPTSuzAPI.QualityInfo(AOrderId: string; ALimit, ASkip: Integer
+  ): TJSONObject;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+
+  if AOrderId<>'' then
+    AddURLParam(S, 'orderId', AOrderId);
+
+  if ALimit>0 then
+    AddURLParam(S, 'limit', ALimit);
+
+  if ASkip>0 then
+    AddURLParam(S, 'skip', ASkip);
+  if SendCommand(hmGET, 'api/v3/quality', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_quality');
 end;
 
 { TCustomCRPTApi }
