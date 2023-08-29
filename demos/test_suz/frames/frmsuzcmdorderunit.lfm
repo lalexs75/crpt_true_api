@@ -29,9 +29,9 @@ inherited frmSUZCmdOrderFrame: TfrmSUZCmdOrderFrame
     Height = 299
     Top = 0
     Width = 551
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     object TabSheet1: TTabSheet
       Caption = 'Сформировать заказ JSON'

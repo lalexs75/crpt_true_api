@@ -49,7 +49,7 @@ CRPTSuzTestMainUnit, frmSUZCmdAbstractUnit, frmSUZCmdServiceUnit,
 frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit, frmSUZCmdOrderStatusUnit,
 frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit, 
 frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit, 
-frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit;
+frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit, frmSUZCmdReceiptSearchUnit;
 
 {$R *.res}
 
