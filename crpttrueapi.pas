@@ -149,6 +149,7 @@ type
     function Receipt(AResultDocId: string): TJSONData;
     function ReceiptSearch(AFilterStr: TJSONData; ALimit, ASkip: Integer
       ): TJSONData;
+    function ReceiptDocument(AResultDocId, ADocId:string): TJSONData;
     function Providers:TJSONObject;
   public
     property AuthorizationToken;
@@ -600,6 +601,27 @@ begin
   end;
   FMS.Free;
   SaveHttpData('oms_api_v3_receipts_receipt_search');
+end;
+
+function TCRPTSuzAPI.ReceiptDocument(AResultDocId, ADocId: string): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  AddURLParam(S, 'resultDocId', AResultDocId);
+  AddURLParam(S, 'docId', ADocId);
+  if SendCommand(hmGET, 'api/v3/receipts/document', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_providers');
 end;
 
 function TCRPTSuzAPI.Providers: TJSONObject;
