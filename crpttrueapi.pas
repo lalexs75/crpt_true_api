@@ -575,8 +575,13 @@ begin
   AddURLParam(S, 'omsId', FOmsID);
   P1:=TJSONObject.Create;
   P1.Add('filter', AFilterStr);
-  P1.Add('limit', ALimit);
-  P1.Add('skip', ASkip);
+
+  if ALimit>0 then
+    P1.Add('limit', ALimit);
+
+  if ASkip>0 then
+    P1.Add('skip', ASkip);
+
   S1:=P1.FormatJSON;
 
   FMS:=TMemoryStream.Create;
