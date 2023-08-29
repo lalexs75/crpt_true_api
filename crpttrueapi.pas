@@ -146,6 +146,7 @@ type
     function OrderBlocks(AOrderID, AGTIN: string): TJSONData;
     function OrderCodesRetry(ABlockID: string): TJSONData;
     function OrderClose(AOrderID, AGTIN: string): TJSONData;
+    function Receipt(AResultDocId: string): TJSONData;
     function Providers:TJSONObject;
   public
     property AuthorizationToken;
@@ -535,6 +536,26 @@ begin
     P.Free;
   end;
   ST.Free;
+end;
+
+function TCRPTSuzAPI.Receipt(AResultDocId: string): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  AddURLParam(S, 'resultDocId', AResultDocId);
+  if SendCommand(hmGET, '/api/v3/receipts/receipt', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_receipts_receipt');
 end;
 
 function TCRPTSuzAPI.Providers: TJSONObject;
