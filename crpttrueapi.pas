@@ -147,6 +147,8 @@ type
     function OrderCodesRetry(ABlockID: string): TJSONData;
     function OrderClose(AOrderID, AGTIN: string): TJSONData;
     function Receipt(AResultDocId: string): TJSONData;
+    function ReceiptSearch(AFilterStr: TJSONData; ALimit, ASkip: Integer
+      ): TJSONData;
     function Providers:TJSONObject;
   public
     property AuthorizationToken;
@@ -548,7 +550,7 @@ begin
   S:='';
   AddURLParam(S, 'omsId', FOmsID);
   AddURLParam(S, 'resultDocId', AResultDocId);
-  if SendCommand(hmGET, '/api/v3/receipts/receipt', S, nil, [200, 400, 404], 'application/json') then
+  if SendCommand(hmGET, 'api/v3/receipts/receipt', S, nil, [200, 400, 404], 'application/json') then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -556,6 +558,43 @@ begin
     P.Free;
   end;
   SaveHttpData('oms_api_v3_receipts_receipt');
+end;
+
+function TCRPTSuzAPI.ReceiptSearch(AFilterStr: TJSONData; ALimit, ASkip: Integer
+  ): TJSONData;
+var
+  S: String;
+  P1: TJSONObject;
+  S1: TJSONStringType;
+  FMS: TMemoryStream;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  P1:=TJSONObject.Create;
+  P1.Add('filter', AFilterStr);
+  P1.Add('limit', ALimit);
+  P1.Add('skip', ASkip);
+  S1:=P1.FormatJSON;
+
+  FMS:=TMemoryStream.Create;
+  FMS.Write(S1[1], Length(S1));
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/oms_api_v3_receipts_receipt_search_filter.json');
+  FMS.Position:=0;
+
+  P1.Free;
+  if SendCommand(hmPOST, 'api/v3/receipts/receipt/search', S, FMS, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  FMS.Free;
+  SaveHttpData('oms_api_v3_receipts_receipt_search');
 end;
 
 function TCRPTSuzAPI.Providers: TJSONObject;
