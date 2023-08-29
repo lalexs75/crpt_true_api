@@ -153,6 +153,7 @@ type
     function DocumentsSearch(ADdocumentType:string; ALimit, ASkip: Integer): TJSONData;
     function Providers:TJSONObject;
     function QualityInfo(AOrderId:string; ALimit, ASkip: Integer):TJSONObject;
+    function QualityCisList(AReportId:string):TJSONObject;
   public
     property AuthorizationToken;
   published
@@ -691,6 +692,23 @@ begin
   if ASkip>0 then
     AddURLParam(S, 'skip', ASkip);
   if SendCommand(hmGET, 'api/v3/quality', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_quality');
+end;
+
+function TCRPTSuzAPI.QualityCisList(AReportId: string): TJSONObject;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  AddURLParam(S, 'reportId', AReportId);
+  if SendCommand(hmGET, 'api/v3/quality/cisList', S, nil, [200, 400, 404], 'application/json') then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
