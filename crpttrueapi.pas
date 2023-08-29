@@ -146,6 +146,7 @@ type
     function OrderBlocks(AOrderID, AGTIN: string): TJSONData;
     function OrderCodesRetry(ABlockID: string): TJSONData;
     function OrderClose(AOrderID, AGTIN: string): TJSONData;
+    function OrderProduct(AOrderID: string): TJSONData;
     function Receipt(AResultDocId: string): TJSONData;
     function ReceiptSearch(AFilterStr: TJSONData; ALimit, ASkip: Integer
       ): TJSONData;
@@ -544,6 +545,23 @@ begin
   ST.Free;
 end;
 
+function TCRPTSuzAPI.OrderProduct(AOrderID: string): TJSONData;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  AddURLParam(S, 'orderId', AOrderID);
+  if SendCommand(hmGET, 'api/v3/order/product', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_order_product');
+end;
+
 function TCRPTSuzAPI.Receipt(AResultDocId: string): TJSONData;
 var
   S: String;
@@ -702,6 +720,9 @@ begin
 end;
 
 function TCRPTSuzAPI.QualityCisList(AReportId: string): TJSONObject;
+var
+  S: String;
+  P: TJSONParser;
 begin
   Result:=nil;
   DoLogin;
@@ -715,7 +736,7 @@ begin
     Result:=P.Parse as TJSONObject;
     P.Free;
   end;
-  SaveHttpData('oms_api_v3_quality');
+  SaveHttpData('oms_api_v3_quality_cisList');
 end;
 
 { TCustomCRPTApi }

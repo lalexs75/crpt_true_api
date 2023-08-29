@@ -101,7 +101,7 @@ uses rxlogging, IniFiles, rxAppUtils, frmSUZCmdAbstractUnit,
   frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit,
   frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit, frmSUZCmdReceiptSearchUnit,
   frmSUZCmdReceiptGetDocUnit, frmSUZCmdDocumentsSearchUnit,
-  frmSUZCmdQualitySearchUnit;
+  frmSUZCmdQualitySearchUnit, frmSUZCmdQualityCisListUnit;
 
 {$R *.lfm}
 
@@ -267,6 +267,7 @@ begin
   AddCRPTOperFrame('Квитанции', TfrmSUZCmdReceiptGetDocFrame.Create(Self));
   AddCRPTOperFrame('Документ', TfrmSUZCmdDocumentsSearchFrame.Create(Self));
   AddCRPTOperFrame('Отчёты', TfrmSUZCmdQualitySearchFrame.Create(Self));
+  AddCRPTOperFrame('Отчёты', TfrmSUZCmdQualityCisListFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then
