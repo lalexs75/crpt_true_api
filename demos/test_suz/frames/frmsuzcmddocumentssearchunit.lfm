@@ -3,11 +3,12 @@ inherited frmSUZCmdDocumentsSearchFrame: TfrmSUZCmdDocumentsSearchFrame
   ClientWidth = 455
   object Panel1: TPanel[0]
     Left = 0
-    Height = 136
+    Height = 124
     Top = 0
     Width = 455
     Align = alTop
-    ClientHeight = 136
+    AutoSize = True
+    ClientHeight = 124
     ClientWidth = 455
     TabOrder = 0
     object rgDocType: TRadioGroup
@@ -105,8 +106,8 @@ inherited frmSUZCmdDocumentsSearchFrame: TfrmSUZCmdDocumentsSearchFrame
   end
   object Memo1: TMemo[1]
     Left = 0
-    Height = 104
-    Top = 136
+    Height = 116
+    Top = 124
     Width = 455
     Align = alClient
     TabOrder = 1

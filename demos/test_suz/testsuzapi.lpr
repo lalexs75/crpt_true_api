@@ -50,7 +50,8 @@ frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit, frmSUZCmdOrderStatusUnit,
 frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit,
 frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit,
 frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit, frmSUZCmdReceiptSearchUnit,
-frmSUZCmdReceiptGetDocUnit, frmSUZCmdDocumentsSearchUnit;
+frmSUZCmdReceiptGetDocUnit, frmSUZCmdDocumentsSearchUnit, 
+frmSUZCmdQualitySearchUnit;
 
 {$R *.res}
 
