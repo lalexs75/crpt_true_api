@@ -150,6 +150,7 @@ type
     function ReceiptSearch(AFilterStr: TJSONData; ALimit, ASkip: Integer
       ): TJSONData;
     function ReceiptDocument(AResultDocId, ADocId:string): TJSONData;
+    function DocumentsSearch(ADdocumentType:string; ALimit, ASkip: Integer): TJSONData;
     function Providers:TJSONObject;
   public
     property AuthorizationToken;
@@ -621,7 +622,33 @@ begin
     Result:=P.Parse as TJSONObject;
     P.Free;
   end;
-  SaveHttpData('oms_api_v3_providers');
+  SaveHttpData('oms_api_v3_receipts_document');
+end;
+
+function TCRPTSuzAPI.DocumentsSearch(ADdocumentType: string; ALimit,
+  ASkip: Integer): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+  AddURLParam(S, 'documentType', ADdocumentType);
+  if ALimit>0 then
+    AddURLParam(S, 'limit', ALimit);
+
+  if ASkip>0 then
+    AddURLParam(S, 'skip', ASkip);
+  if SendCommand(hmGET, 'api/v3/documents/search', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('oms_api_v3_documents_search');
 end;
 
 function TCRPTSuzAPI.Providers: TJSONObject;
