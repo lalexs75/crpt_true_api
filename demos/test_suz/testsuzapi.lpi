@@ -158,6 +158,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdReceiptGetDocUnit"/>
       </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmddocumentssearchunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdDocumentsSearchFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdDocumentsSearchUnit"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
