@@ -67,7 +67,7 @@ procedure TfrmSUZCmdOrderProductFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.OrderProduct(edtOrderID.Text);
+  P1:=CRPTSuzAPI.OrderProduct(edtOrderID.Text);
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

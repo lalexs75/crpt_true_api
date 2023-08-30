@@ -44,14 +44,16 @@ type
 
   TfrmSUZCmdAbstractFrame = class(TFrame)
   private
+    FCRPTSuzAPI: TCRPTSuzAPI;
   protected
     function APISuzType:TSUZType;
     function SelectedGroup:TCRPTProductGroup;
+    procedure SetCRPTSuzAPI(AValue: TCRPTSuzAPI); virtual;
   public
-    FCRPTSuzAPI: TCRPTSuzAPI;
     function FrameName:string;virtual;abstract;
     procedure LoadParams(AIni:TIniFile); virtual;
     procedure SaveParams(AIni:TIniFile); virtual;
+    property CRPTSuzAPI: TCRPTSuzAPI read FCRPTSuzAPI write SetCRPTSuzAPI;
   end;
 
 implementation
@@ -61,6 +63,12 @@ uses CRPTSuzTestMainUnit;
 {$R *.lfm}
 
 { TfrmSUZCmdAbstractFrame }
+
+procedure TfrmSUZCmdAbstractFrame.SetCRPTSuzAPI(AValue: TCRPTSuzAPI);
+begin
+  if FCRPTSuzAPI=AValue then Exit;
+  FCRPTSuzAPI:=AValue;
+end;
 
 function TfrmSUZCmdAbstractFrame.APISuzType: TSUZType;
 begin

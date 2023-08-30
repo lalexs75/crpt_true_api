@@ -64,7 +64,7 @@ procedure TfrmSUZCmdPingFrame.Button2Click(Sender: TObject);
 var
   P: TJSONObject;
 begin
-  P:=FCRPTSuzAPI.Ping(SelectedGroup);
+  P:=CRPTSuzAPI.Ping(SelectedGroup);
   if Assigned(P) then
   begin
     Memo1.Lines.Text:=P.FormatJSON;

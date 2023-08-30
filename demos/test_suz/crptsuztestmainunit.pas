@@ -233,7 +233,7 @@ begin
   if not Assigned(Cfg) then exit;
   Node:=TreeView1.Items.AddChild(RootNode, Cfg.FrameName);
   Node.Data:=Cfg;
-  Cfg.FCRPTSuzAPI:=CRPTSuzAPI1;
+  Cfg.CRPTSuzAPI:=CRPTSuzAPI1;
   Cfg.Parent:=ConfigPanel;
   Cfg.Align:=alClient;
 end;

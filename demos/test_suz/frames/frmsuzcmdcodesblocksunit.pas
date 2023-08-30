@@ -69,7 +69,7 @@ procedure TfrmSUZCmdCodesBlocksFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.OrderBlocks(edtOrderID.Text, edtGTIN.Text);
+  P1:=CRPTSuzAPI.OrderBlocks(edtOrderID.Text, edtGTIN.Text);
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

@@ -71,7 +71,7 @@ procedure TfrmSUZCmdCodesFromOrderFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.OrderCodes(edtOrderID.Text, edtGTIN.Text, StrToInt(edtQuantity.Text));
+  P1:=CRPTSuzAPI.OrderCodes(edtOrderID.Text, edtGTIN.Text, StrToInt(edtQuantity.Text));
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

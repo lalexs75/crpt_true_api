@@ -73,7 +73,7 @@ var
   P1: TJSONData;
 begin
   S:=rgDocType.Items[rgDocType.ItemIndex];
-  P1:=FCRPTSuzAPI.DocumentsSearch(S, StrToInt(edtLimit.Text), StrToInt(edtSkip.Text));
+  P1:=CRPTSuzAPI.DocumentsSearch(S, StrToInt(edtLimit.Text), StrToInt(edtSkip.Text));
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

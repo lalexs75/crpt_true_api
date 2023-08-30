@@ -69,7 +69,7 @@ procedure TfrmSUZCmdReceiptGetDocFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.ReceiptDocument(edtResultDocId.Text, edtDocId.Text);
+  P1:=CRPTSuzAPI.ReceiptDocument(edtResultDocId.Text, edtDocId.Text);
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

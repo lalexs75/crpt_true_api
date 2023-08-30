@@ -65,7 +65,7 @@ procedure TfrmSUZCmdOrderListFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.OrdersList;
+  P1:=CRPTSuzAPI.OrdersList;
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

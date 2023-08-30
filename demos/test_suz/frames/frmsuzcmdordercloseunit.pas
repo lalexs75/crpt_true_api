@@ -69,7 +69,7 @@ procedure TfrmSUZCmdOrderCloseFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.OrderClose(edtOrderID.Text, edtGTIN.Text);
+  P1:=CRPTSuzAPI.OrderClose(edtOrderID.Text, edtGTIN.Text);
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

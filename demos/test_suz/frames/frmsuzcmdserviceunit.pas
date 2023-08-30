@@ -45,7 +45,11 @@ type
   TfrmSUZCmdServiceFrame = class(TfrmSUZCmdAbstractFrame)
     Button1: TButton;
     CRPTSuzIntegrationAPI1: TCRPTSuzIntegrationAPI;
-    Edit1: TEdit;
+    edtAdress: TEdit;
+    edtName: TEdit;
+    edtRegistrationKey: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
     Label5: TLabel;
     Memo1: TMemo;
     procedure Button2Click(Sender: TObject);

@@ -48,6 +48,7 @@ const
   sAPISuzURL_sandbox1 = 'https://suz.sandbox.crptech.ru/';
   sAPISuzURL_sandbox2 = 'https://suz-integrator.sandbox.crptech.ru/';
 
+  //Интеграция
   sAPISuzIntegrator = 'https://suzgrid.crpt.ru:16443';
   sAPISuzIntegrator_sandbox = 'https://suz-integrator.sandbox.crptech.ru';
 

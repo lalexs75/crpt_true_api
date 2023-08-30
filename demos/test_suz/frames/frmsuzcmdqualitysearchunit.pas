@@ -72,7 +72,7 @@ procedure TfrmSUZCmdQualitySearchFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONObject;
 begin
-  P1:=FCRPTSuzAPI.QualityInfo(edtOrderID.Text, StrToInt(edtLimit.Text), StrToInt(edtSkip.Text));
+  P1:=CRPTSuzAPI.QualityInfo(edtOrderID.Text, StrToInt(edtLimit.Text), StrToInt(edtSkip.Text));
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

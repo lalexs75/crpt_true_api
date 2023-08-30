@@ -67,7 +67,7 @@ procedure TfrmSUZCmdQualityCisListFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONObject;
 begin
-  P1:=FCRPTSuzAPI.QualityCisList(edtReportId.Text);
+  P1:=CRPTSuzAPI.QualityCisList(edtReportId.Text);
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

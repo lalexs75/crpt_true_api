@@ -68,7 +68,7 @@ procedure TfrmSUZCmdCodesBlocksRetryFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONData;
 begin
-  P1:=FCRPTSuzAPI.OrderCodesRetry(edtBlockID.Text);
+  P1:=CRPTSuzAPI.OrderCodesRetry(edtBlockID.Text);
   if Assigned(P1) then
   begin
     Memo1.Lines.Text:=P1.FormatJSON;

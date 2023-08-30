@@ -63,7 +63,7 @@ procedure TfrmSUZCmdServiceProvidersListFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONObject;
 begin
-  P1:=FCRPTSuzAPI.Providers;
+  P1:=CRPTSuzAPI.Providers;
   if Assigned(P1) then
   begin
     RxWriteLog(etInfo, P1.FormatJSON);

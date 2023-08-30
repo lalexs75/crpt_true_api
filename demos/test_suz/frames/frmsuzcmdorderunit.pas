@@ -109,7 +109,7 @@ begin
     S11:=Memo1.Lines.Text;
 
   RxWriteLog(etInfo, S11 {P.FormatJSON});
-  P1:=FCRPTSuzAPI.Order(tires, S11 {P});
+  P1:=CRPTSuzAPI.Order(tires, S11 {P});
   if Assigned(P1) then
   begin
     RxWriteLog(etInfo, P1.FormatJSON);

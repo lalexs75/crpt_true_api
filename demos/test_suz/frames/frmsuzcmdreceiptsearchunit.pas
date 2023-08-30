@@ -95,7 +95,7 @@ begin
 
 
   RxWriteLog(etInfo, S11);
-  P1:=FCRPTSuzAPI.ReceiptSearch(PP, StrToInt(edtLimit.Text), StrToInt(edtSkip.Text));
+  P1:=CRPTSuzAPI.ReceiptSearch(PP, StrToInt(edtLimit.Text), StrToInt(edtSkip.Text));
   if Assigned(P1) then
   begin
     RxWriteLog(etInfo, P1.FormatJSON);
