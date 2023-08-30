@@ -36,7 +36,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  ComCtrls, CRPTTrueAPI, ocrsConnectionUnit, DividerBevel, crpt_cmp,
+  ComCtrls, CRPTTrueAPI, ocrsConnectionUnit, DividerBevel,
   RxIniPropStorage, sslsockets, ssockets, fpjson, CRPTTrueAPI_Consts
   ;
 

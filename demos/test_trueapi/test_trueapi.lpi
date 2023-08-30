@@ -25,9 +25,6 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="crpt"/>
-      </Item>
-      <Item>
         <PackageName Value="LazControls"/>
       </Item>
       <Item>
@@ -63,6 +60,7 @@
         <Filename Value="frames/frmtrueapicmdabstractunit.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmTrueAPICmdAbstractFrame"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmTrueAPICmdAbstractUnit"/>
       </Unit>

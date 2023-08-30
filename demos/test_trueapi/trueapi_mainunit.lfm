@@ -201,9 +201,9 @@ object CRPTTrueAPITestMainForm: TCRPTTrueAPITestMainForm
     Height = 331
     Top = 413
     Width = 681
-    ActivePage = TabSheet4
+    ActivePage = TabSheet3
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 2
     TabPosition = tpBottom
     object TabSheet3: TTabSheet
