@@ -36,7 +36,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  frmSUZCmdAbstractUnit;
+  frmSUZCmdAbstractUnit, CRPTTrueAPI;
 
 type
 
@@ -44,9 +44,10 @@ type
 
   TfrmSUZCmdServiceFrame = class(TfrmSUZCmdAbstractFrame)
     Button1: TButton;
-    Button2: TButton;
+    CRPTSuzIntegrationAPI1: TCRPTSuzIntegrationAPI;
     Edit1: TEdit;
     Label5: TLabel;
+    Memo1: TMemo;
     procedure Button2Click(Sender: TObject);
   private
 
@@ -65,17 +66,11 @@ procedure TfrmSUZCmdServiceFrame.Button2Click(Sender: TObject);
 var
   P: TJSONObject;
 begin
-  P:=FCRPTSuzAPI.Ping(SelectedGroup);
-  if Assigned(P) then
-  begin
-    RxWriteLog(etInfo, P.FormatJSON);
-    P.Free;
-  end;
 end;
 
 function TfrmSUZCmdServiceFrame.FrameName: string;
 begin
-  Result:='Сервисные';
+  Result:='Регистрация экземпляра';
 end;
 
 end.

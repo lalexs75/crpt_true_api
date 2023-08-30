@@ -52,7 +52,7 @@ frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit,
 frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit, frmSUZCmdReceiptSearchUnit,
 frmSUZCmdReceiptGetDocUnit, frmSUZCmdDocumentsSearchUnit, 
 frmSUZCmdQualitySearchUnit, frmSUZCmdQualityCisListUnit, 
-frmSUZCmdOrderProductUnit;
+frmSUZCmdOrderProductUnit, frmSUZCmdPingUnit;
 
 {$R *.res}
 

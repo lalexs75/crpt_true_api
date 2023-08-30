@@ -38,15 +38,17 @@ uses
   Classes, SysUtils, Forms, Controls, CRPTTrueAPI, CRPTTrueAPI_Consts, IniFiles;
 
 type
+  TSUZType = (stTest, stWork);
 
   { TfrmSUZCmdAbstractFrame }
 
   TfrmSUZCmdAbstractFrame = class(TFrame)
   private
-
+  protected
+    function APISuzType:TSUZType;
+    function SelectedGroup:TCRPTProductGroup;
   public
     FCRPTSuzAPI: TCRPTSuzAPI;
-    function SelectedGroup:TCRPTProductGroup;
     function FrameName:string;virtual;abstract;
     procedure LoadParams(AIni:TIniFile); virtual;
     procedure SaveParams(AIni:TIniFile); virtual;
@@ -54,9 +56,16 @@ type
 
 implementation
 
+uses CRPTSuzTestMainUnit;
+
 {$R *.lfm}
 
 { TfrmSUZCmdAbstractFrame }
+
+function TfrmSUZCmdAbstractFrame.APISuzType: TSUZType;
+begin
+  Result:=TSUZType((Owner as TCRPTSuzTestForm).RadioGroup1.ItemIndex)
+end;
 
 function TfrmSUZCmdAbstractFrame.SelectedGroup: TCRPTProductGroup;
 begin

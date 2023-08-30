@@ -102,7 +102,7 @@ uses rxlogging, IniFiles, rxAppUtils, frmSUZCmdAbstractUnit,
   frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit, frmSUZCmdReceiptSearchUnit,
   frmSUZCmdReceiptGetDocUnit, frmSUZCmdDocumentsSearchUnit,
   frmSUZCmdQualitySearchUnit, frmSUZCmdQualityCisListUnit,
-  frmSUZCmdOrderProductUnit;
+  frmSUZCmdOrderProductUnit, frmSUZCmdPingUnit;
 
 {$R *.lfm}
 
@@ -254,6 +254,7 @@ var
   P: TTreeNode;
 begin
   Ini:=TIniFile.Create(GetDefaultIniName);
+  AddCRPTOperFrame('Общее', TfrmSUZCmdPingFrame.Create(Self));
   AddCRPTOperFrame('Общее', TfrmSUZCmdServiceFrame.Create(Self));
   AddCRPTOperFrame('Общее', TfrmSUZCmdServiceProvidersListFrame.Create(Self));
   AddCRPTOperFrame('Заказ маркировки', TfrmSUZCmdOrderFrame.Create(Self));

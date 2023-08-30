@@ -190,6 +190,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderProductUnit"/>
       </Unit>
+      <Unit>
+        <Filename Value="frames/frmsuzcmdpingunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSUZCmdPingFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmSUZCmdPingUnit"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
