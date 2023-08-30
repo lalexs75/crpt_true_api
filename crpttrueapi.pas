@@ -283,7 +283,7 @@ begin
   if AchildrenLimit>0 then
     AddURLParam(S, 'childrenLimit', IntToStr(AChildrenLimit));
 
-  if SendCommand(hmGET, 'products/info', S, nil, [200, 400, 401, 404]) then
+  if SendCommand(hmGET, 'products/info', S, nil, [200, 400, 401, 402, 403, 404]) then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -849,6 +849,7 @@ begin
 
   if AMethod = hmGET then
   begin
+    RxWriteLog(etDebug, 'GET: %s', [FSrv + ACommand + AParams]);
     FHTTP.HTTPMethod('GET',FSrv + ACommand + AParams,FDocument, AllowedResponseCodes);
   end
   else
@@ -865,6 +866,7 @@ begin
       FHTTP.AddHeader('Content-Length', '0');
 
     FHTTP.RequestBody:=AData;
+    RxWriteLog(etDebug, 'POST: %s', [FSrv + ACommand + AParams]);
     FHTTP.Post(FSrv + ACommand + AParams, FDocument);
   end;
 
