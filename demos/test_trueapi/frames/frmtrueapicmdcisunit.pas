@@ -13,10 +13,11 @@ type
   { TfrmTrueAPICmdCISFrame }
 
   TfrmTrueAPICmdCISFrame = class(TfrmTrueAPICmdAbstractFrame)
-    Button2: TButton;
+    Button1: TButton;
     Button3: TButton;
     edtCIS: TEdit;
     Label3: TLabel;
+    procedure Button1Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
   private
 
@@ -35,9 +36,22 @@ uses rxlogging;
 
 procedure TfrmTrueAPICmdCISFrame.Button3Click(Sender: TObject);
 var
-  R: TJSONObject;
+  R: TJSONData;
 begin
-  R:=FCRPTTrueAPI.ProductsInfo(edtCIS.Text);
+//  R:=FCRPTTrueAPI.ProductsInfo(edtCIS.Text);
+  R:=FCRPTTrueAPI.CisesSearch(edtCIS.Text);
+  if Assigned(R) then
+  begin
+    RxWriteLog(etInfo, R.FormatJSON);
+    R.Free;
+  end;
+end;
+
+procedure TfrmTrueAPICmdCISFrame.Button1Click(Sender: TObject);
+var
+  R: TJSONData;
+begin
+  R:=FCRPTTrueAPI.CisesAggregatedList(edtCIS.Text);
   if Assigned(R) then
   begin
     RxWriteLog(etInfo, R.FormatJSON);

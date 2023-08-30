@@ -8,9 +8,11 @@
         <Filename Value="testsuzapi.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TestSUZApi"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos Y="2"/>
-        <UsageCount Value="52"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="35"/>
+        <CursorPos X="54" Y="48"/>
+        <UsageCount Value="59"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="crptsuztestmainunit.pas"/>
@@ -19,9 +21,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="CRPTSuzTestMainUnit"/>
-        <TopLine Value="220"/>
-        <CursorPos X="7" Y="236"/>
-        <UsageCount Value="52"/>
+        <TopLine Value="110"/>
+        <CursorPos Y="120"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -32,11 +34,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdAbstractUnit"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="40"/>
-        <CursorPos Y="48"/>
-        <UsageCount Value="48"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="60"/>
+        <CursorPos Y="77"/>
+        <UsageCount Value="55"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
@@ -45,10 +46,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdServiceUnit"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="40"/>
-        <CursorPos X="74" Y="68"/>
-        <UsageCount Value="48"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="73"/>
+        <CursorPos Y="84"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -59,11 +60,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderUnit"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="96"/>
         <CursorPos X="7" Y="112"/>
-        <UsageCount Value="48"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="55"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
@@ -72,11 +72,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdServiceProvidersListUnit"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="47"/>
         <CursorPos X="7" Y="66"/>
-        <UsageCount Value="43"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="50"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdorderstatusunit.pas"/>
@@ -85,11 +84,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderStatusUnit"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="52"/>
         <CursorPos X="7" Y="69"/>
-        <UsageCount Value="41"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdorderlistunit.pas"/>
@@ -98,11 +96,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderListUnit"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="51"/>
         <CursorPos X="7" Y="68"/>
-        <UsageCount Value="40"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdcodesfromorderunit.pas"/>
@@ -111,11 +108,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdCodesFromOrderUnit"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos X="7" Y="74"/>
-        <UsageCount Value="40"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdcodesblocksretryunit.pas"/>
@@ -124,10 +120,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdCodesBlocksRetryUnit"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="54"/>
-        <CursorPos X="7" Y="71"/>
-        <UsageCount Value="39"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="57"/>
+        <CursorPos Y="78"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -137,11 +133,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdCodesBlocksUnit"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="55"/>
         <CursorPos X="7" Y="72"/>
-        <UsageCount Value="37"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="44"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdordercloseunit.pas"/>
@@ -150,11 +145,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderCloseUnit"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="55"/>
         <CursorPos X="7" Y="72"/>
-        <UsageCount Value="36"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="43"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdreceiptdocunit.pas"/>
@@ -163,12 +157,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdReceiptDocUnit"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="54"/>
         <CursorPos X="7" Y="70"/>
-        <UsageCount Value="36"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <UsageCount Value="43"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdreceiptsearchunit.pas"/>
@@ -177,11 +169,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdReceiptSearchUnit"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="82"/>
         <CursorPos X="7" Y="98"/>
-        <UsageCount Value="35"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="42"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdreceiptgetdocunit.pas"/>
@@ -190,11 +181,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdReceiptGetDocUnit"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="55"/>
         <CursorPos X="7" Y="72"/>
-        <UsageCount Value="34"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="41"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmddocumentssearchunit.pas"/>
@@ -203,11 +193,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdDocumentsSearchUnit"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="59"/>
         <CursorPos X="7" Y="76"/>
-        <UsageCount Value="33"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="40"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdqualitysearchunit.pas"/>
@@ -216,11 +205,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdQualitySearchUnit"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="58"/>
         <CursorPos X="7" Y="75"/>
-        <UsageCount Value="29"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="36"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdqualitycislistunit.pas"/>
@@ -229,11 +217,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdQualityCisListUnit"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="53"/>
         <CursorPos X="7" Y="70"/>
-        <UsageCount Value="26"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="33"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdorderproductunit.pas"/>
@@ -242,12 +229,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderProductUnit"/>
-        <EditorIndex Value="17"/>
-        <TopLine Value="53"/>
-        <CursorPos X="7" Y="70"/>
-        <UsageCount Value="25"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="32"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdpingunit.pas"/>
@@ -256,20 +239,22 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdPingUnit"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="49"/>
         <CursorPos X="6" Y="67"/>
-        <UsageCount Value="22"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="29"/>
       </Unit>
       <Unit>
         <Filename Value="../../crpttrueapi.pas"/>
         <UnitName Value="CRPTTrueAPI"/>
-        <EditorIndex Value="19"/>
-        <TopLine Value="773"/>
-        <CursorPos X="3" Y="775"/>
-        <UsageCount Value="25"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="900"/>
+        <CursorPos Y="917"/>
+        <UsageCount Value="29"/>
+        <Bookmarks Count="1">
+          <Item0 X="6" Y="807" ID="1"/>
+        </Bookmarks>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -282,8 +267,8 @@
       <Unit>
         <Filename Value="/home/alexs/install/source/fpcsrc/rtl/inc/astrings.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="130"/>
-        <CursorPos Y="153"/>
+        <TopLine Value="151"/>
+        <CursorPos Y="174"/>
         <UsageCount Value="10"/>
       </Unit>
       <Unit>
@@ -312,9 +297,9 @@
       <Unit>
         <Filename Value="/home/alexs/install/source/fpcsrc/packages/fcl-json/src/fpjson.pp"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="107"/>
-        <CursorPos X="12" Y="123"/>
-        <UsageCount Value="9"/>
+        <TopLine Value="49"/>
+        <CursorPos X="3" Y="65"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="/home/alexs/install/source/fpcsrc/packages/fcl-json/src/jsonparser.pp"/>
@@ -347,123 +332,123 @@
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="771" Column="3" TopLine="769"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
-        <Caret Line="48" Column="71" TopLine="29"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
-        <Caret Line="47" Column="71" TopLine="29"/>
+        <Caret Line="791" TopLine="769"/>
       </Position>
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="198" Column="56" TopLine="190"/>
+        <Caret Line="926" TopLine="911"/>
       </Position>
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="180" Column="13" TopLine="156"/>
+        <Caret Line="929" TopLine="911"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="930" TopLine="911"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="934" TopLine="911"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="941" TopLine="915"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="942" TopLine="916"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="946" TopLine="920"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="947" TopLine="921"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1034" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1035" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1036" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1037" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1038" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1039" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1040" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1041" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1043" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1044" TopLine="1017"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="1045" TopLine="1018"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="949" TopLine="934"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="952" TopLine="934"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="953" TopLine="934"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="954" TopLine="934"/>
       </Position>
       <Position>
         <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
-        <Caret Line="73" Column="55" TopLine="44"/>
+        <Caret Line="81" TopLine="73"/>
       </Position>
       <Position>
         <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
-        <Caret Line="74" Column="55" TopLine="44"/>
+        <Caret Line="83" TopLine="73"/>
       </Position>
       <Position>
         <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
-        <Caret Line="75" Column="55" TopLine="44"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
-        <Caret Line="76" Column="55" TopLine="44"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
-        <Caret Line="68" Column="74" TopLine="40"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdabstractunit.pas"/>
-        <Caret Line="56" Column="14" TopLine="36"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdabstractunit.pas"/>
-        <Caret Line="69" Column="3" TopLine="62"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdabstractunit.pas"/>
-        <Caret Line="51" Column="59" TopLine="31"/>
+        <Caret Line="84" TopLine="73"/>
       </Position>
       <Position>
         <Filename Value="crptsuztestmainunit.pas"/>
-        <Caret Line="236" Column="7" TopLine="220"/>
+        <Caret Line="244" Column="25" TopLine="228"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmsuzcmdabstractunit.pas"/>
-        <Caret Line="48" TopLine="40"/>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="137" Column="20" TopLine="124"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmsuzcmdorderunit.pas"/>
-        <Caret Line="112" Column="7" TopLine="96"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdserviceproviderslistunit.pas"/>
-        <Caret Line="66" Column="7" TopLine="47"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdorderstatusunit.pas"/>
-        <Caret Line="69" Column="7" TopLine="52"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdorderlistunit.pas"/>
-        <Caret Line="68" Column="7" TopLine="51"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdcodesfromorderunit.pas"/>
-        <Caret Line="74" Column="7" TopLine="56"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdcodesblocksretryunit.pas"/>
-        <Caret Line="71" Column="7" TopLine="54"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdcodesblocksunit.pas"/>
-        <Caret Line="72" Column="7" TopLine="55"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdordercloseunit.pas"/>
-        <Caret Line="72" Column="7" TopLine="55"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdreceiptdocunit.pas"/>
-        <Caret Line="70" Column="7" TopLine="54"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdreceiptsearchunit.pas"/>
-        <Caret Line="98" Column="7" TopLine="82"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdreceiptgetdocunit.pas"/>
-        <Caret Line="72" Column="7" TopLine="55"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmddocumentssearchunit.pas"/>
-        <Caret Line="76" Column="7" TopLine="59"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdqualitysearchunit.pas"/>
-        <Caret Line="75" Column="7" TopLine="58"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdqualitycislistunit.pas"/>
-        <Caret Line="70" Column="7" TopLine="53"/>
-      </Position>
-      <Position>
-        <Filename Value="frames/frmsuzcmdorderproductunit.pas"/>
-        <Caret Line="70" Column="7" TopLine="53"/>
+        <Filename Value="crptsuztestmainunit.pas"/>
+        <Caret Line="97" TopLine="75"/>
       </Position>
     </JumpHistory>
     <RunParams>
@@ -477,8 +462,22 @@
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="frames/frmsuzcmdabstractunit.pas"/>
-        <Line Value="75"/>
+        <Source Value="../../crpttrueapi.pas"/>
+        <Line Value="818"/>
+      </Item>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../../crpttrueapi.pas"/>
+        <Line Value="801"/>
+      </Item>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="frames/frmsuzcmdserviceunit.pas"/>
+        <Line Value="81"/>
       </Item>
     </BreakPoints>
   </Debugging>

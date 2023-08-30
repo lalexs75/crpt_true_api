@@ -1,6 +1,8 @@
 inherited frmTrueAPICmdCISFrame: TfrmTrueAPICmdCISFrame
-  Width = 521
-  ClientWidth = 521
+  Height = 307
+  Width = 548
+  ClientHeight = 307
+  ClientWidth = 548
   object Label3: TLabel[0]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
@@ -19,7 +21,7 @@ inherited frmTrueAPICmdCISFrame: TfrmTrueAPICmdCISFrame
     Left = 12
     Height = 29
     Top = 29
-    Width = 447
+    Width = 474
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 6
     TabOrder = 0
@@ -29,7 +31,7 @@ inherited frmTrueAPICmdCISFrame: TfrmTrueAPICmdCISFrame
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 465
+    Left = 492
     Height = 29
     Top = 29
     Width = 50
@@ -40,12 +42,14 @@ inherited frmTrueAPICmdCISFrame: TfrmTrueAPICmdCISFrame
     TabOrder = 1
     OnClick = Button3Click
   end
-  object Button2: TButton[3]
-    Left = 245
-    Height = 25
-    Top = 215
-    Width = 75
-    Caption = 'Button2'
+  object Button1: TButton[3]
+    Left = 427
+    Height = 29
+    Top = 88
+    Width = 115
+    AutoSize = True
+    Caption = 'Список агрегата'
     TabOrder = 2
+    OnClick = Button1Click
   end
 end

@@ -86,6 +86,7 @@ type
     function AddCRPTOperFrame(AGroup:string; AFrame:TFrame):TFrame;
     procedure CreatePages;
     procedure SavePages;
+    procedure AfterLogin;
   public
 
   end;
@@ -128,13 +129,19 @@ begin
   end;
   CRPTSuzAPI1.OMSConnection:=edtOMSConnection.Text;
   CRPTSuzAPI1.OmsID:=edtOMSID.Text;
-  CRPTSuzAPI1.Login;
+{  CRPTSuzAPI1.Login;
   if CRPTSuzAPI1.ResultCode = 200 then
   begin
     TabSheet2.TabVisible:=true;
     PageControl1.ActivePageIndex:=1;
     RxWriteLog(etDebug, 'AuthorizationToken = %s', [CRPTSuzAPI1.AuthorizationToken]);
-  end;
+
+    AfterLogin;
+  end; }
+
+  CRPTSuzAPI1.AuthorizationToken:='1d7545fd-c0ca-4a61-bc56-923d599212ea';
+  TabSheet2.TabVisible:=true;
+  PageControl1.ActivePageIndex:=1;
 end;
 
 procedure TCRPTSuzTestForm.CRPTSuzAPI1HttpStatus(Sender: TCustomCRPTApi);
@@ -236,6 +243,9 @@ begin
   Cfg.CRPTSuzAPI:=CRPTSuzAPI1;
   Cfg.Parent:=ConfigPanel;
   Cfg.Align:=alClient;
+
+  if TreeView1.Selected = nil then
+    TreeView1.Selected := Node;
 end;
 
 var
@@ -276,6 +286,8 @@ begin
     if Assigned(P.Data) then
       TfrmSUZCmdAbstractFrame(P.Data).LoadParams(Ini);
   Ini.Free;
+
+  TreeView1Click(nil);
 end;
 
 procedure TCRPTSuzTestForm.SavePages;
@@ -288,6 +300,15 @@ begin
     if Assigned(P.Data) then
       TfrmSUZCmdAbstractFrame(P.Data).SaveParams(Ini);
   Ini.Free;
+end;
+
+procedure TCRPTSuzTestForm.AfterLogin;
+var
+  P: TTreeNode;
+begin
+  for P in TreeView1.Items do
+    if Assigned(P.Data) then
+      TfrmSUZCmdAbstractFrame(P.Data).AppLogin;
 end;
 
 end.

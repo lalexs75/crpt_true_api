@@ -53,6 +53,7 @@ type
     function FrameName:string;virtual;abstract;
     procedure LoadParams(AIni:TIniFile); virtual;
     procedure SaveParams(AIni:TIniFile); virtual;
+    procedure AppLogin; virtual;
     property CRPTSuzAPI: TCRPTSuzAPI read FCRPTSuzAPI write SetCRPTSuzAPI;
   end;
 
@@ -88,6 +89,11 @@ end;
 procedure TfrmSUZCmdAbstractFrame.SaveParams(AIni: TIniFile);
 begin
 
+end;
+
+procedure TfrmSUZCmdAbstractFrame.AppLogin;
+begin
+  //
 end;
 
 end.

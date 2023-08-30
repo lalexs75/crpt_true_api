@@ -35,7 +35,7 @@ unit frmSUZCmdServiceUnit;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
   frmSUZCmdAbstractUnit, CRPTTrueAPI;
 
 type
@@ -52,11 +52,16 @@ type
     Label2: TLabel;
     Label5: TLabel;
     Memo1: TMemo;
-    procedure Button2Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
 
+    procedure SetCRPTSuzAPI(AValue: TCRPTSuzAPI); override;
+  protected
   public
     function FrameName:string;override;
+    procedure LoadParams(AIni:TIniFile); override;
+    procedure SaveParams(AIni:TIniFile); override;
+    procedure AppLogin; override;
   end;
 
 implementation
@@ -66,10 +71,26 @@ uses fpjson, rxlogging;
 
 { TfrmSUZCmdServiceFrame }
 
-procedure TfrmSUZCmdServiceFrame.Button2Click(Sender: TObject);
+procedure TfrmSUZCmdServiceFrame.Button1Click(Sender: TObject);
 var
-  P: TJSONObject;
+  P1: TJSONObject;
 begin
+  CRPTSuzIntegrationAPI1.AuthorizationToken:=edtRegistrationKey.Text;
+  CRPTSuzIntegrationAPI1.RegistrationKey:=edtRegistrationKey.Text;
+  P1:=CRPTSuzIntegrationAPI1.IntegrationRegister(edtName.Text, edtAdress.Text);
+  if Assigned(P1) then
+  begin
+    Memo1.Lines.Text:=P1.FormatJSON;
+    RxWriteLog(etInfo, P1.FormatJSON);
+    P1.Free;
+  end;
+end;
+
+procedure TfrmSUZCmdServiceFrame.SetCRPTSuzAPI(AValue: TCRPTSuzAPI);
+begin
+  inherited SetCRPTSuzAPI(AValue);
+  CRPTSuzIntegrationAPI1.OnHttpStatus:=AValue.OnHttpStatus;
+  CRPTSuzIntegrationAPI1.OnSignData:=AValue.OnSignData;
 end;
 
 function TfrmSUZCmdServiceFrame.FrameName: string;
@@ -77,5 +98,32 @@ begin
   Result:='Регистрация экземпляра';
 end;
 
+procedure TfrmSUZCmdServiceFrame.LoadParams(AIni: TIniFile);
+begin
+  inherited LoadParams(AIni);
+  edtRegistrationKey.Text:=AIni.ReadString(ClassName, 'edtRegistrationKey_Text', '');
+  edtName.Text:=AIni.ReadString(ClassName, 'edtName_Text', '');
+  edtAdress.Text:=AIni.ReadString(ClassName, 'edtAdress_Text', '');
+end;
+
+procedure TfrmSUZCmdServiceFrame.SaveParams(AIni: TIniFile);
+begin
+  inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtRegistrationKey_Text', edtRegistrationKey.Text);
+  AIni.WriteString(ClassName, 'edtName_Text', edtName.Text);
+  AIni.WriteString(ClassName, 'edtAdress_Text', edtAdress.Text);
+end;
+
+procedure TfrmSUZCmdServiceFrame.AppLogin;
+begin
+  CRPTSuzIntegrationAPI1.OmsID:=CRPTSuzAPI.OmsID;
+
+  if APISuzType = stTest then
+    CRPTSuzIntegrationAPI1.Server:=sAPISuzIntegrator_sandbox
+  else
+    CRPTSuzIntegrationAPI1.Server:=sAPISuzIntegrator;
+end;
+
 end.
+
 

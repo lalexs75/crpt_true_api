@@ -36,12 +36,20 @@ unit CRPTTrueAPI;
 interface
 
 uses
-  Classes, SysUtils, fphttpclient, ssockets, sslsockets, fpJSON, CRPTTrueAPI_Consts;
+  Classes, SysUtils, fphttpclient, ssockets, sslsockets, fpJSON,
+  CRPTTrueAPI_Consts,
+
+  //
+  trueapi_cises_info
+  ;
 
 const
   //TrueAPI
-  sAPIURL = 'https://markirovka.crpt.ru/api/v3/true-api/';
-  sAPIURL_sandbox = 'https://markirovka.sandbox.crptech.ru/api/v3/true-api/';
+  sTrueAPIURL3 = 'https://markirovka.crpt.ru/api/v3/true-api/';
+  sTrueAPIURL4 = 'https://markirovka.crpt.ru/api/v4/true-api/';
+
+  sTrueAPIURL3_sandbox = 'https://markirovka.sandbox.crptech.ru/api/v3/true-api/';
+  sTrueAPIURL4_sandbox = 'https://markirovka.sandbox.crptech.ru/api/v4/true-api/';
 
   //SUZ
   sAPISuzURL = 'https://suzgrid.crpt.ru/';
@@ -49,8 +57,8 @@ const
   sAPISuzURL_sandbox2 = 'https://suz-integrator.sandbox.crptech.ru/';
 
   //Интеграция
-  sAPISuzIntegrator = 'https://suzgrid.crpt.ru:16443';
-  sAPISuzIntegrator_sandbox = 'https://suz-integrator.sandbox.crptech.ru';
+  sAPISuzIntegrator = 'https://suzgrid.crpt.ru:16443/';
+  sAPISuzIntegrator_sandbox = 'https://suz-integrator.sandbox.crptech.ru/';
 
 
 type
@@ -119,11 +127,21 @@ type
 
   public
     function ProductsInfo(ACis:string; AchildrenPage:Integer = 0; AChildrenLimit:Integer = 0):TJSONObject;
+    function CisesList(ACis:string):TJSONObject;
+
+    function CisesInfo(ACISList:TStringArray; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
+    function CisesInfo(ACIS:string; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
+
+    function CisesShortList(ACis:string):TJSONData;
+    function CisesSearch(ACis:string):TJSONData;
+    function CisesAggregatedList(ACis:string; APG:string = ''; AChildrenPage:Integer = 0; AChildrenLimit:Integer = 0; childsWithoutBrackets:Boolean = false):TJSONData;
+
     function BalanceAll:TJSONData;
     function Balance(AProductGroupId: Integer): TJSONData;
 //КИ
 //Номер страницы вложений в агрегат первого слоя
     property AuthorizationToken;
+    property Document:TMemoryStream read FDocument;
   published
     property Server;
     property OnHttpStatus;
@@ -174,12 +192,17 @@ type
   TCRPTSuzIntegrationAPI = class(TCustomCRPTApi)
   private
     FOmsID: string;
+    FRegistrationKey: string;
     procedure SetOmsID(AValue: string);
+    procedure SetRegistrationKey(AValue: string);
+  protected
+    procedure InternalMakeClientToken; override;
   public
     property AuthorizationToken;
-    procedure IntegrationConnection(AName, AAdress:string);
+    function IntegrationRegister(AName, AAdress:string):TJSONObject;
   published
     property OmsID:string read FOmsID write SetOmsID;
+    property RegistrationKey:string read FRegistrationKey write SetRegistrationKey;
     property Server;
     property OnHttpStatus;
     property OnSignData;
@@ -267,7 +290,7 @@ constructor TCRPTTrueAPI.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  FServer:=sAPIURL;
+  FServer:=sTrueAPIURL3;
 end;
 
 destructor TCRPTTrueAPI.Destroy;
@@ -311,6 +334,197 @@ begin
     P.Free;
   end;
   SaveHttpData('products_info');
+end;
+
+function TCRPTTrueAPI.CisesList(ACis: string): TJSONObject;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'values', ACis);
+{
+  if AchildrenPage>0 then
+   AddURLParam(S, 'childrenPage', IntToStr(AchildrenPage));
+
+  if AchildrenLimit>0 then
+    AddURLParam(S, 'childrenLimit', IntToStr(AChildrenLimit));
+}
+  if SendCommand(hmPOST, 'cises/list', S, nil, [200, 400, 401, 402, 403, 404]) then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  SaveHttpData('true_api_cises_list');
+end;
+
+function TCRPTTrueAPI.CisesInfo(ACIS: string; APG:string = ''; childsWithoutBrackets:Boolean = false): TCISInfos;
+begin
+  Result:=CisesInfo(TStringArray.Create(ACIS), APG, childsWithoutBrackets);
+end;
+
+function TCRPTTrueAPI.CisesInfo(ACISList: TStringArray; APG:string = ''; childsWithoutBrackets:Boolean = false): TCISInfos;
+var
+  P1: TJSONArray;
+  S1: TJSONStringType;
+  FMS: TMemoryStream;
+  S, S2: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+
+  S:='';
+  if APG <> '' then
+    AddURLParam(S, 'pg', APG);
+
+  P1:=TJSONArray.Create;
+  for S2 in ACISList do
+    P1.Add(S2);
+
+  S1:=P1.FormatJSON;
+
+  FMS:=TMemoryStream.Create;
+  FMS.Write(S1[1], Length(S1));
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/true_api_cises_info.json');
+  FMS.Position:=0;
+
+  P1.Free;
+  if SendCommand(hmPOST, 'cises/info', S, FMS, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    Result:=TCISInfos.Create;
+    Result.LoadFromStream(FDocument);
+{    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;}
+  end;
+  FMS.Free;
+  SaveHttpData('true_api_cises_info');
+end;
+
+function TCRPTTrueAPI.CisesShortList(ACis: string): TJSONData;
+begin
+  Result:=nil;
+  DoLogin;
+{
+  S:='';
+
+  P1:=TJSONArray.Create;
+  //P1.Add('filter', AFilterStr);
+  P1.Add(ACis);
+
+  S1:=P1.FormatJSON;
+
+  FMS:=TMemoryStream.Create;
+  FMS.Write(S1[1], Length(S1));
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/true_api_cises_info.json');
+  FMS.Position:=0;
+
+  P1.Free;
+  if SendCommand(hmPOST, 'cises/short/list', S, FMS, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  FMS.Free;
+  SaveHttpData('true_api_cises_short_list');
+}
+end;
+
+function TCRPTTrueAPI.CisesSearch(ACis: string): TJSONData;
+var
+  P2, P1: TJSONObject;
+  S: String;
+  S1: TJSONStringType;
+  FMS: TMemoryStream;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+
+  P1:=TJSONObject.Create;
+  P2:=TJSONObject.Create;
+  P2.Add('gtins', TJSONArray.Create([ACis]));
+  P2.Add('productGroups', TJSONArray.Create(['tires', 'milk', 'water']));
+
+  P1.Add('filter', P2);
+
+  S1:=P1.FormatJSON;
+
+  FMS:=TMemoryStream.Create;
+  FMS.Write(S1[1], Length(S1));
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/true_api_cises_search.json');
+  FMS.Position:=0;
+
+  P1.Free;
+
+  if SendCommand(hmPOST, 'cises/search', S, FMS, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  FMS.Free;
+  SaveHttpData('true_api_cises_search');
+end;
+
+function TCRPTTrueAPI.CisesAggregatedList(ACis: string; APG: string;
+  AChildrenPage: Integer; AChildrenLimit: Integer;
+  childsWithoutBrackets: Boolean): TJSONData;
+var
+  P1: TJSONArray;
+  S1: TJSONStringType;
+  FMS: TMemoryStream;
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'codes', ACis);
+
+  if SendCommand(hmGET, 'cises/aggregated/list', S, nil, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+
+{
+P1:=TJSONArray.Create([ACis]);
+
+  S1:=P1.FormatJSON;
+
+  FMS:=TMemoryStream.Create;
+  FMS.Write(S1[1], Length(S1));
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/true_api_cises_aggregated_list.json');
+  FMS.Position:=0;
+
+  P1.Free;
+
+  if SendCommand(hmGET, 'cises/aggregated/list', S, FMS, [200, 400, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  FMS.Free; }
+  SaveHttpData('true_api_cises_aggregated_list');
 end;
 
 function TCRPTTrueAPI.BalanceAll: TJSONData;
@@ -770,9 +984,55 @@ begin
   FOmsID:=AValue;
 end;
 
-procedure TCRPTSuzIntegrationAPI.IntegrationConnection(AName, AAdress: string);
+procedure TCRPTSuzIntegrationAPI.SetRegistrationKey(AValue: string);
 begin
+  if FRegistrationKey=AValue then Exit;
+  FRegistrationKey:=AValue;
+end;
 
+procedure TCRPTSuzIntegrationAPI.InternalMakeClientToken;
+begin
+  if RegistrationKey<>'' then
+  begin
+    FHTTP.AddHeader('X-RegistrationKey', RegistrationKey);
+    RxWriteLog(etDebug, 'X-RegistrationKey: %s', [RegistrationKey]);
+  end;
+end;
+
+function TCRPTSuzIntegrationAPI.IntegrationRegister(AName, AAdress: string
+  ): TJSONObject;
+var
+  P1: TJSONObject;
+  FMS: TMemoryStream;
+  S, S1: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  S:='';
+  AddURLParam(S, 'omsId', FOmsID);
+
+
+  P1:=TJSONObject.Create;
+  P1.Add('address', AAdress);
+  P1.Add('name', AName);
+  S1:=P1.FormatJSON;
+  P1.Free;
+
+  FMS:=TMemoryStream.Create;
+  FMS.Write(S1[1], Length(S1));
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/oms_api_v3_integration_connection.json');
+  FMS.Position:=0;
+
+  if SendCommand(hmPOST, 'api/v3/integration/connection', S, FMS, [200, 400, 404], 'application/json', true) then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONObject;
+    P.Free;
+  end;
+  FMS.Free;
+  SaveHttpData('oms_api_v3_integration_connection');
 end;
 
 { TCustomCRPTApi }
@@ -930,10 +1190,10 @@ begin
   if (FAuthorizationToken <> '') and (FAuthorizationTokenTimeStamp > (Now - (1 / 20) * 10)) then Exit;
   FAuthorizationToken:='';
   Result:=false;
-  if (FServer = sAPISuzURL_sandbox1) or (FServer = sAPISuzURL_sandbox2) or (FServer = sAPIURL_sandbox) then
-    FLoginServer:=sAPIURL_sandbox
+  if (FServer = sAPISuzURL_sandbox1) or (FServer = sAPISuzURL_sandbox2) or (FServer = sTrueAPIURL3_sandbox) or (FServer = sTrueAPIURL4_sandbox) then
+    FLoginServer:=sTrueAPIURL3_sandbox
   else
-    FLoginServer:=sAPIURL;
+    FLoginServer:=sTrueAPIURL3;
 
   if SendCommand(hmGET, FLoginServer + 'auth/key', '', nil, [200]) then
   begin
@@ -989,7 +1249,8 @@ begin
   AData.Position:=P;
   FOnSignData(Self, S, true, FSig);
 
-  FHTTP.AddHeader('X-Signature',FSig)
+  FHTTP.AddHeader('X-Signature',FSig);
+  RxWriteLog(etDebug, 'X-Signature: %s', [FSig]);
 end;
 
 constructor TCustomCRPTApi.Create(AOwner: TComponent);

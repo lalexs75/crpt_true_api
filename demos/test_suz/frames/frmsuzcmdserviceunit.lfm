@@ -42,6 +42,7 @@ inherited frmSUZCmdServiceFrame: TfrmSUZCmdServiceFrame
     BorderSpacing.Around = 6
     Caption = 'Регистрация'
     TabOrder = 1
+    OnClick = Button1Click
   end
   object Memo1: TMemo[3]
     AnchorSideLeft.Control = Owner
@@ -95,7 +96,6 @@ inherited frmSUZCmdServiceFrame: TfrmSUZCmdServiceFrame
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 6
     TabOrder = 3
-    Text = 'edtAdress'
   end
   object edtName: TEdit[7]
     AnchorSideLeft.Control = Label5
@@ -110,7 +110,6 @@ inherited frmSUZCmdServiceFrame: TfrmSUZCmdServiceFrame
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 6
     TabOrder = 4
-    Text = 'edtName'
   end
   object CRPTSuzIntegrationAPI1: TCRPTSuzIntegrationAPI[8]
     Left = 240

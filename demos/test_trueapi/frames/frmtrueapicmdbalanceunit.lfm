@@ -1,5 +1,6 @@
 inherited frmTrueAPICmdBalanceFrame: TfrmTrueAPICmdBalanceFrame
-  TabOrder = 0
+  DesignLeft = 511
+  DesignTop = 308
   object Button1: TButton[0]
     AnchorSideLeft.Control = Owner
     AnchorSideLeft.Side = asrCenter
@@ -54,6 +55,7 @@ inherited frmTrueAPICmdBalanceFrame: TfrmTrueAPICmdBalanceFrame
     Caption = 'Общий баланс'
     Checked = True
     TabOrder = 3
+    TabStop = True
   end
   object RadioButton2: TRadioButton[4]
     AnchorSideLeft.Control = Owner
