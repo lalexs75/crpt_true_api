@@ -40,13 +40,16 @@ uses
 
 const
   //TrueAPI
-  sAPIURL_sandbox = 'https://markirovka.sandbox.crptech.ru/api/v3/true-api/';
   sAPIURL = 'https://markirovka.crpt.ru/api/v3/true-api/';
+  sAPIURL_sandbox = 'https://markirovka.sandbox.crptech.ru/api/v3/true-api/';
 
   //SUZ
   sAPISuzURL = 'https://suzgrid.crpt.ru/';
   sAPISuzURL_sandbox1 = 'https://suz.sandbox.crptech.ru/';
   sAPISuzURL_sandbox2 = 'https://suz-integrator.sandbox.crptech.ru/';
+
+  sAPISuzIntegrator = 'https://suzgrid.crpt.ru:16443';
+  sAPISuzIntegrator_sandbox = 'https://suz-integrator.sandbox.crptech.ru';
 
 
 type
@@ -165,6 +168,22 @@ type
     property OnSignData;
   end;
 
+  { TCRPTSuzIntegrationAPI }
+
+  TCRPTSuzIntegrationAPI = class(TCustomCRPTApi)
+  private
+    FOmsID: string;
+    procedure SetOmsID(AValue: string);
+  public
+    property AuthorizationToken;
+    procedure IntegrationConnection(AName, AAdress:string);
+  published
+    property OmsID:string read FOmsID write SetOmsID;
+    property Server;
+    property OnHttpStatus;
+    property OnSignData;
+  end;
+
 procedure Register;
 
 procedure AddURLParam(var S:string; AParam, AValue:string); overload;
@@ -177,7 +196,7 @@ uses opensslsockets, rxlogging, jsonparser, jsonscanner;
 
 procedure Register;
 begin
-  RegisterComponents('TradeEquipment',[TCRPTTrueAPI, TCRPTSuzAPI]);
+  RegisterComponents('ЦРПТ',[TCRPTTrueAPI, TCRPTSuzAPI, TCRPTSuzIntegrationAPI]);
 end;
 
 function HTTPEncode(const AStr: String): String;
@@ -740,6 +759,19 @@ begin
     P.Free;
   end;
   SaveHttpData('oms_api_v3_quality_cisList');
+end;
+
+{ TCRPTSuzIntegrationAPI }
+
+procedure TCRPTSuzIntegrationAPI.SetOmsID(AValue: string);
+begin
+  if FOmsID=AValue then Exit;
+  FOmsID:=AValue;
+end;
+
+procedure TCRPTSuzIntegrationAPI.IntegrationConnection(AName, AAdress: string);
+begin
+
 end;
 
 { TCustomCRPTApi }
