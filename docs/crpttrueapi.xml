@@ -18,6 +18,11 @@
 безопасности (token) и идентификатор СУЗ.
 </descr>
       </element>
+    <element name="sAPISuzIntegrator"><short>базовый адрес продуктивного контура</short>
+      </element><element name="sAPISuzIntegrator_sandbox"><short>базовый адрес демонстрационногоконтура</short><descr>Для использования для тестирования на демонстрационном контуре всем участникам доступен следующий код регистрации интеграционного решения - 4344d884-7f21-456c-981e-cd68e92391e8
+
+</descr>
+      </element>
     </module>
   </package>
 </fpdoc-descriptions>
