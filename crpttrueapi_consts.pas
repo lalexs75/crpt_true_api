@@ -91,6 +91,12 @@ const
      'Соковая продукция и безалкогольные напитки'
     );
 
+type
+  TDocListFilterRecord = record
+    FromDate:TDateTime;
+    ToDate:TDateTime;
+  end;
+
 implementation
 
 end.

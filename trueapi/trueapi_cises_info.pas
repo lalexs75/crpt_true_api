@@ -69,63 +69,38 @@ type
     FtnVedEaes: string;
     FtnVedEaesGroup: string;
     FwithdrawReason: string;
-    procedure SetapplicationDate(AValue: string);
-    procedure Setbrand(AValue: string);
-    procedure Setcis(AValue: string);
-    procedure SetcisWithoutBrackets(AValue: string);
-    procedure SetemissionDate(AValue: string);
-    procedure SetemissionType(AValue: string);
-    procedure SetgeneralPackageType(AValue: string);
-    procedure Setgtin(AValue: string);
-    procedure SetintroducedDate(AValue: string);
-    procedure SetmarkWithdraw(AValue: boolean);
-    procedure SetownerInn(AValue: string);
-    procedure SetownerName(AValue: string);
-    procedure SetpackageType(AValue: string);
-    procedure SetproducedDate(AValue: string);
-    procedure SetproducerInn(AValue: string);
-    procedure SetproducerName(AValue: string);
-    procedure SetproductGroup(AValue: string);
-    procedure SetproductGroupId(AValue: Integer);
-    procedure SetproductName(AValue: string);
-    procedure SetrequestedCis(AValue: string);
-    procedure Setstatus(AValue: string);
-    procedure SetstatusEx(AValue: string);
-    procedure SettnVedEaes(AValue: string);
-    procedure SettnVedEaesGroup(AValue: string);
-    procedure SetwithdrawReason(AValue: string);
   protected
     procedure InternalRegisterPropertys; override;
     procedure InternalInitChilds; override;
   public
     destructor Destroy; override;
   published
-    property applicationDate : string read FapplicationDate write SetapplicationDate;
-    property introducedDate:string read FintroducedDate write SetintroducedDate;
-    property requestedCis:string read FrequestedCis write SetrequestedCis;
-    property cis:string read Fcis write Setcis;
-    property cisWithoutBrackets:string read FcisWithoutBrackets write SetcisWithoutBrackets;
-    property gtin:string read Fgtin write Setgtin;
-    property tnVedEaes:string read FtnVedEaes write SettnVedEaes;
-    property tnVedEaesGroup:string read FtnVedEaesGroup write SettnVedEaesGroup;
-    property productName:string read FproductName write SetproductName;
-    property productGroupId : Integer read FproductGroupId write SetproductGroupId;
-    property productGroup:string read FproductGroup write SetproductGroup;
-    property brand:string read Fbrand write Setbrand;
-    property producedDate:string read FproducedDate write SetproducedDate;
-    property emissionDate:string read FemissionDate write SetemissionDate;
-    property emissionType:string read FemissionType write SetemissionType;
-    property packageType:string read FpackageType write SetpackageType;
-    property generalPackageType:string read FgeneralPackageType write SetgeneralPackageType;
-    property ownerInn:string read FownerInn write SetownerInn;
-    property ownerName:string read FownerName write SetownerName;
-    property status:string read Fstatus write Setstatus;
-    property statusEx:string read FstatusEx write SetstatusEx;
+    property applicationDate : string read FapplicationDate write FapplicationDate;
+    property introducedDate:string read FintroducedDate write FintroducedDate;
+    property requestedCis:string read FrequestedCis write FrequestedCis;
+    property cis:string read Fcis write Fcis;
+    property cisWithoutBrackets:string read FcisWithoutBrackets write FcisWithoutBrackets;
+    property gtin:string read Fgtin write Fgtin;
+    property tnVedEaes:string read FtnVedEaes write FtnVedEaes;
+    property tnVedEaesGroup:string read FtnVedEaesGroup write FtnVedEaesGroup;
+    property productName:string read FproductName write FproductName;
+    property productGroupId : Integer read FproductGroupId write FproductGroupId;
+    property productGroup:string read FproductGroup write FproductGroup;
+    property brand:string read Fbrand write Fbrand;
+    property producedDate:string read FproducedDate write FproducedDate;
+    property emissionDate:string read FemissionDate write FemissionDate;
+    property emissionType:string read FemissionType write FemissionType;
+    property packageType:string read FpackageType write FpackageType;
+    property generalPackageType:string read FgeneralPackageType write FgeneralPackageType;
+    property ownerInn:string read FownerInn write FownerInn;
+    property ownerName:string read FownerName write FownerName;
+    property status:string read Fstatus write Fstatus;
+    property statusEx:string read FstatusEx write FstatusEx;
 //    "child" : [    ],
-    property producerInn:string read FproducerInn write SetproducerInn;
-    property producerName:string read FproducerName write SetproducerName;
-    property markWithdraw:boolean read FmarkWithdraw write SetmarkWithdraw;
-    property withdrawReason:string read FwithdrawReason write SetwithdrawReason;
+    property producerInn:string read FproducerInn write FproducerInn;
+    property producerName:string read FproducerName write FproducerName;
+    property markWithdraw:boolean read FmarkWithdraw write FmarkWithdraw;
+    property withdrawReason:string read FwithdrawReason write FwithdrawReason;
   end;
 
   { TCISInfo }
@@ -143,188 +118,119 @@ type
   end;
   TCISInfos = specialize GJSONSerializationObjectList<TCISInfo>;
 
+  { TDocsItem }
 
+  TDocsItem = class(TJSONSerializationObject)
+  private
+    F: string;
+    FdocDate: string;
+    FDocErrors: TXSDStringArray;
+    FDocType: string;
+    FdownloadDesc: string;
+    Finput: Boolean;
+    FinvoiceNumber: string;
+    Fnumber: string;
+    FreceivedAt: string;
+    FreceiverInn: string;
+    FreceiverName: string;
+    FrelatedDocId: string;
+    FsenderInn: string;
+    FsenderName: string;
+    Fstatus: string;
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    destructor Destroy; override;
+  published
+    property number:string read Fnumber write Fnumber;
+    property docDate:string read FdocDate write FdocDate;
+    property receivedAt:string read FreceivedAt write FreceivedAt;
+    property DocType:string read FDocType write FDocType;
+    property status:string read Fstatus write Fstatus;
+    property senderInn:string read FsenderInn write FsenderInn;
+    property senderName:string read FsenderName write FsenderName;
+    property receiverInn:string read FreceiverInn write FreceiverInn;
+    property receiverName:string read FreceiverName write FreceiverName;
+    property invoiceNumber:string read FinvoiceNumber write FinvoiceNumber;
+    property relatedDocId:string read FrelatedDocId write FrelatedDocId;
+    property downloadDesc:string read FdownloadDesc write FdownloadDesc;
+    property input:Boolean read Finput write Finput;
+    property DocErrors:TXSDStringArray read FDocErrors write FDocErrors;
+    property productGroup:string read F write F;
+    property productGroupId:string read F write F;
+  end;
+
+  TDocsItems = specialize GJSONSerializationObjectList<TDocsItem>;
+
+  { TDocList }
+
+  TDocList = class(TJSONSerializationObject)
+  private
+    FnextPage: Boolean;
+    FResultItems: TDocsItems;
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    destructor Destroy; override;
+  published
+    property ResultItems:TDocsItems read FResultItems;
+    property nextPage:Boolean read FnextPage write FnextPage;
+  end;
+
+
+  { TReceiptItem }
+
+  TReceiptItem = class(TJSONSerializationObject)
+  private
+    Fdid: string;
+    FproductGroup: string;
+    FproductGroupId: string;
+    FreceiptDate: string;
+    FReceiptType: string;
+    FreceivedAt: string;
+    FsenderInn: string;
+    FsenderName: string;
+    Fstatus: string;
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    destructor Destroy; override;
+  published
+    property did:string read Fdid write Fdid;
+    property receiptDate:string read FreceiptDate write FreceiptDate;
+    property receivedAt:string read FreceivedAt write FreceivedAt;
+    property ReceiptType:string read FReceiptType write FReceiptType;
+    property status:string read Fstatus write Fstatus;
+    property senderInn:string read FsenderInn write FsenderInn;
+    property senderName:string read FsenderName write FsenderName;
+    property productGroup:string read FproductGroup write FproductGroup;
+    property productGroupId:string read FproductGroupId write FproductGroupId;
+  end;
+  TReceiptItems = specialize GJSONSerializationObjectList<TReceiptItem>;
+
+  { TReceiptList }
+
+  TReceiptList = class(TJSONSerializationObject)
+  private
+    FnextPage: Boolean;
+    FResultItems: TReceiptItems;
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    destructor Destroy; override;
+  published
+    property ResultItems:TReceiptItems read FResultItems;
+    property nextPage:Boolean read FnextPage write FnextPage;
+  end;
 
 implementation
 uses fpjson, jsonparser;
 
 { TCISInfoData }
-
-procedure TCISInfoData.SetapplicationDate(AValue: string);
-begin
-  if FapplicationDate=AValue then Exit;
-  FapplicationDate:=AValue;
-  ModifiedProperty('applicationDate');
-end;
-
-procedure TCISInfoData.Setbrand(AValue: string);
-begin
-  if Fbrand=AValue then Exit;
-  Fbrand:=AValue;
-  ModifiedProperty('brand');
-end;
-
-procedure TCISInfoData.Setcis(AValue: string);
-begin
-  if Fcis=AValue then Exit;
-  Fcis:=AValue;
-  ModifiedProperty('cis');
-end;
-
-procedure TCISInfoData.SetcisWithoutBrackets(AValue: string);
-begin
-  if FcisWithoutBrackets=AValue then Exit;
-  FcisWithoutBrackets:=AValue;
-  ModifiedProperty('cisWithoutBrackets');
-end;
-
-procedure TCISInfoData.SetemissionDate(AValue: string);
-begin
-  if FemissionDate=AValue then Exit;
-  FemissionDate:=AValue;
-  ModifiedProperty('emissionDate');
-end;
-
-procedure TCISInfoData.SetemissionType(AValue: string);
-begin
-  if FemissionType=AValue then Exit;
-  FemissionType:=AValue;
-  ModifiedProperty('emissionType');
-end;
-
-procedure TCISInfoData.SetgeneralPackageType(AValue: string);
-begin
-  if FgeneralPackageType=AValue then Exit;
-  FgeneralPackageType:=AValue;
-  ModifiedProperty('generalPackageType');
-end;
-
-procedure TCISInfoData.Setgtin(AValue: string);
-begin
-  if Fgtin=AValue then Exit;
-  Fgtin:=AValue;
-  ModifiedProperty('gtin');
-end;
-
-procedure TCISInfoData.SetintroducedDate(AValue: string);
-begin
-  if FintroducedDate=AValue then Exit;
-  FintroducedDate:=AValue;
-  ModifiedProperty('introducedDate');
-end;
-
-procedure TCISInfoData.SetmarkWithdraw(AValue: boolean);
-begin
-  if FmarkWithdraw=AValue then Exit;
-  FmarkWithdraw:=AValue;
-  ModifiedProperty('markWithdraw');
-end;
-
-procedure TCISInfoData.SetownerInn(AValue: string);
-begin
-  if FownerInn=AValue then Exit;
-  FownerInn:=AValue;
-  ModifiedProperty('ownerInn');
-end;
-
-procedure TCISInfoData.SetownerName(AValue: string);
-begin
-  if FownerName=AValue then Exit;
-  FownerName:=AValue;
-  ModifiedProperty('ownerName');
-end;
-
-procedure TCISInfoData.SetpackageType(AValue: string);
-begin
-  if FpackageType=AValue then Exit;
-  FpackageType:=AValue;
-  ModifiedProperty('packageType');
-end;
-
-procedure TCISInfoData.SetproducedDate(AValue: string);
-begin
-  if FproducedDate=AValue then Exit;
-  FproducedDate:=AValue;
-  ModifiedProperty('producedDate');
-end;
-
-procedure TCISInfoData.SetproducerInn(AValue: string);
-begin
-  if FproducerInn=AValue then Exit;
-  FproducerInn:=AValue;
-  ModifiedProperty('producerInn');
-end;
-
-procedure TCISInfoData.SetproducerName(AValue: string);
-begin
-  if FproducerName=AValue then Exit;
-  FproducerName:=AValue;
-  ModifiedProperty('producerName');
-end;
-
-procedure TCISInfoData.SetproductGroup(AValue: string);
-begin
-  if FproductGroup=AValue then Exit;
-  FproductGroup:=AValue;
-  ModifiedProperty('productGroup');
-end;
-
-procedure TCISInfoData.SetproductGroupId(AValue: Integer);
-begin
-  if FproductGroupId=AValue then Exit;
-  FproductGroupId:=AValue;
-  ModifiedProperty('productGroupId');
-end;
-
-procedure TCISInfoData.SetproductName(AValue: string);
-begin
-  if FproductName=AValue then Exit;
-  FproductName:=AValue;
-  ModifiedProperty('productName');
-end;
-
-procedure TCISInfoData.SetrequestedCis(AValue: string);
-begin
-  if FrequestedCis=AValue then Exit;
-  FrequestedCis:=AValue;
-  ModifiedProperty('requestedCis');
-end;
-
-procedure TCISInfoData.Setstatus(AValue: string);
-begin
-  if Fstatus=AValue then Exit;
-  Fstatus:=AValue;
-  ModifiedProperty('status');
-end;
-
-procedure TCISInfoData.SetstatusEx(AValue: string);
-begin
-  if FstatusEx=AValue then Exit;
-  FstatusEx:=AValue;
-  ModifiedProperty('statusEx');
-end;
-
-procedure TCISInfoData.SettnVedEaes(AValue: string);
-begin
-  if FtnVedEaes=AValue then Exit;
-  FtnVedEaes:=AValue;
-  ModifiedProperty('tnVedEaes');
-end;
-
-procedure TCISInfoData.SettnVedEaesGroup(AValue: string);
-begin
-  if FtnVedEaesGroup=AValue then Exit;
-  FtnVedEaesGroup:=AValue;
-  ModifiedProperty('tnVedEaesGroup');
-end;
-
-procedure TCISInfoData.SetwithdrawReason(AValue: string);
-begin
-  if FwithdrawReason=AValue then Exit;
-  FwithdrawReason:=AValue;
-  ModifiedProperty('withdrawReason');
-end;
-
 procedure TCISInfoData.InternalRegisterPropertys;
 begin
   inherited InternalRegisterPropertys;
@@ -386,6 +292,106 @@ begin
   inherited Destroy;
 end;
 
+{ TDocsItem }
+
+procedure TDocsItem.InternalRegisterPropertys;
+begin
+  inherited InternalRegisterPropertys;
+  RegisterProperty( 'number', 'number', [], '', -1, -1);
+  RegisterProperty( 'docDate', 'docDate', [], '', -1, -1);
+  RegisterProperty( 'receivedAt','receivedAt', [], '', -1, -1);
+  RegisterProperty( 'DocType', 'type', [], '', -1, -1);
+  RegisterProperty( 'status', 'status', [], '', -1, -1);
+  RegisterProperty( 'senderInn','senderInn', [], '', -1, -1);
+  RegisterProperty( 'senderName','senderName', [], '', -1, -1);
+  RegisterProperty( 'receiverInn', 'receiverInn', [], '', -1, -1);
+  RegisterProperty( 'receiverName', 'receiverName', [], '', -1, -1);
+  RegisterProperty( 'invoiceNumber', 'invoiceNumber', [], '', -1, -1);
+  RegisterProperty( 'relatedDocId', 'relatedDocId', [], '', -1, -1);
+  RegisterProperty( 'downloadDesc', 'downloadDesc', [], '', -1, -1);
+  RegisterProperty( 'input', 'input', [], '', -1, -1);
+  RegisterProperty( 'DocErrors', 'errors', [], '', -1, -1);
+  RegisterProperty( 'productGroup', 'productGroup', [], '', -1, -1);
+  RegisterProperty( 'productGroupId', 'productGroupId', [], '', -1, -1);
+end;
+
+procedure TDocsItem.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+end;
+
+destructor TDocsItem.Destroy;
+begin
+  inherited Destroy;
+end;
+
+{ TDocList }
+
+procedure TDocList.InternalRegisterPropertys;
+begin
+  inherited InternalRegisterPropertys;
+  RegisterProperty('ResultItems', 'results', [], '', -1, -1);
+  RegisterProperty('nextPage', 'nextPage', [], '', -1, -1);
+end;
+
+procedure TDocList.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+  FResultItems:=TDocsItems.Create;
+end;
+
+destructor TDocList.Destroy;
+begin
+  inherited Destroy;
+  FreeAndNil(FResultItems);
+end;
+
+{ TReceiptItem }
+
+procedure TReceiptItem.InternalRegisterPropertys;
+begin
+  inherited InternalRegisterPropertys;
+  RegisterProperty('did');
+  RegisterProperty('receiptDate');
+  RegisterProperty('receivedAt');
+  RegisterProperty('ReceiptType', 'type', [], '', -1, -1);
+  RegisterProperty('status');
+  RegisterProperty('senderInn');
+  RegisterProperty('senderName');
+  RegisterProperty('productGroup');
+  RegisterProperty('productGroupId');
+end;
+
+procedure TReceiptItem.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+end;
+
+destructor TReceiptItem.Destroy;
+begin
+  inherited Destroy;
+end;
+
+{ TReceiptList }
+
+procedure TReceiptList.InternalRegisterPropertys;
+begin
+  inherited InternalRegisterPropertys;
+  RegisterProperty('ResultItems', 'results', [], '', -1, -1);
+  RegisterProperty('nextPage', 'nextPage', [], '', -1, -1);
+end;
+
+procedure TReceiptList.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+  FResultItems:=TReceiptItems.Create;
+end;
+
+destructor TReceiptList.Destroy;
+begin
+  FreeAndNil(FResultItems);
+  inherited Destroy;
+end;
 
 end.
 

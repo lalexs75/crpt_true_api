@@ -10,7 +10,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="27"/>
         <CursorPos Y="31"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
       </Unit>
       <Unit>
         <Filename Value="trueapi_mainunit.pas"/>
@@ -21,7 +21,7 @@
         <UnitName Value="TrueAPI_MainUnit"/>
         <TopLine Value="237"/>
         <CursorPos X="78" Y="267"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <Bookmarks Count="1">
           <Item0 Y="136" ID="2"/>
         </Bookmarks>
@@ -38,7 +38,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="43"/>
         <CursorPos Y="48"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmtrueapicmdcisunit.pas"/>
@@ -48,10 +48,11 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmTrueAPICmdCISUnit"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="56"/>
-        <CursorPos X="6" Y="84"/>
-        <UsageCount Value="32"/>
+        <TopLine Value="77"/>
+        <CursorPos Y="101"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmtrueapicmdbalanceunit.pas"/>
@@ -63,14 +64,65 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="71"/>
         <CursorPos Y="94"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTrueAPICmdDocListFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmTrueAPICmdDocListUnit"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="67"/>
+        <CursorPos X="43" Y="83"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmtrueapicmdreceiptlistunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTrueAPICmdReceiptListFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmTrueAPICmdReceiptListUnit"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="53"/>
+        <CursorPos X="3" Y="68"/>
+        <UsageCount Value="22"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmtrueapicmddocinfounit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTrueAPICmdDocInfoFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmTrueAPICmdDocInfoUnit"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="64"/>
+        <CursorPos Y="77"/>
+        <UsageCount Value="22"/>
+      </Unit>
+      <Unit>
+        <Filename Value="frames/frmtrueapicmdreceiptinfounit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTrueAPICmdReceiptInfoFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmTrueAPICmdReceiptInfoUnit"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="52"/>
+        <CursorPos Y="70"/>
+        <UsageCount Value="21"/>
       </Unit>
       <Unit>
         <Filename Value="../../crpttrueapi.pas"/>
         <UnitName Value="CRPTTrueAPI"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="124"/>
-        <CursorPos X="25" Y="147"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="604"/>
+        <CursorPos X="68" Y="620"/>
         <UsageCount Value="38"/>
         <Bookmarks Count="1">
           <Item0 Y="236" ID="1"/>
@@ -200,10 +252,11 @@
       </Unit>
       <Unit>
         <Filename Value="../../../ETradeDocuments/crpt/crpt_cmp.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="29"/>
-        <CursorPos X="3" Y="46"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="562"/>
+        <CursorPos Y="591"/>
         <UsageCount Value="20"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="/home/alexs/install/source/fpcsrc/rtl/inc/ustrings.inc"/>
@@ -261,138 +314,32 @@
         <UsageCount Value="14"/>
       </Unit>
       <Unit>
-        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmTrueAPICmdDocListFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="frmTrueAPICmdDocListUnit"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="61"/>
-        <CursorPos Y="75"/>
-        <UsageCount Value="23"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit>
-      <Unit>
         <Filename Value="../../crpttrueapi_consts.pas"/>
         <UnitName Value="CRPTTrueAPI_Consts"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="47"/>
-        <CursorPos X="22" Y="65"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="27"/>
+        <CursorPos X="24" Y="33"/>
         <UsageCount Value="11"/>
-      </Unit>
-      <Unit>
-        <Filename Value="frames/frmtrueapicmdreceiptlistunit.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmTrueAPICmdReceiptListFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="frmTrueAPICmdReceiptListUnit"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="53"/>
-        <CursorPos X="3" Y="68"/>
-        <UsageCount Value="21"/>
-      </Unit>
-      <Unit>
-        <Filename Value="frames/frmtrueapicmddocinfounit.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmTrueAPICmdDocInfoFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="frmTrueAPICmdDocInfoUnit"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="65"/>
-        <CursorPos Y="77"/>
-        <UsageCount Value="21"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="frames/frmtrueapicmdreceiptinfounit.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmTrueAPICmdReceiptInfoFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="frmTrueAPICmdReceiptInfoUnit"/>
-        <IsVisibleTab Value="True"/>
+        <Filename Value="../../../wst/date_utils.pas"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="52"/>
-        <CursorPos X="11" Y="71"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="68"/>
+        <CursorPos X="12" Y="85"/>
+        <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/home/alexs/install/source/fpcsrc/packages/fcl-sdo/src/base/sdo_date_utils.pas"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="84"/>
+        <CursorPos X="29" Y="100"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="143" Column="14" TopLine="129"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="551" Column="3" TopLine="545"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="145" Column="14" TopLine="128"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="596" Column="34" TopLine="585"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="145" Column="26" TopLine="130"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="589" Column="3" TopLine="585"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="145" Column="22" TopLine="130"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="586" Column="31" TopLine="558"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="145" Column="25" TopLine="128"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="566" Column="63" TopLine="546"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="146" Column="43" TopLine="130"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="569" Column="3" TopLine="566"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="144" Column="14" TopLine="131"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="577" Column="3" TopLine="571"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="144" Column="14" TopLine="129"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="590" TopLine="571"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="146" Column="14" TopLine="129"/>
-      </Position>
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
         <Caret Line="574" Column="33" TopLine="566"/>
@@ -410,40 +357,108 @@
         <Caret Line="580" Column="5" TopLine="563"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmtrueapicmddocinfounit.pas"/>
-        <Caret Line="30" TopLine="17"/>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="147" Column="14" TopLine="132"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmtrueapicmdreceiptinfounit.pas"/>
-        <Caret Column="6"/>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="577" TopLine="566"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmtrueapicmddocinfounit.pas"/>
-        <Caret Line="54" Column="24" TopLine="43"/>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="579" TopLine="566"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmtrueapicmdreceiptinfounit.pas"/>
-        <Caret Line="49" Column="23" TopLine="22"/>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="75" TopLine="60"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmtrueapicmdreceiptinfounit.pas"/>
-        <Caret Line="62" Column="41" TopLine="44"/>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="76" TopLine="61"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmtrueapicmdreceiptinfounit.pas"/>
-        <Caret Line="72" Column="62" TopLine="48"/>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="77" TopLine="62"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmtrueapicmdreceiptinfounit.pas"/>
-        <Caret Line="61" TopLine="49"/>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="78" TopLine="63"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmtrueapicmddocinfounit.pas"/>
-        <Caret Line="50" Column="29" TopLine="41"/>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="79" TopLine="64"/>
       </Position>
       <Position>
-        <Filename Value="frames/frmtrueapicmdreceiptinfounit.pas"/>
-        <Caret Line="68" Column="42" TopLine="49"/>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="80" TopLine="65"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="82" TopLine="67"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="89" Column="9" TopLine="68"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="75" Column="36" TopLine="68"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="80" TopLine="64"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="75" Column="36" TopLine="68"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="118" Column="17" TopLine="87"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="83" Column="43" TopLine="67"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="144" Column="14" TopLine="129"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="617" Column="9" TopLine="606"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="618" Column="20" TopLine="601"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../wst/date_utils.pas"/>
+        <Caret Line="85" Column="12" TopLine="68"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../ETradeDocuments/crpt/crpt_cmp.pas"/>
+        <Caret Line="589" Column="30" TopLine="572"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="495" Column="29" TopLine="482"/>
+      </Position>
+      <Position>
+        <Filename Value="frames/frmtrueapicmddoclistunit.pas"/>
+        <Caret Line="83" Column="43" TopLine="67"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="144" Column="14" TopLine="129"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../ETradeDocuments/crpt/crpt_cmp.pas"/>
+        <Caret Line="193" Column="32" TopLine="176"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="621" Column="78" TopLine="606"/>
       </Position>
     </JumpHistory>
     <RunParams>
@@ -459,6 +474,13 @@
         <WatchKind Value="wpkWrite"/>
         <Source Value="../../crpttrueapi.pas"/>
         <Line Value="496"/>
+      </Item>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="frames/frmtrueapicmdreceiptinfounit.pas"/>
+        <Line Value="70"/>
       </Item>
     </BreakPoints>
     <Watches>

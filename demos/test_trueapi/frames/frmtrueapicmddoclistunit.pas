@@ -35,8 +35,8 @@ unit frmTrueAPICmdDocListUnit;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
-  fpjson, frmTrueAPICmdAbstractUnit;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  rxtooledit, IniFiles, fpjson, frmTrueAPICmdAbstractUnit;
 
 type
 
@@ -44,8 +44,15 @@ type
 
   TfrmTrueAPICmdDocListFrame = class(TfrmTrueAPICmdAbstractFrame)
     Button1: TButton;
+    CheckBox1: TCheckBox;
+    Label1: TLabel;
+    Label2: TLabel;
     Memo1: TMemo;
+    Panel1: TPanel;
+    RxDateEdit1: TRxDateEdit;
+    RxDateEdit2: TRxDateEdit;
     procedure Button1Click(Sender: TObject);
+    procedure CheckBox1Change(Sender: TObject);
   private
 
   public
@@ -55,7 +62,7 @@ type
   end;
 
 implementation
-uses rxlogging;
+uses rxlogging, CRPTTrueAPI_Consts;
 
 {$R *.lfm}
 
@@ -64,14 +71,30 @@ uses rxlogging;
 procedure TfrmTrueAPICmdDocListFrame.Button1Click(Sender: TObject);
 var
   R: TJSONData;
+  FR:TDocListFilterRecord;
 begin
-  R:=CRPTTrueAPI.DocList(SelectedGroup);
+  FillChar(FR, SizeOf(FR), 0);
+  if CheckBox1.Checked then
+  begin
+    FR.FromDate:=RxDateEdit1.Date;
+    FR.ToDate:=RxDateEdit2.Date;
+  end;
+
+  R:=CRPTTrueAPI.DocList(SelectedGroup, FR);
   if Assigned(R) then
   begin
     Memo1.Lines.Text:=R.FormatJSON;
     RxWriteLog(etInfo, R.FormatJSON);
     R.Free;
   end;
+end;
+
+procedure TfrmTrueAPICmdDocListFrame.CheckBox1Change(Sender: TObject);
+begin
+  RxDateEdit1.Enabled:=CheckBox1.Checked;
+  RxDateEdit2.Enabled:=CheckBox1.Checked;
+  Label1.Enabled:=CheckBox1.Checked;
+  Label2.Enabled:=CheckBox1.Checked;
 end;
 
 function TfrmTrueAPICmdDocListFrame.FrameName: string;
@@ -82,11 +105,17 @@ end;
 procedure TfrmTrueAPICmdDocListFrame.LoadParams(AIni: TIniFile);
 begin
   inherited LoadParams(AIni);
+  RxDateEdit1.Date:=AIni.ReadDate(ClassName, 'RxDateEdit1_Date', Now-7);
+  RxDateEdit2.Date:=AIni.ReadDate(ClassName, 'RxDateEdit2_Date', Now);
+  CheckBox1.Checked:=AIni.ReadBool(ClassName, 'CheckBox1_Checked', false);
 end;
 
 procedure TfrmTrueAPICmdDocListFrame.SaveParams(AIni: TIniFile);
 begin
   inherited SaveParams(AIni);
+  AIni.WriteDate(ClassName, 'RxDateEdit1_Date', RxDateEdit1.Date);
+  AIni.WriteDate(ClassName, 'RxDateEdit2_Date', RxDateEdit2.Date);
+  AIni.WriteBool(ClassName, 'CheckBox1_Checked', CheckBox1.Checked);
 end;
 
 end.

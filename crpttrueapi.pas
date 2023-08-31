@@ -141,7 +141,7 @@ type
     function CisesSearch(ACis:string):TJSONData;
     function CisesAggregatedList(ACis:string; APG:string = ''; AChildrenPage:Integer = 0; AChildrenLimit:Integer = 0; childsWithoutBrackets:Boolean = false):TJSONData;
 
-    function DocList(APG:TCRPTProductGroup):TJSONData;
+    function DocList(APG:TCRPTProductGroup; var AFilterRecord:TDocListFilterRecord):TJSONData;
     function DocInfo(ADocId:string{APG:TCRPTProductGroup}):TJSONData;
     function ReceiptList(APG:TCRPTProductGroup):TJSONData;
     function ReceiptInfo(AReceiptId:string{APG:TCRPTProductGroup}):TJSONData;
@@ -223,7 +223,7 @@ procedure AddURLParam(var S:string; AParam, AValue:string); overload;
 procedure AddURLParam(var S: string; AParam:string; AValue: Integer); inline; overload;
 procedure AddURLParam(var S:string; AParam:string); overload;
 implementation
-uses opensslsockets, rxlogging, jsonparser, jsonscanner;
+uses opensslsockets, sdo_date_utils, rxlogging, jsonparser, jsonscanner;
 
 {$R crpt_true_api.res}
 
@@ -604,7 +604,8 @@ begin
   SaveHttpData('true_api_doc_info');
 end;
 
-function TCRPTTrueAPI.DocList(APG: TCRPTProductGroup): TJSONData;
+function TCRPTTrueAPI.DocList(APG: TCRPTProductGroup;
+  var AFilterRecord: TDocListFilterRecord): TJSONData;
 var
   S: String;
   P: TJSONParser;
@@ -613,6 +614,10 @@ begin
   DoLogin;
   S:='';
   AddURLParam(S, 'pg', CRPTProductGroupStr[APG]);
+  if AFilterRecord.FromDate >0 then
+    AddURLParam(S, 'dateFrom', xsd_DateTimeToStr(AFilterRecord.FromDate, xdkDateTime));
+  if AFilterRecord.FromDate >0 then
+    AddURLParam(S, 'dateTo', xsd_DateTimeToStr(AFilterRecord.ToDate, xdkDateTime));
 
   if SendCommand(hmGET, 'doc/list', S, nil, [200, 400, 401, 404]) then
   begin

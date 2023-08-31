@@ -129,7 +129,7 @@ begin
   end;
   CRPTSuzAPI1.OMSConnection:=edtOMSConnection.Text;
   CRPTSuzAPI1.OmsID:=edtOMSID.Text;
-{  CRPTSuzAPI1.Login;
+  CRPTSuzAPI1.Login;
   if CRPTSuzAPI1.ResultCode = 200 then
   begin
     TabSheet2.TabVisible:=true;
@@ -137,11 +137,11 @@ begin
     RxWriteLog(etDebug, 'AuthorizationToken = %s', [CRPTSuzAPI1.AuthorizationToken]);
 
     AfterLogin;
-  end; }
+  end;
 
-  CRPTSuzAPI1.AuthorizationToken:='1d7545fd-c0ca-4a61-bc56-923d599212ea';
+{  CRPTSuzAPI1.AuthorizationToken:='1d7545fd-c0ca-4a61-bc56-923d599212ea';
   TabSheet2.TabVisible:=true;
-  PageControl1.ActivePageIndex:=1;
+  PageControl1.ActivePageIndex:=1;}
 end;
 
 procedure TCRPTSuzTestForm.CRPTSuzAPI1HttpStatus(Sender: TCustomCRPTApi);

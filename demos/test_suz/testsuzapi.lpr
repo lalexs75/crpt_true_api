@@ -45,14 +45,26 @@ uses
   lazcontrols,
   rxlogging,
 
-CRPTSuzTestMainUnit, frmSUZCmdAbstractUnit, frmSUZCmdServiceUnit,
-frmSUZCmdOrderUnit, frmSUZCmdServiceProvidersListUnit, frmSUZCmdOrderStatusUnit,
-frmSUZCmdOrderListUnit, frmSUZCmdCodesFromOrderUnit,
-frmSUZCmdCodesBlocksRetryUnit, frmSUZCmdCodesBlocksUnit,
-frmSUZCmdOrderCloseUnit, frmSUZCmdReceiptDocUnit, frmSUZCmdReceiptSearchUnit,
-frmSUZCmdReceiptGetDocUnit, frmSUZCmdDocumentsSearchUnit, 
-frmSUZCmdQualitySearchUnit, frmSUZCmdQualityCisListUnit, 
-frmSUZCmdOrderProductUnit, frmSUZCmdPingUnit;
+  CRPTSuzTestMainUnit,
+
+  frmSUZCmdAbstractUnit,
+  frmSUZCmdServiceUnit,
+  frmSUZCmdOrderUnit,
+  frmSUZCmdServiceProvidersListUnit,
+  frmSUZCmdOrderStatusUnit,
+  frmSUZCmdOrderListUnit,
+  frmSUZCmdCodesFromOrderUnit,
+  frmSUZCmdCodesBlocksRetryUnit,
+  frmSUZCmdCodesBlocksUnit,
+  frmSUZCmdOrderCloseUnit,
+  frmSUZCmdReceiptDocUnit,
+  frmSUZCmdReceiptSearchUnit,
+  frmSUZCmdReceiptGetDocUnit,
+  frmSUZCmdDocumentsSearchUnit,
+  frmSUZCmdQualitySearchUnit,
+  frmSUZCmdQualityCisListUnit,
+  frmSUZCmdOrderProductUnit,
+  frmSUZCmdPingUnit;
 
 {$R *.res}
 
