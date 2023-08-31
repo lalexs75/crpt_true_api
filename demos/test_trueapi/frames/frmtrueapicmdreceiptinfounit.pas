@@ -28,32 +28,70 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-program test_trueapi;
+unit frmTrueAPICmdReceiptInfoUnit;
 
-{$mode objfpc}{$H+}
+{$mode ObjFPC}{$H+}
+
+interface
 
 uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  {$IFDEF HASAMIGA}
-  athreads,
-  {$ENDIF}
-  Interfaces, // this includes the LCL widgetset
-  Forms, opensslsockets, rxlogging, lazcontrols, trueapi_mainunit,
-  frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit,
-  frmTrueAPICmdDocListUnit, frmTrueAPICmdReceiptListUnit, 
-frmTrueAPICmdDocInfoUnit, frmTrueAPICmdReceiptInfoUnit
-  { you can add units after this };
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
+  fpjson, frmTrueAPICmdAbstractUnit;
 
-{$R *.res}
+type
 
+  { TfrmTrueAPICmdReceiptInfoFrame }
+
+  TfrmTrueAPICmdReceiptInfoFrame = class(TfrmTrueAPICmdAbstractFrame)
+    Button1: TButton;
+    edtReceiptID: TEdit;
+    Label1: TLabel;
+    Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+  private
+
+  public
+    function FrameName:string; override;
+    procedure LoadParams(AIni:TIniFile); override;
+    procedure SaveParams(AIni:TIniFile); override;
+  end;
+
+implementation
+uses rxlogging;
+
+{$R *.lfm}
+
+{ TfrmTrueAPICmdReceiptInfoFrame }
+
+procedure TfrmTrueAPICmdReceiptInfoFrame.Button1Click(Sender: TObject);
+var
+  R: TJSONData;
 begin
-  OnRxLoggerEvent:=@RxLogWriter;
-  RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
-  Application.Initialize;
-  Application.CreateForm(TCRPTTrueAPITestMainForm, CRPTTrueAPITestMainForm);
-  Application.Run;
+  R:=CRPTTrueAPI.ReceiptInfo(edtReceiptID.Text);
+  if Assigned(R) then
+  begin
+    Memo1.Lines.Text:=R.FormatJSON;
+    RxWriteLog(etInfo, R.FormatJSON);
+    R.Free;
+  end;
+end;
+
+function TfrmTrueAPICmdReceiptInfoFrame.FrameName: string;
+begin
+  Result:='Содержимое чека';
+end;
+
+procedure TfrmTrueAPICmdReceiptInfoFrame.LoadParams(AIni: TIniFile);
+begin
+  inherited LoadParams(AIni);
+  edtReceiptID.Text:=AIni.ReadString(ClassName, 'edtReceiptID_Text', '');
+end;
+
+procedure TfrmTrueAPICmdReceiptInfoFrame.SaveParams(AIni: TIniFile);
+begin
+  inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtReceiptID_Text', edtReceiptID.Text);
+end;
+
 end.
 

@@ -97,6 +97,7 @@ uses
   rxlogging, IniFiles, rxAppUtils, frmTrueAPICmdAbstractUnit,
   frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit, frmTrueAPICmdDocListUnit,
   frmTrueAPICmdReceiptListUnit, frmTrueAPICmdDocInfoUnit,
+  frmTrueAPICmdReceiptInfoUnit,
 
   fpopenssl,
   opensslsockets
@@ -263,6 +264,7 @@ begin
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdDocListFrame.Create(Self));
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdDocInfoFrame.Create(Self));
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdReceiptListFrame.Create(Self));
+  AddCRPTOperFrame('Документы', TfrmTrueAPICmdReceiptInfoFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then
