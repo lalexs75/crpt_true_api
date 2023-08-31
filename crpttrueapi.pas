@@ -105,6 +105,7 @@ type
     destructor Destroy; override;
     procedure Clear;
     function Login:Boolean;
+    property Document:TMemoryStream read FDocument;
   protected
     property AuthorizationToken:string read FAuthorizationToken write FAuthorizationToken;
     property Server:string read FServer write SetServer;
@@ -141,14 +142,15 @@ type
     function CisesAggregatedList(ACis:string; APG:string = ''; AChildrenPage:Integer = 0; AChildrenLimit:Integer = 0; childsWithoutBrackets:Boolean = false):TJSONData;
 
     function DocList(APG:TCRPTProductGroup):TJSONData;
+    function DocInfo(ADocId:string{APG:TCRPTProductGroup}):TJSONData;
     function ReceiptList(APG:TCRPTProductGroup):TJSONData;
+    function ReceiptInfo(AReceiptId:string{APG:TCRPTProductGroup}):TJSONData;
 
     function BalanceAll:TJSONData;
     function Balance(AProductGroupId: Integer): TJSONData;
 //КИ
 //Номер страницы вложений в агрегат первого слоя
     property AuthorizationToken;
-    property Document:TMemoryStream read FDocument;
   published
     property Server;
     property OnHttpStatus;
@@ -542,7 +544,7 @@ P1:=TJSONArray.Create([ACis]);
   SaveHttpData('true_api_cises_aggregated_list');
 end;
 
-function TCRPTTrueAPI.DocList(APG: TCRPTProductGroup): TJSONData;
+function TCRPTTrueAPI.ReceiptList(APG: TCRPTProductGroup): TJSONData;
 var
   S: String;
   P: TJSONParser;
@@ -562,7 +564,47 @@ begin
   SaveHttpData('true_api_receipt_list');
 end;
 
-function TCRPTTrueAPI.ReceiptList(APG: TCRPTProductGroup): TJSONData;
+function TCRPTTrueAPI.ReceiptInfo(AReceiptId: string): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  //AddURLParam(S, 'pg', CRPTProductGroupStr[APG]);
+
+  if SendCommand(hmGET, 'receipt/'+AReceiptId+'/info', S, nil, [200, 400, 401, 404]) then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  SaveHttpData('true_api_doc_info');
+end;
+
+function TCRPTTrueAPI.DocInfo(ADocId: string): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  //AddURLParam(S, 'pg', CRPTProductGroupStr[APG]);
+
+  if SendCommand(hmGET, 'doc/'+ADocId+'/info', S, nil, [200, 400, 401, 404]) then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  SaveHttpData('true_api_doc_info');
+end;
+
+function TCRPTTrueAPI.DocList(APG: TCRPTProductGroup): TJSONData;
 var
   S: String;
   P: TJSONParser;
