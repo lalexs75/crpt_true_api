@@ -44,7 +44,7 @@ uses
   opensslsockets,
   rxlogging, lazcontrols,
   trueapi_mainunit, frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit, 
-frmTrueAPICmdBalanceUnit, frmTrueAPICmdDocListUnit
+frmTrueAPICmdBalanceUnit, frmTrueAPICmdDocListUnit, frmTrueAPICmdReceiptListUnit
   { you can add units after this };
 
 {$R *.res}

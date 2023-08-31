@@ -96,6 +96,7 @@ implementation
 uses
   rxlogging, IniFiles, rxAppUtils, frmTrueAPICmdAbstractUnit,
   frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit, frmTrueAPICmdDocListUnit,
+  frmTrueAPICmdReceiptListUnit,
 
   fpopenssl,
   opensslsockets
@@ -235,6 +236,9 @@ begin
   Cfg.CRPTTrueAPI:=CRPTTrueAPI1;
   Cfg.Parent:=ConfigPanel;
   Cfg.Align:=alClient;
+
+  if not Assigned(TreeView1.Selected) then
+    TreeView1.Selected:=Node;
 end;
 
 var
@@ -244,7 +248,8 @@ begin
   RN:=TreeView1.Items.FindNodeWithText(AGroup);
   if not Assigned(RN) then
     RN:=TreeView1.Items.AddChild(nil, AGroup);
-  DoAddFrame(AFrame as TfrmTrueAPICmdAbstractFrame, RN)
+  DoAddFrame(AFrame as TfrmTrueAPICmdAbstractFrame, RN);
+  TreeView1Click(nil);
 end;
 
 procedure TCRPTTrueAPITestMainForm.CreatePages;
@@ -256,6 +261,7 @@ begin
   AddCRPTOperFrame('КИЗ', TfrmTrueAPICmdCISFrame.Create(Self));
   AddCRPTOperFrame('Финансовое', TfrmTrueAPICmdBalanceFrame.Create(Self));
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdDocListFrame.Create(Self));
+  AddCRPTOperFrame('Документы', TfrmTrueAPICmdReceiptListFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then

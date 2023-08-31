@@ -552,6 +552,26 @@ begin
   S:='';
   AddURLParam(S, 'pg', CRPTProductGroupStr[APG]);
 
+  if SendCommand(hmGET, 'receipt/list', S, nil, [200, 400, 401, 404]) then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  SaveHttpData('true_api_receipt_list');
+end;
+
+function TCRPTTrueAPI.ReceiptList(APG: TCRPTProductGroup): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'pg', CRPTProductGroupStr[APG]);
+
   if SendCommand(hmGET, 'doc/list', S, nil, [200, 400, 401, 404]) then
   begin
     FDocument.Position:=0;
@@ -559,12 +579,7 @@ begin
     Result:=P.Parse as TJSONData;
     P.Free;
   end;
-  SaveHttpData('balance_all');
-end;
-
-function TCRPTTrueAPI.ReceiptList(APG: TCRPTProductGroup): TJSONData;
-begin
-
+  SaveHttpData('true_api_doc_list');
 end;
 
 function TCRPTTrueAPI.BalanceAll: TJSONData;
