@@ -94,8 +94,8 @@ var
 procedure RxLogWriter( ALogType:TEventType; const ALogMessage:string);
 implementation
 uses
-  rxlogging, IniFiles, rxAppUtils,
-  frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit,
+  rxlogging, IniFiles, rxAppUtils, frmTrueAPICmdAbstractUnit,
+  frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit, frmTrueAPICmdDocListUnit,
 
   fpopenssl,
   opensslsockets
@@ -119,8 +119,8 @@ end;
 procedure TCRPTTrueAPITestMainForm.btnLoginClick(Sender: TObject);
 begin
   case RadioGroup1.ItemIndex of
-    0:CRPTTrueAPI1.Server:=sAPIURL_sandbox;
-    1:CRPTTrueAPI1.Server:=sAPIURL;
+    0:CRPTTrueAPI1.Server:=sTrueAPIURL4_sandbox;
+    1:CRPTTrueAPI1.Server:=sTrueAPIURL4;
   end;
 
   CRPTTrueAPI1.Login;
@@ -232,7 +232,7 @@ begin
   if not Assigned(Cfg) then exit;
   Node:=TreeView1.Items.AddChild(RootNode, Cfg.FrameName);
   Node.Data:=Cfg;
-  Cfg.FCRPTTrueAPI:=CRPTTrueAPI1;
+  Cfg.CRPTTrueAPI:=CRPTTrueAPI1;
   Cfg.Parent:=ConfigPanel;
   Cfg.Align:=alClient;
 end;
@@ -255,6 +255,7 @@ begin
   Ini:=TIniFile.Create(GetDefaultIniName);
   AddCRPTOperFrame('КИЗ', TfrmTrueAPICmdCISFrame.Create(Self));
   AddCRPTOperFrame('Финансовое', TfrmTrueAPICmdBalanceFrame.Create(Self));
+  AddCRPTOperFrame('Документы', TfrmTrueAPICmdDocListFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then

@@ -71,9 +71,9 @@ var
 begin
   Memo1.Lines.Clear;
   if RadioButton1.Checked then
-    R:=FCRPTTrueAPI.BalanceAll
+    R:=CRPTTrueAPI.BalanceAll
   else
-    R:=FCRPTTrueAPI.Balance(StrToInt(edtProdGroupID.Text));
+    R:=CRPTTrueAPI.Balance(StrToInt(edtProdGroupID.Text));
   if Assigned(R) then
   begin
     Memo1.Lines.Text:=R.FormatJSON;

@@ -3,6 +3,7 @@ object frmTrueAPICmdAbstractFrame: TfrmTrueAPICmdAbstractFrame
   Height = 240
   Top = 0
   Width = 320
+  LCLVersion = '3.99.0.0'
   TabOrder = 0
   DesignLeft = 505
   DesignTop = 343

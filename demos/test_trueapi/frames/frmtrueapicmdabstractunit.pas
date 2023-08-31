@@ -43,24 +43,33 @@ type
 
   TfrmTrueAPICmdAbstractFrame = class(TFrame)
   private
-
-  public
     FCRPTTrueAPI: TCRPTTrueAPI;
+    procedure SetCRPTTrueAPI(AValue: TCRPTTrueAPI);
+  public
     function SelectedGroup:TCRPTProductGroup;
     function FrameName:string;virtual;abstract;
     procedure LoadParams(AIni:TIniFile); virtual;
     procedure SaveParams(AIni:TIniFile); virtual;
+    property CRPTTrueAPI: TCRPTTrueAPI read FCRPTTrueAPI write SetCRPTTrueAPI;
   end;
 
 implementation
+
+uses TrueAPI_MainUnit;
 
 {$R *.lfm}
 
 { TfrmTrueAPICmdAbstractFrame }
 
+procedure TfrmTrueAPICmdAbstractFrame.SetCRPTTrueAPI(AValue: TCRPTTrueAPI);
+begin
+  if FCRPTTrueAPI=AValue then Exit;
+  FCRPTTrueAPI:=AValue;
+end;
+
 function TfrmTrueAPICmdAbstractFrame.SelectedGroup: TCRPTProductGroup;
 begin
-
+  Result:=TCRPTProductGroup(TCRPTTrueAPITestMainForm(Owner).ComboBox1.ItemIndex);
 end;
 
 procedure TfrmTrueAPICmdAbstractFrame.LoadParams(AIni: TIniFile);
