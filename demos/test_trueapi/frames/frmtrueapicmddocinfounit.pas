@@ -28,32 +28,70 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-program test_trueapi;
+unit frmTrueAPICmdDocInfoUnit;
 
-{$mode objfpc}{$H+}
+{$mode ObjFPC}{$H+}
+
+interface
 
 uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  {$IFDEF HASAMIGA}
-  athreads,
-  {$ENDIF}
-  Interfaces, // this includes the LCL widgetset
-  Forms, opensslsockets, rxlogging, lazcontrols, trueapi_mainunit,
-  frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit,
-  frmTrueAPICmdDocListUnit, frmTrueAPICmdReceiptListUnit, 
-frmTrueAPICmdDocInfoUnit
-  { you can add units after this };
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
+  fpjson, frmTrueAPICmdAbstractUnit;
 
-{$R *.res}
+type
 
+  { TfrmTrueAPICmdDocInfoFrame }
+
+  TfrmTrueAPICmdDocInfoFrame = class(TfrmTrueAPICmdAbstractFrame)
+    Button1: TButton;
+    edtDocID: TEdit;
+    Label1: TLabel;
+    Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+  private
+
+  public
+    function FrameName:string; override;
+    procedure LoadParams(AIni:TIniFile); override;
+    procedure SaveParams(AIni:TIniFile); override;
+  end;
+
+implementation
+uses rxlogging;
+
+{$R *.lfm}
+
+{ TfrmTrueAPICmdDocInfoFrame }
+
+procedure TfrmTrueAPICmdDocInfoFrame.Button1Click(Sender: TObject);
+var
+  R: TJSONData;
 begin
-  OnRxLoggerEvent:=@RxLogWriter;
-  RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
-  Application.Initialize;
-  Application.CreateForm(TCRPTTrueAPITestMainForm, CRPTTrueAPITestMainForm);
-  Application.Run;
+  R:=CRPTTrueAPI.DocInfo(edtDocID.Text);
+  if Assigned(R) then
+  begin
+    Memo1.Lines.Text:=R.FormatJSON;
+    RxWriteLog(etInfo, R.FormatJSON);
+    R.Free;
+  end;
+end;
+
+function TfrmTrueAPICmdDocInfoFrame.FrameName: string;
+begin
+  Result:='Содержимое документа';
+end;
+
+procedure TfrmTrueAPICmdDocInfoFrame.LoadParams(AIni: TIniFile);
+begin
+  inherited LoadParams(AIni);
+  edtDocID.Text:=AIni.ReadString(ClassName, 'edtDocID_Text', '');
+end;
+
+procedure TfrmTrueAPICmdDocInfoFrame.SaveParams(AIni: TIniFile);
+begin
+  inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtDocID_Text', edtDocID.Text);
+end;
+
 end.
 

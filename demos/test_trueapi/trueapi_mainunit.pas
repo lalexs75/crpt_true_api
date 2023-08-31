@@ -96,7 +96,7 @@ implementation
 uses
   rxlogging, IniFiles, rxAppUtils, frmTrueAPICmdAbstractUnit,
   frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit, frmTrueAPICmdDocListUnit,
-  frmTrueAPICmdReceiptListUnit,
+  frmTrueAPICmdReceiptListUnit, frmTrueAPICmdDocInfoUnit,
 
   fpopenssl,
   opensslsockets
@@ -261,6 +261,7 @@ begin
   AddCRPTOperFrame('КИЗ', TfrmTrueAPICmdCISFrame.Create(Self));
   AddCRPTOperFrame('Финансовое', TfrmTrueAPICmdBalanceFrame.Create(Self));
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdDocListFrame.Create(Self));
+  AddCRPTOperFrame('Документы', TfrmTrueAPICmdDocInfoFrame.Create(Self));
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdReceiptListFrame.Create(Self));
 
   for P in TreeView1.Items do
