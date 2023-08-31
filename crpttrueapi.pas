@@ -33,6 +33,10 @@ unit CRPTTrueAPI;
 
 {$mode ObjFPC}{$H+}
 
+{$IFDEF LINUX}
+{$DEFINE DebugTrueAPI}
+{$ENDIF}
+
 interface
 
 uses
@@ -135,6 +139,9 @@ type
     function CisesShortList(ACis:string):TJSONData;
     function CisesSearch(ACis:string):TJSONData;
     function CisesAggregatedList(ACis:string; APG:string = ''; AChildrenPage:Integer = 0; AChildrenLimit:Integer = 0; childsWithoutBrackets:Boolean = false):TJSONData;
+
+    function DocList(APG:TCRPTProductGroup):TJSONData;
+    function ReceiptList(APG:TCRPTProductGroup):TJSONData;
 
     function BalanceAll:TJSONData;
     function Balance(AProductGroupId: Integer): TJSONData;
@@ -390,8 +397,10 @@ begin
 
   FMS:=TMemoryStream.Create;
   FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
   FMS.Position:=0;
   FMS.SaveToFile('/tmp/true_api_cises_info.json');
+  {$ENDIF}
   FMS.Position:=0;
 
   P1.Free;
@@ -423,8 +432,10 @@ begin
 
   FMS:=TMemoryStream.Create;
   FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
   FMS.Position:=0;
   FMS.SaveToFile('/tmp/true_api_cises_info.json');
+  {$ENDIF}
   FMS.Position:=0;
 
   P1.Free;
@@ -463,8 +474,10 @@ begin
 
   FMS:=TMemoryStream.Create;
   FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
   FMS.Position:=0;
   FMS.SaveToFile('/tmp/true_api_cises_search.json');
+  {$ENDIF}
   FMS.Position:=0;
 
   P1.Free;
@@ -510,8 +523,10 @@ P1:=TJSONArray.Create([ACis]);
 
   FMS:=TMemoryStream.Create;
   FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
   FMS.Position:=0;
   FMS.SaveToFile('/tmp/true_api_cises_aggregated_list.json');
+  {$ENDIF}
   FMS.Position:=0;
 
   P1.Free;
@@ -525,6 +540,31 @@ P1:=TJSONArray.Create([ACis]);
   end;
   FMS.Free; }
   SaveHttpData('true_api_cises_aggregated_list');
+end;
+
+function TCRPTTrueAPI.DocList(APG: TCRPTProductGroup): TJSONData;
+var
+  S: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+  S:='';
+  AddURLParam(S, 'pg', CRPTProductGroupStr[APG]);
+
+  if SendCommand(hmGET, 'doc/list', S, nil, [200, 400, 401, 404]) then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end;
+  SaveHttpData('balance_all');
+end;
+
+function TCRPTTrueAPI.ReceiptList(APG: TCRPTProductGroup): TJSONData;
+begin
+
 end;
 
 function TCRPTTrueAPI.BalanceAll: TJSONData;
@@ -623,8 +663,10 @@ begin
   FMS:=TMemoryStream.Create;
   S1:=AOrder{.FormatJSON};
   FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
   FMS.Position:=0;
   FMS.SaveToFile('/tmp/Order_json.json');
+  {$ENDIF}
   FMS.Position:=0;
   try
     if SendCommand(hmPOST, 'api/v3/order', S, FMS, [200, 400, 404], 'application/json', true) then
@@ -845,8 +887,10 @@ begin
 
   FMS:=TMemoryStream.Create;
   FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
   FMS.Position:=0;
   FMS.SaveToFile('/tmp/oms_api_v3_receipts_receipt_search_filter.json');
+  {$ENDIF}
   FMS.Position:=0;
 
   P1.Free;
@@ -1020,8 +1064,10 @@ begin
 
   FMS:=TMemoryStream.Create;
   FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
   FMS.Position:=0;
   FMS.SaveToFile('/tmp/oms_api_v3_integration_connection.json');
+  {$ENDIF}
   FMS.Position:=0;
 
   if SendCommand(hmPOST, 'api/v3/integration/connection', S, FMS, [200, 400, 404], 'application/json', true) then
