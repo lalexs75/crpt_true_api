@@ -43,13 +43,66 @@ inherited frmTrueAPICmdCISFrame: TfrmTrueAPICmdCISFrame
     OnClick = Button3Click
   end
   object Button1: TButton[3]
-    Left = 427
+    AnchorSideLeft.Control = Button4
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = edtCIS
+    AnchorSideTop.Side = asrBottom
+    Left = 181
     Height = 29
-    Top = 88
+    Top = 64
     Width = 115
     AutoSize = True
+    BorderSpacing.Around = 6
     Caption = 'Список агрегата'
     TabOrder = 2
     OnClick = Button1Click
+  end
+  object Memo1: TMemo[4]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button2
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 208
+    Top = 99
+    Width = 548
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 3
+  end
+  object Button2: TButton[5]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = edtCIS
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 29
+    Hint = 'Метод получения общедоступной информации о КИ по списку (упрощённый атрибутивный состав)'
+    Top = 64
+    Width = 99
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Cises short list'
+    TabOrder = 4
+    OnClick = Button2Click
+  end
+  object Button4: TButton[6]
+    AnchorSideLeft.Control = Button2
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = edtCIS
+    AnchorSideTop.Side = asrBottom
+    Left = 111
+    Height = 29
+    Top = 64
+    Width = 64
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Cises list'
+    TabOrder = 5
+    OnClick = Button4Click
   end
 end

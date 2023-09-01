@@ -44,11 +44,16 @@ type
 
   TfrmTrueAPICmdCISFrame = class(TfrmTrueAPICmdAbstractFrame)
     Button1: TButton;
+    Button2: TButton;
     Button3: TButton;
+    Button4: TButton;
     edtCIS: TEdit;
     Label3: TLabel;
+    Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
 
   public
@@ -72,6 +77,20 @@ begin
   R:=CRPTTrueAPI.CisesSearch(edtCIS.Text);
   if Assigned(R) then
   begin
+    Memo1.Lines.Text:=R.FormatJSON;
+    RxWriteLog(etInfo, R.FormatJSON);
+    R.Free;
+  end;
+end;
+
+procedure TfrmTrueAPICmdCISFrame.Button4Click(Sender: TObject);
+var
+  R: TJSONObject;
+begin
+  R:=CRPTTrueAPI.CisesList(edtCIS.Text);
+  if Assigned(R) then
+  begin
+    Memo1.Lines.Text:=R.FormatJSON;
     RxWriteLog(etInfo, R.FormatJSON);
     R.Free;
   end;
@@ -84,6 +103,20 @@ begin
   R:=CRPTTrueAPI.CisesAggregatedList(edtCIS.Text);
   if Assigned(R) then
   begin
+    Memo1.Lines.Text:=R.FormatJSON;
+    RxWriteLog(etInfo, R.FormatJSON);
+    R.Free;
+  end;
+end;
+
+procedure TfrmTrueAPICmdCISFrame.Button2Click(Sender: TObject);
+var
+  R: TJSONData;
+begin
+  R:=CRPTTrueAPI.CisesShortList(edtCIS.Text);
+  if Assigned(R) then
+  begin
+    Memo1.Lines.Text:=R.FormatJSON;
     RxWriteLog(etInfo, R.FormatJSON);
     R.Free;
   end;

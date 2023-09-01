@@ -47,7 +47,7 @@
         <UnitName Value="frmSUZCmdServiceUnit"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="97"/>
+        <TopLine Value="96"/>
         <CursorPos Y="119"/>
         <UsageCount Value="56"/>
         <Loaded Value="True"/>
@@ -327,7 +327,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
+    <JumpHistory HistoryIndex="28">
       <Position>
         <Filename Value="frames/frmsuzcmdserviceunit.pas"/>
         <Caret Line="81" TopLine="73"/>
@@ -414,10 +414,6 @@
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
         <Caret Line="211" Column="14" TopLine="195"/>
-      </Position>
-      <Position>
-        <Filename Value="crptsuztestmainunit.pas"/>
-        <Caret Line="130" Column="28" TopLine="140"/>
       </Position>
       <Position>
         <Filename Value="crptsuztestmainunit.pas"/>

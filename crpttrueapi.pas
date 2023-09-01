@@ -138,6 +138,7 @@ type
     function CisesInfo(ACIS:string; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
 
     function CisesShortList(ACis:string):TJSONData;
+
     function CisesSearch(ACis:string):TJSONData;
     function CisesAggregatedList(ACis:string; APG:string = ''; AChildrenPage:Integer = 0; AChildrenLimit:Integer = 0; childsWithoutBrackets:Boolean = false):TJSONData;
 
@@ -361,7 +362,7 @@ begin
   if AchildrenLimit>0 then
     AddURLParam(S, 'childrenLimit', IntToStr(AChildrenLimit));
 }
-  if SendCommand(hmPOST, 'cises/list', S, nil, [200, 400, 401, 402, 403, 404]) then
+  if SendCommand(hmPOST, 'cises/list', S, nil, [200, 400, 401, 402, 403, 404], 'application/json') then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -420,16 +421,20 @@ begin
 end;
 
 function TCRPTTrueAPI.CisesShortList(ACis: string): TJSONData;
+var
+  S: String;
+  P1: TJSONArray;
+  S1: string;
+  FMS: TMemoryStream;
+  P: TJSONParser;
 begin
   Result:=nil;
   DoLogin;
-{
+
   S:='';
 
   P1:=TJSONArray.Create;
-  //P1.Add('filter', AFilterStr);
   P1.Add(ACis);
-
   S1:=P1.FormatJSON;
 
   FMS:=TMemoryStream.Create;
@@ -450,7 +455,7 @@ begin
   end;
   FMS.Free;
   SaveHttpData('true_api_cises_short_list');
-}
+
 end;
 
 function TCRPTTrueAPI.CisesSearch(ACis: string): TJSONData;
@@ -1263,8 +1268,8 @@ begin
     if ANeedSign and Assigned(FOnSignData) then
       DoSignRequestData(AData);
 
-    if (not Assigned(AData)) or (AData.Size = 0) then
-      FHTTP.AddHeader('Content-Length', '0');
+{    if (not Assigned(AData)) or (AData.Size = 0) then
+      FHTTP.AddHeader('Content-Length', '0'); }
 
     FHTTP.RequestBody:=AData;
     RxWriteLog(etDebug, 'POST: %s', [FSrv + ACommand + AParams]);
