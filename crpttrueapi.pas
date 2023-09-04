@@ -124,6 +124,7 @@ type
   TCRPTTrueAPI = class(TCustomCRPTApi)
   private
   protected
+    function IsSandbox:Boolean;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -136,7 +137,8 @@ type
 
     function CisesInfo(ACISList:TStringArray; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
     function CisesInfo(ACIS:string; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
-    function CisesCodesCheck(ACIS:string):TJSONData;
+    function CisesCodesCheck(ACISList: TStringArray; AInn: string = ''): TJSONData;
+    function CisesCheck(ACISList: TStringArray): TJSONData;
 
     function CisesShortList(ACis:string):TJSONData;
 
@@ -297,6 +299,11 @@ end;
 
 { TCRPTTrueAPI }
 
+function TCRPTTrueAPI.IsSandbox: Boolean;
+begin
+  Result:=(FServer = sAPISuzURL_sandbox1) or (FServer = sAPISuzURL_sandbox2) or (FServer = sTrueAPIURL3_sandbox) or (FServer = sTrueAPIURL4_sandbox);
+end;
+
 constructor TCRPTTrueAPI.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -378,9 +385,95 @@ begin
   Result:=CisesInfo(TStringArray.Create(ACIS), APG, childsWithoutBrackets);
 end;
 
-function TCRPTTrueAPI.CisesCodesCheck(ACIS: string): TJSONData;
+function TCRPTTrueAPI.CisesCodesCheck(ACISList: TStringArray; AInn: string
+  ): TJSONData;
+var
+  P1: TJSONObject;
+  P2: TJSONArray;
+  S1, S: string;
+  FMS: TMemoryStream;
+  P: TJSONParser;
 begin
-  ///api/v4/true-api/codes/check"
+  Result:=nil;
+  S:='';
+
+  P1:=TJSONObject.Create;
+  if AInn <> '' then
+    P1.Add('inn', AInn);
+  P2:=TJSONArray.Create;
+  P1.Add('codes', P2);
+  for S1 in ACISList do
+    P2.Add(S1);
+  S1:=P1.FormatJSON;
+  FMS:=TMemoryStream.Create;
+  FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/true_api_codes_check.json');
+  {$ENDIF}
+  FMS.Position:=0;
+
+  P1.Free;
+
+  if IsSandbox then
+    S1:=sTrueAPIURL4_sandbox
+  else
+    S1:=sTrueAPIURL4;
+  if SendCommand(hmPOST, S1 + 'codes/check', S, FMS, [200, 400, 404], 'application/json') then
+  begin
+    SaveHttpData('true_api_codes_check');
+    FDocument.Position:=0;
+{    Result:=TCISInfos.Create;
+    Result.LoadFromStream(FDocument);}
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end
+  else
+    SaveHttpData('true_api_codes_check');
+  FMS.Free;
+end;
+
+function TCRPTTrueAPI.CisesCheck(ACISList: TStringArray): TJSONData;
+var
+  S, S1: String;
+  P1: TJSONObject;
+  P2: TJSONArray;
+  FMS: TMemoryStream;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  S:='';
+
+  P1:=TJSONObject.Create;
+  P2:=TJSONArray.Create;
+  P1.Add('codes', P2);
+  for S1 in ACISList do
+    P2.Add(S1);
+  S1:=P1.FormatJSON;
+  FMS:=TMemoryStream.Create;
+  FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/true_api_cises_check.json');
+  {$ENDIF}
+  FMS.Position:=0;
+
+  P1.Free;
+
+  if SendCommand(hmPOST, 'cises/check', S, FMS, [200, 400, 404], 'application/json') then
+  begin
+    SaveHttpData('true_api_cises_check');
+    FDocument.Position:=0;
+{    Result:=TCISInfos.Create;
+    Result.LoadFromStream(FDocument);}
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+  end
+  else
+    SaveHttpData('true_api_cises_check');
+  FMS.Free;
 end;
 
 function TCRPTTrueAPI.CisesInfo(ACISList: TStringArray; APG:string = ''; childsWithoutBrackets:Boolean = false): TCISInfos;
