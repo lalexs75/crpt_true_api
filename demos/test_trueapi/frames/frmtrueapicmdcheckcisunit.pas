@@ -28,33 +28,34 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-program test_trueapi;
+unit frmTrueAPICmdCheckCISUnit;
 
-{$mode objfpc}{$H+}
+{$mode ObjFPC}{$H+}
+
+interface
 
 uses
-  {$IFDEF UNIX}
-  cthreads,
-  {$ENDIF}
-  {$IFDEF HASAMIGA}
-  athreads,
-  {$ENDIF}
-  Interfaces, // this includes the LCL widgetset
-  Forms, opensslsockets, rxlogging, lazcontrols, trueapi_mainunit,
-  frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit,
-  frmTrueAPICmdDocListUnit, frmTrueAPICmdReceiptListUnit, 
-frmTrueAPICmdDocInfoUnit, frmTrueAPICmdReceiptInfoUnit, 
-frmTrueAPICmdCheckCISUnit
-  { you can add units after this };
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, 
+    frmTrueAPICmdAbstractUnit;
 
-{$R *.res}
+type
 
-begin
-  OnRxLoggerEvent:=@RxLogWriter;
-  RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
-  Application.Initialize;
-  Application.CreateForm(TCRPTTrueAPITestMainForm, CRPTTrueAPITestMainForm);
-  Application.Run;
+  { TfrmTrueAPICmdCheckCISUnitFrame }
+
+  TfrmTrueAPICmdCheckCISUnitFrame = class(TfrmTrueAPICmdAbstractFrame)
+    Button3: TButton;
+    edtCIS: TEdit;
+    Label3: TLabel;
+    Memo1: TMemo;
+  private
+
+  public
+
+  end;
+
+implementation
+
+{$R *.lfm}
+
 end.
 

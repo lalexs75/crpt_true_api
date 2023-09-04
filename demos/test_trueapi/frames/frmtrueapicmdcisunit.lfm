@@ -71,7 +71,7 @@ inherited frmTrueAPICmdCISFrame: TfrmTrueAPICmdCISFrame
     Width = 548
     Anchors = [akTop, akLeft, akRight, akBottom]
     Lines.Strings = (
-      'Memo1'
+      ''
     )
     TabOrder = 3
   end

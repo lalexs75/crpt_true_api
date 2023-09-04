@@ -112,6 +112,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmTrueAPICmdReceiptInfoUnit"/>
       </Unit>
+      <Unit>
+        <Filename Value="frames/frmtrueapicmdcheckcisunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTrueAPICmdCheckCISUnitFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmTrueAPICmdCheckCISUnit"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
