@@ -97,7 +97,7 @@ uses
   rxlogging, IniFiles, rxAppUtils, frmTrueAPICmdAbstractUnit,
   frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit, frmTrueAPICmdDocListUnit,
   frmTrueAPICmdReceiptListUnit, frmTrueAPICmdDocInfoUnit,
-  frmTrueAPICmdReceiptInfoUnit,
+  frmTrueAPICmdReceiptInfoUnit, frmTrueAPICmdCheckCISUnit,
 
   fpopenssl,
   opensslsockets
@@ -261,6 +261,7 @@ var
 begin
   Ini:=TIniFile.Create(GetDefaultIniName);
   AddCRPTOperFrame('КИЗ', TfrmTrueAPICmdCISFrame.Create(Self));
+  AddCRPTOperFrame('КИЗ', TfrmTrueAPICmdCheckCISUnitFrame.Create(Self));
   AddCRPTOperFrame('Финансовое', TfrmTrueAPICmdBalanceFrame.Create(Self));
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdDocListFrame.Create(Self));
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdDocInfoFrame.Create(Self));

@@ -73,7 +73,6 @@ procedure TfrmTrueAPICmdCISFrame.Button3Click(Sender: TObject);
 var
   R: TJSONData;
 begin
-//  R:=FCRPTTrueAPI.ProductsInfo(edtCIS.Text);
   R:=CRPTTrueAPI.CisesSearch(edtCIS.Text);
   if Assigned(R) then
   begin

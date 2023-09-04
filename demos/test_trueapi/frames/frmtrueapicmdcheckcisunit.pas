@@ -35,7 +35,7 @@ unit frmTrueAPICmdCheckCISUnit;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, 
+  Classes, SysUtils, fpjson, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
     frmTrueAPICmdAbstractUnit;
 
 type
@@ -43,26 +43,71 @@ type
   { TfrmTrueAPICmdCheckCISUnitFrame }
 
   TfrmTrueAPICmdCheckCISUnitFrame = class(TfrmTrueAPICmdAbstractFrame)
+    Button1: TButton;
     Button3: TButton;
     edtCIS: TEdit;
     Label3: TLabel;
     Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
   private
 
   public
-
+    function FrameName:string; override;
+    procedure LoadParams(AIni:TIniFile); override;
+    procedure SaveParams(AIni:TIniFile); override;
   end;
 
 implementation
+uses rxlogging;
 
 {$R *.lfm}
 
 { TfrmTrueAPICmdCheckCISUnitFrame }
 
 procedure TfrmTrueAPICmdCheckCISUnitFrame.Button3Click(Sender: TObject);
+var
+  R: TJSONData;
 begin
-  //
+  Memo1.Lines.Clear;
+  R:=CRPTTrueAPI.CisesCodesCheck([edtCIS.Text]);
+  if Assigned(R) then
+  begin
+    Memo1.Lines.Text:=R.FormatJSON;
+    RxWriteLog(etInfo, R.FormatJSON);
+    R.Free;
+  end;
+end;
+
+procedure TfrmTrueAPICmdCheckCISUnitFrame.Button1Click(Sender: TObject);
+var
+  R: TJSONData;
+begin
+  Memo1.Lines.Clear;
+  R:=CRPTTrueAPI.CisesCheck([edtCIS.Text]);
+  if Assigned(R) then
+  begin
+    Memo1.Lines.Text:=R.FormatJSON;
+    RxWriteLog(etInfo, R.FormatJSON);
+    R.Free;
+  end;
+end;
+
+function TfrmTrueAPICmdCheckCISUnitFrame.FrameName: string;
+begin
+  Result:='Проверка КИЗ';
+end;
+
+procedure TfrmTrueAPICmdCheckCISUnitFrame.LoadParams(AIni: TIniFile);
+begin
+  inherited LoadParams(AIni);
+  edtCIS.Text:=AIni.ReadString(ClassName, 'edtCIS_Text', '');
+end;
+
+procedure TfrmTrueAPICmdCheckCISUnitFrame.SaveParams(AIni: TIniFile);
+begin
+  inherited SaveParams(AIni);
+  AIni.WriteString(ClassName, 'edtCIS_Text', edtCIS.Text);
 end;
 
 end.

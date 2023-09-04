@@ -40,17 +40,26 @@ inherited frmTrueAPICmdCheckCISUnitFrame: TfrmTrueAPICmdCheckCISUnitFrame
   end
   object Memo1: TMemo[3]
     AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Button3
+    AnchorSideTop.Control = Button1
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Left = 0
-    Height = 176
-    Top = 64
+    Height = 151
+    Top = 89
     Width = 320
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabOrder = 2
+  end
+  object Button1: TButton[4]
+    Left = 239
+    Height = 25
+    Top = 64
+    Width = 75
+    Caption = 'Button1'
+    TabOrder = 3
+    OnClick = Button1Click
   end
 end
