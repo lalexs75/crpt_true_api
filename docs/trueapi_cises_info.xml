@@ -40,6 +40,25 @@
       </element><element name="TExpirationInfo"><short>Срок годности</short>
       </element><element name="TExpirationInfo.expirationStorageDate"><short>Дата срока годности</short>
       </element><element name="TExpirationInfo.storageConditionId"><short>Идентификатор условия хранения</short>
+      </element><element name="TExpirationInfo.storageConditionName"><short>Описание условий хранения</short>
+      </element><element name="TCISInfoData.withdrawReason"><short>Причина вывода из оборота</short>
+      </element><element name="TCISInfoData.withdrawReasonOther"><short>Описание другой причины вывода из оборота</short>
+      </element><element name="TCISInfoData.expirations"><short>Массив сроков годности</short>
+      </element><element name="TCISInfoData.isVarQuantity"><short>Признак переменного веса</short>
+      </element><element name="TCISInfoData.productWeightGr"><short>Вес выпущенной продукции</short>
+      </element><element name="TCISInfoData.expirationDate"><short>Дата срока годности</short>
+      </element><element name="TCISInfoData.turnoverType"><short>Вид товарооборота</short>
+      </element><element name="TCISInfoData.connectDate"><short>Дата подключения кега к оборудованию для розлива</short>
+      </element><element name="TCISInfoData.ownerMod"><short>Сведения о текущем месте осуществления деятельности</short>
+      </element><element name="TOwnerMod.modId"><short>Идентификатор текущего места осуществления деятельности</short>
+      </element><element name="TOwnerMod.kpp"><short>КПП торговой точки</short>
+      </element><element name="TOwnerMod.fiasId"><short>Идентификатор ФИАС</short>
+      </element><element name="TOwnerMod.address"><short>Адрес места осуществления деятельности</short>
+      </element><element name="TCISInfoData.licences"><short>Массив лицензий на пользование недрами</short>
+      </element><element name="TLicencesInfo.licenceNumber"><short>Номер лицензии на пользование недрами</short>
+      </element><element name="TLicencesInfo.licenceDate"><short>Дата выдачи лицензии</short>
+      </element><element name="TCISInfoData.errorMessage"><short>Сообщение об ошибке</short>
+      </element><element name="TCISInfoData.errorCode"><short>Код ошибки</short>
       </element>
     </module>
   </package>
