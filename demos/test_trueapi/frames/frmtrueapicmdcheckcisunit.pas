@@ -47,6 +47,7 @@ type
     edtCIS: TEdit;
     Label3: TLabel;
     Memo1: TMemo;
+    procedure Button3Click(Sender: TObject);
   private
 
   public
@@ -56,6 +57,13 @@ type
 implementation
 
 {$R *.lfm}
+
+{ TfrmTrueAPICmdCheckCISUnitFrame }
+
+procedure TfrmTrueAPICmdCheckCISUnitFrame.Button3Click(Sender: TObject);
+begin
+  //
+end;
 
 end.
 

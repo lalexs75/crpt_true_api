@@ -117,12 +117,13 @@
       <Unit>
         <Filename Value="../../crpttrueapi.pas"/>
         <UnitName Value="CRPTTrueAPI"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="380"/>
-        <CursorPos X="3" Y="388"/>
+        <TopLine Value="367"/>
+        <CursorPos X="5" Y="383"/>
         <UsageCount Value="40"/>
         <Bookmarks Count="1">
-          <Item0 Y="237" ID="1"/>
+          <Item0 Y="238" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit>
@@ -349,28 +350,15 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmTrueAPICmdCheckCISUnit"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="10"/>
-        <CursorPos X="41" Y="31"/>
+        <TopLine Value="37"/>
+        <CursorPos X="5" Y="65"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="135" Column="14" TopLine="124"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="365" TopLine="349"/>
-      </Position>
-      <Position>
-        <Filename Value="../../crpttrueapi.pas"/>
-        <Caret Line="1238" TopLine="1222"/>
-      </Position>
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
         <Caret Line="1240" TopLine="1224"/>
@@ -478,6 +466,18 @@
       <Position>
         <Filename Value="frames/frmtrueapicmdcheckcisunit.pas"/>
         <Caret Line="31" Column="41" TopLine="10"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="388" Column="3" TopLine="380"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="139" Column="53" TopLine="121"/>
+      </Position>
+      <Position>
+        <Filename Value="../../crpttrueapi.pas"/>
+        <Caret Line="417" TopLine="391"/>
       </Position>
     </JumpHistory>
     <RunParams>

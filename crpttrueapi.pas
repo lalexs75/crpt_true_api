@@ -136,6 +136,7 @@ type
 
     function CisesInfo(ACISList:TStringArray; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
     function CisesInfo(ACIS:string; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
+    function CisesCodesCheck(ACIS:string):TJSONData;
 
     function CisesShortList(ACis:string):TJSONData;
 
@@ -377,6 +378,11 @@ begin
   Result:=CisesInfo(TStringArray.Create(ACIS), APG, childsWithoutBrackets);
 end;
 
+function TCRPTTrueAPI.CisesCodesCheck(ACIS: string): TJSONData;
+begin
+  ///api/v4/true-api/codes/check"
+end;
+
 function TCRPTTrueAPI.CisesInfo(ACISList: TStringArray; APG:string = ''; childsWithoutBrackets:Boolean = false): TCISInfos;
 var
   P1: TJSONArray;
@@ -409,15 +415,17 @@ begin
   P1.Free;
   if SendCommand(hmPOST, 'cises/info', S, FMS, [200, 400, 404], 'application/json') then
   begin
+    SaveHttpData('true_api_cises_info');
     FDocument.Position:=0;
     Result:=TCISInfos.Create;
     Result.LoadFromStream(FDocument);
 {    P:=TJSONParser.Create(FDocument, DefaultOptions);
     Result:=P.Parse as TJSONData;
     P.Free;}
-  end;
+  end
+  else
+    SaveHttpData('true_api_cises_info');
   FMS.Free;
-  SaveHttpData('true_api_cises_info');
 end;
 
 function TCRPTTrueAPI.CisesShortList(ACis: string): TJSONData;
