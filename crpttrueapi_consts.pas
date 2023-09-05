@@ -61,6 +61,10 @@ type
     softdrinks   //Соковая продукция и безалкогольные напитки}
     );
 
+type
+  TcrptCISStatus = (csEMITTED, csAPPLIED, csINTRODUCED, csWRITTEN_OFF,
+    csRETIRED, csWITHDRAWN, csDISAGGREGATION, csDISAGGREGATED, csAPPLIED_NOT_PAID);
+
 const
   CRPTProductGroupStr : array [TCRPTProductGroup] of string =
     ('lp', 'shoes', 'tobacco', 'perfumery', 'tires',

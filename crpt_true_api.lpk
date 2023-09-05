@@ -28,6 +28,10 @@
         <Filename Value="trueapi/crpttrueapidataobjects.pas"/>
         <UnitName Value="CRPTTrueAPIDataObjects"/>
       </Item>
+      <Item>
+        <Filename Value="trueapi/crpttrueapiglobals.pas"/>
+        <UnitName Value="crpttrueapiglobals"/>
+      </Item>
     </Files>
     <LazDoc Paths="docs"/>
     <i18n>

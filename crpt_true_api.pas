@@ -8,7 +8,8 @@ unit crpt_true_api;
 interface
 
 uses
-  CRPTTrueAPI, CRPTTrueAPI_Consts, CRPTTrueAPIDataObjects, LazarusPackageIntf;
+  CRPTTrueAPI, CRPTTrueAPI_Consts, CRPTTrueAPIDataObjects, CRPTTrueAPIGlobals, 
+  LazarusPackageIntf;
 
 implementation
 

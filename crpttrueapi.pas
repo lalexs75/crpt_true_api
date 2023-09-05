@@ -163,7 +163,7 @@ type
 //Номер страницы вложений в агрегат первого слоя
     property AuthorizationToken;
   published
-    property CRPTApiType;
+    property CRPTApiType default atProduction;
     //property Server;
     property OnHttpStatus;
     property OnSignData;
@@ -332,6 +332,7 @@ end;
 constructor TCRPTTrueAPI.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  CRPTApiType:=atProduction;
 end;
 
 destructor TCRPTTrueAPI.Destroy;
