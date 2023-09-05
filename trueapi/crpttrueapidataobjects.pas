@@ -28,7 +28,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit trueapi_cises_info;
+unit CRPTTrueAPIDataObjects;
 
 {$mode objfpc}{$H+}
 
