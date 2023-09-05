@@ -36,7 +36,7 @@ interface
 
 uses
   Classes, SysUtils, fpjson, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
-  frmTrueAPICmdAbstractUnit;
+  frmTrueAPICmdAbstractUnit, CRPTTrueAPIDataObjects;
 
 type
 
@@ -47,6 +47,7 @@ type
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
+    Button5: TButton;
     edtCIS: TEdit;
     Label3: TLabel;
     Memo1: TMemo;
@@ -54,6 +55,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
 
   public
@@ -73,6 +75,7 @@ procedure TfrmTrueAPICmdCISFrame.Button3Click(Sender: TObject);
 var
   R: TJSONData;
 begin
+  Memo1.Lines.Clear;
   R:=CRPTTrueAPI.CisesSearch(edtCIS.Text);
   if Assigned(R) then
   begin
@@ -84,8 +87,9 @@ end;
 
 procedure TfrmTrueAPICmdCISFrame.Button4Click(Sender: TObject);
 var
-  R: TJSONObject;
+  R: TJSONData;
 begin
+  Memo1.Lines.Clear;
   R:=CRPTTrueAPI.CisesList(edtCIS.Text);
   if Assigned(R) then
   begin
@@ -95,10 +99,25 @@ begin
   end;
 end;
 
+procedure TfrmTrueAPICmdCISFrame.Button5Click(Sender: TObject);
+var
+  R: TCISInfos;
+begin
+  Memo1.Lines.Clear;
+  R:=CRPTTrueAPI.CisesInfo(edtCIS.Text);
+  if Assigned(R) then
+  begin
+    Memo1.Lines.LoadFromStream(CRPTTrueAPI.Document);
+    RxWriteLog(etInfo, Memo1.Lines.Text);
+    R.Free;
+  end;
+end;
+
 procedure TfrmTrueAPICmdCISFrame.Button1Click(Sender: TObject);
 var
   R: TJSONData;
 begin
+  Memo1.Lines.Clear;
   R:=CRPTTrueAPI.CisesAggregatedList(edtCIS.Text);
   if Assigned(R) then
   begin
@@ -112,6 +131,7 @@ procedure TfrmTrueAPICmdCISFrame.Button2Click(Sender: TObject);
 var
   R: TJSONData;
 begin
+  Memo1.Lines.Clear;
   R:=CRPTTrueAPI.CisesShortList(edtCIS.Text);
   if Assigned(R) then
   begin

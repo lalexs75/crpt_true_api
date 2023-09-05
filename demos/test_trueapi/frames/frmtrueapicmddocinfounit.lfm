@@ -19,13 +19,13 @@ inherited frmTrueAPICmdDocInfoFrame: TfrmTrueAPICmdDocInfoFrame
     AnchorSideLeft.Side = asrCenter
     AnchorSideTop.Control = edtDocID
     AnchorSideTop.Side = asrBottom
-    Left = 93
+    Left = 80
     Height = 29
     Top = 64
-    Width = 134
+    Width = 161
     AutoSize = True
     BorderSpacing.Around = 6
-    Caption = 'Список документов'
+    Caption = 'Содержимое документа'
     TabOrder = 1
     OnClick = Button1Click
   end

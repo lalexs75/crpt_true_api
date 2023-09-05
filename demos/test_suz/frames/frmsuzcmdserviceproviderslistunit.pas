@@ -63,9 +63,11 @@ procedure TfrmSUZCmdServiceProvidersListFrame.Button1Click(Sender: TObject);
 var
   P1: TJSONObject;
 begin
+  Memo1.Lines.Clear;
   P1:=CRPTSuzAPI.Providers;
   if Assigned(P1) then
   begin
+    Memo1.Lines.Text:=P1.FormatJSON;
     RxWriteLog(etInfo, P1.FormatJSON);
     P1.Free;
   end;

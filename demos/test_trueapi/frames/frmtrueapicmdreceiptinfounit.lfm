@@ -19,13 +19,13 @@ inherited frmTrueAPICmdReceiptInfoFrame: TfrmTrueAPICmdReceiptInfoFrame
     AnchorSideLeft.Side = asrCenter
     AnchorSideTop.Control = edtReceiptID
     AnchorSideTop.Side = asrBottom
-    Left = 93
+    Left = 98
     Height = 29
     Top = 64
-    Width = 134
+    Width = 124
     AutoSize = True
     BorderSpacing.Around = 6
-    Caption = 'Список документов'
+    Caption = 'Содержимое чека'
     TabOrder = 1
     OnClick = Button1Click
   end

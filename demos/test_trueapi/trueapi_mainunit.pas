@@ -120,10 +120,16 @@ end;
 
 procedure TCRPTTrueAPITestMainForm.btnLoginClick(Sender: TObject);
 begin
+(*
   case RadioGroup1.ItemIndex of
     0:CRPTTrueAPI1.Server:=sTrueAPIURL4_sandbox;
-    //1:CRPTTrueAPI1.Server:=sTrueAPIURL4;
-    1:CRPTTrueAPI1.Server:=sTrueAPIURL3;
+    1:CRPTTrueAPI1.Server:=sTrueAPIURL4;
+    //1:CRPTTrueAPI1.Server:=sTrueAPIURL3;
+  end;
+*)
+  case RadioGroup1.ItemIndex of
+    0:CRPTTrueAPI1.CRPTApiType:=atSandbox;
+    1:CRPTTrueAPI1.CRPTApiType:=atProduction;
   end;
 
   CRPTTrueAPI1.Login;

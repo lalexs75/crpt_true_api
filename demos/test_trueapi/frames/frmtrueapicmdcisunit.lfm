@@ -1,7 +1,7 @@
 inherited frmTrueAPICmdCISFrame: TfrmTrueAPICmdCISFrame
-  Height = 307
+  Height = 333
   Width = 548
-  ClientHeight = 307
+  ClientHeight = 333
   ClientWidth = 548
   object Label3: TLabel[0]
     AnchorSideLeft.Control = Owner
@@ -66,7 +66,7 @@ inherited frmTrueAPICmdCISFrame: TfrmTrueAPICmdCISFrame
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Left = 0
-    Height = 208
+    Height = 234
     Top = 99
     Width = 548
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -104,5 +104,20 @@ inherited frmTrueAPICmdCISFrame: TfrmTrueAPICmdCISFrame
     Caption = 'Cises list'
     TabOrder = 5
     OnClick = Button4Click
+  end
+  object Button5: TButton[7]
+    AnchorSideLeft.Control = Button1
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = edtCIS
+    AnchorSideTop.Side = asrBottom
+    Left = 302
+    Height = 29
+    Top = 64
+    Width = 68
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'CisesInfo'
+    TabOrder = 6
+    OnClick = Button5Click
   end
 end
