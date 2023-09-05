@@ -9,13 +9,13 @@ interface
 
 uses
   CRPTTrueAPI, CRPTTrueAPI_Consts, CRPTTrueAPIDataObjects, CRPTTrueAPIGlobals, 
-  LazarusPackageIntf;
+  CRPTSuzIntegration, LazCRPTRegister, LazarusPackageIntf;
 
 implementation
 
 procedure Register;
 begin
-  RegisterUnit('CRPTTrueAPI', @CRPTTrueAPI.Register);
+  RegisterUnit('LazCRPTRegister', @LazCRPTRegister.Register);
 end;
 
 initialization

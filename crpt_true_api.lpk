@@ -7,7 +7,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="trueapi"/>
+        <OtherUnitFiles Value="trueapi;SuzIntegration"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
@@ -17,7 +17,6 @@
     <Files>
       <Item>
         <Filename Value="crpttrueapi.pas"/>
-        <HasRegisterProc Value="True"/>
         <UnitName Value="CRPTTrueAPI"/>
       </Item>
       <Item>
@@ -30,7 +29,17 @@
       </Item>
       <Item>
         <Filename Value="trueapi/crpttrueapiglobals.pas"/>
-        <UnitName Value="crpttrueapiglobals"/>
+        <UnitName Value="CRPTTrueAPIGlobals"/>
+      </Item>
+      <Item>
+        <Filename Value="SuzIntegration/crptsuzintegration.pas"/>
+        <UnitName Value="CRPTSuzIntegration"/>
+      </Item>
+      <Item>
+        <Filename Value="lazcrptregister.pas"/>
+        <HasRegisterProc Value="True"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="LazCRPTRegister"/>
       </Item>
     </Files>
     <LazDoc Paths="docs"/>

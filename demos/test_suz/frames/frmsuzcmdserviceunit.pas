@@ -36,7 +36,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
-  frmSUZCmdAbstractUnit, CRPTTrueAPI;
+  frmSUZCmdAbstractUnit, CRPTTrueAPI, CRPTSuzIntegration;
 
 type
 

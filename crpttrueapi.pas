@@ -60,9 +60,6 @@ const
   sAPISuzURL_sandbox1 = 'https://suz.sandbox.crptech.ru/';
   sAPISuzURL_sandbox2 = 'https://suz-integrator.sandbox.crptech.ru/';
 
-  //Интеграция
-  sAPISuzIntegrator = 'https://suzgrid.crpt.ru:16443/';
-  sAPISuzIntegrator_sandbox = 'https://suz-integrator.sandbox.crptech.ru/';
 
 
 type
@@ -80,7 +77,6 @@ type
   TCustomCRPTApi = class(TComponent)
   private
     FCRPTApiType: TCRPTApiType;
-    FHTTP:TFPHTTPClient;
     FServer: string;
     FAuthorizationToken:string;
     FAuthorizationTokenTimeStamp:TDateTime;
@@ -97,6 +93,7 @@ type
     function DoAnsverLogin(ALoginServer, FUID, FDATA:string):Boolean;
     procedure SetServer(AValue: string);
   protected
+    FHTTP:TFPHTTPClient;
     function SendCommand(AMethod:THttpMethod; ACommand:string; AParams:string; AData:TStream; const AllowedResponseCodes : array of integer; AMimeType:string = ''; ANeedSign:Boolean = false):Boolean;
     function DoLogin:Boolean;
     procedure SaveHttpData(ACmdName: string);
@@ -208,41 +205,13 @@ type
     property OnSignData;
   end;
 
-  { TCRPTSuzIntegrationAPI }
 
-  TCRPTSuzIntegrationAPI = class(TCustomCRPTApi)
-  private
-    FOmsID: string;
-    FRegistrationKey: string;
-    procedure SetOmsID(AValue: string);
-    procedure SetRegistrationKey(AValue: string);
-  protected
-    procedure InternalMakeClientToken; override;
-  public
-    property AuthorizationToken;
-    function IntegrationRegister(AName, AAdress:string):TJSONObject;
-  published
-    property OmsID:string read FOmsID write SetOmsID;
-    property RegistrationKey:string read FRegistrationKey write SetRegistrationKey;
-    property Server;
-    property OnHttpStatus;
-    property OnSignData;
-  end;
-
-procedure Register;
 
 procedure AddURLParam(var S:string; AParam, AValue:string); overload;
 procedure AddURLParam(var S: string; AParam:string; AValue: Integer); inline; overload;
 procedure AddURLParam(var S:string; AParam:string); overload;
 implementation
 uses opensslsockets, sdo_date_utils, rxlogging, jsonparser, jsonscanner;
-
-{$R crpt_true_api.res}
-
-procedure Register;
-begin
-  RegisterComponents('ЦРПТ',[TCRPTTrueAPI, TCRPTSuzAPI, TCRPTSuzIntegrationAPI]);
-end;
 
 function HTTPEncode(const AStr: String): String;
 const
@@ -1205,66 +1174,6 @@ begin
   SaveHttpData('oms_api_v3_quality_cisList');
 end;
 
-{ TCRPTSuzIntegrationAPI }
-
-procedure TCRPTSuzIntegrationAPI.SetOmsID(AValue: string);
-begin
-  if FOmsID=AValue then Exit;
-  FOmsID:=AValue;
-end;
-
-procedure TCRPTSuzIntegrationAPI.SetRegistrationKey(AValue: string);
-begin
-  if FRegistrationKey=AValue then Exit;
-  FRegistrationKey:=AValue;
-end;
-
-procedure TCRPTSuzIntegrationAPI.InternalMakeClientToken;
-begin
-  if RegistrationKey<>'' then
-  begin
-    FHTTP.AddHeader('X-RegistrationKey', RegistrationKey);
-    RxWriteLog(etDebug, 'X-RegistrationKey: %s', [RegistrationKey]);
-  end;
-end;
-
-function TCRPTSuzIntegrationAPI.IntegrationRegister(AName, AAdress: string
-  ): TJSONObject;
-var
-  P1: TJSONObject;
-  FMS: TMemoryStream;
-  S, S1: String;
-  P: TJSONParser;
-begin
-  Result:=nil;
-  S:='';
-  AddURLParam(S, 'omsId', FOmsID);
-
-
-  P1:=TJSONObject.Create;
-  P1.Add('address', AAdress);
-  P1.Add('name', AName);
-  S1:=P1.FormatJSON;
-  P1.Free;
-
-  FMS:=TMemoryStream.Create;
-  FMS.Write(S1[1], Length(S1));
-  {$IFDEF DebugTrueAPI}
-  FMS.Position:=0;
-  FMS.SaveToFile('/tmp/oms_api_v3_integration_connection.json');
-  {$ENDIF}
-  FMS.Position:=0;
-
-  if SendCommand(hmPOST, 'api/v3/integration/connection', S, FMS, [200, 400, 404], 'application/json', true) then
-  begin
-    FDocument.Position:=0;
-    P:=TJSONParser.Create(FDocument, DefaultOptions);
-    Result:=P.Parse as TJSONObject;
-    P.Free;
-  end;
-  FMS.Free;
-  SaveHttpData('oms_api_v3_integration_connection');
-end;
 
 { TCustomCRPTApi }
 
