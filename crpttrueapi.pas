@@ -44,7 +44,7 @@ uses
   CRPTTrueAPI_Consts,
 
   //
-  trueapi_cises_info
+  CRPTTrueAPIDataObjects
   ;
 
 const
@@ -66,6 +66,8 @@ const
 
 
 type
+  TCRPTApiType = (atSandbox, atProduction);
+
   TCustomCRPTApi = class;
   TCRPTTrueAPI = class;
 
@@ -77,6 +79,7 @@ type
 
   TCustomCRPTApi = class(TComponent)
   private
+    FCRPTApiType: TCRPTApiType;
     FHTTP:TFPHTTPClient;
     FServer: string;
     FAuthorizationToken:string;
@@ -100,6 +103,7 @@ type
     procedure InternalMakeLoginParams(var ALoginParams:string); virtual;
     procedure InternalMakeClientToken; virtual;
     procedure DoSignRequestData(const AData:TStream); virtual;
+    procedure SetCRPTApiType(AValue: TCRPTApiType); virtual;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -110,6 +114,7 @@ type
     property AuthorizationToken:string read FAuthorizationToken write FAuthorizationToken;
     property Server:string read FServer write SetServer;
 
+    property CRPTApiType:TCRPTApiType read FCRPTApiType write SetCRPTApiType;
     property OnHttpStatus:TOnHttpStatusEnevent read FOnHttpStatus write FOnHttpStatus;
     property OnSignData:TOnSignDataEvent read FOnSignData write FOnSignData;
   public
@@ -123,8 +128,10 @@ type
 
   TCRPTTrueAPI = class(TCustomCRPTApi)
   private
+    function InternalTrueAPIUrl4:string;inline;
+    function InternalTrueAPIUrl3:string;inline;
   protected
-    function IsSandbox:Boolean;
+    procedure SetCRPTApiType(AValue: TCRPTApiType); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -133,7 +140,7 @@ type
 
   public
     function ProductsInfo(ACis:string; AchildrenPage:Integer = 0; AChildrenLimit:Integer = 0):TJSONObject;
-    function CisesList(ACis:string):TJSONObject;
+    function CisesList(ACis:string):TJSONData;
 
     function CisesInfo(ACISList:TStringArray; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
     function CisesInfo(ACIS:string; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
@@ -156,7 +163,8 @@ type
 //Номер страницы вложений в агрегат первого слоя
     property AuthorizationToken;
   published
-    property Server;
+    property CRPTApiType;
+    //property Server;
     property OnHttpStatus;
     property OnSignData;
   end;
@@ -299,16 +307,31 @@ end;
 
 { TCRPTTrueAPI }
 
-function TCRPTTrueAPI.IsSandbox: Boolean;
+function TCRPTTrueAPI.InternalTrueAPIUrl4: string;
 begin
-  Result:=(FServer = sAPISuzURL_sandbox1) or (FServer = sAPISuzURL_sandbox2) or (FServer = sTrueAPIURL3_sandbox) or (FServer = sTrueAPIURL4_sandbox);
+  if FCRPTApiType = atSandbox then
+    Result:=sTrueAPIURL4_sandbox
+  else
+    Result:=sTrueAPIURL4;
+end;
+
+function TCRPTTrueAPI.InternalTrueAPIUrl3: string;
+begin
+  if FCRPTApiType = atSandbox then
+    Result:=sTrueAPIURL3_sandbox
+  else
+    Result:=sTrueAPIURL3;
+end;
+
+procedure TCRPTTrueAPI.SetCRPTApiType(AValue: TCRPTApiType);
+begin
+  inherited SetCRPTApiType(AValue);
+  FServer:=InternalTrueAPIUrl4;
 end;
 
 constructor TCRPTTrueAPI.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-
-  FServer:=sTrueAPIURL3;
 end;
 
 destructor TCRPTTrueAPI.Destroy;
@@ -354,7 +377,7 @@ begin
   SaveHttpData('products_info');
 end;
 
-function TCRPTTrueAPI.CisesList(ACis: string): TJSONObject;
+function TCRPTTrueAPI.CisesList(ACis: string): TJSONData;
 var
   S: String;
   P: TJSONParser;
@@ -370,14 +393,16 @@ begin
   if AchildrenLimit>0 then
     AddURLParam(S, 'childrenLimit', IntToStr(AChildrenLimit));
 }
-  if SendCommand(hmPOST, 'cises/list', S, nil, [200, 400, 401, 402, 403, 404], 'application/json') then
+  if SendCommand(hmPOST, InternalTrueAPIUrl3 + 'cises/list', S, nil, [200, 400, 401, 402, 403, 404], 'application/json') then
   begin
+    SaveHttpData('true_api_cises_list');
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
-    Result:=P.Parse as TJSONObject;
+    Result:=P.Parse as TJSONData;
     P.Free;
-  end;
-  SaveHttpData('true_api_cises_list');
+  end
+  else
+    SaveHttpData('true_api_cises_list');
 end;
 
 function TCRPTTrueAPI.CisesInfo(ACIS: string; APG:string = ''; childsWithoutBrackets:Boolean = false): TCISInfos;
@@ -415,16 +440,10 @@ begin
 
   P1.Free;
 
-  if IsSandbox then
-    S1:=sTrueAPIURL4_sandbox
-  else
-    S1:=sTrueAPIURL4;
-  if SendCommand(hmPOST, S1 + 'codes/check', S, FMS, [200, 400, 404], 'application/json') then
+  if SendCommand(hmPOST, InternalTrueAPIUrl4 + 'codes/check', S, FMS, [200, 400, 404], 'application/json') then
   begin
     SaveHttpData('true_api_codes_check');
     FDocument.Position:=0;
-{    Result:=TCISInfos.Create;
-    Result.LoadFromStream(FDocument);}
     P:=TJSONParser.Create(FDocument, DefaultOptions);
     Result:=P.Parse as TJSONData;
     P.Free;
@@ -461,12 +480,10 @@ begin
 
   P1.Free;
 
-  if SendCommand(hmPOST, 'cises/check', S, FMS, [200, 400, 404], 'application/json') then
+  if SendCommand(hmPOST, InternalTrueAPIUrl3 + 'cises/check', S, FMS, [200, 400, 404], 'application/json') then
   begin
     SaveHttpData('true_api_cises_check');
     FDocument.Position:=0;
-{    Result:=TCISInfos.Create;
-    Result.LoadFromStream(FDocument);}
     P:=TJSONParser.Create(FDocument, DefaultOptions);
     Result:=P.Parse as TJSONData;
     P.Free;
@@ -506,15 +523,12 @@ begin
   FMS.Position:=0;
 
   P1.Free;
-  if SendCommand(hmPOST, 'cises/info', S, FMS, [200, 400, 404], 'application/json') then
+  if SendCommand(hmPOST, InternalTrueAPIUrl3 + 'cises/info', S, FMS, [200, 400, 404], 'application/json') then
   begin
     SaveHttpData('true_api_cises_info');
     FDocument.Position:=0;
     Result:=TCISInfos.Create;
     Result.LoadFromStream(FDocument);
-{    P:=TJSONParser.Create(FDocument, DefaultOptions);
-    Result:=P.Parse as TJSONData;
-    P.Free;}
   end
   else
     SaveHttpData('true_api_cises_info');
@@ -547,7 +561,8 @@ begin
   FMS.Position:=0;
 
   P1.Free;
-  if SendCommand(hmPOST, 'cises/short/list', S, FMS, [200, 400, 404], 'application/json') then
+
+  if SendCommand(hmPOST,  InternalTrueAPIUrl3 + 'cises/short/list', S, FMS, [200, 400, 404], 'application/json') then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -590,7 +605,7 @@ begin
 
   P1.Free;
 
-  if SendCommand(hmPOST, 'cises/search', S, FMS, [200, 400, 404], 'application/json') then
+  if SendCommand(hmPOST, InternalTrueAPIUrl4 + 'cises/search', S, FMS, [200, 400, 404], 'application/json') then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -614,6 +629,7 @@ begin
   Result:=nil;
   DoLogin;
   S:='';
+(*
   AddURLParam(S, 'codes', ACis);
 
   if SendCommand(hmGET, 'cises/aggregated/list', S, nil, [200, 400, 404], 'application/json') then
@@ -623,9 +639,9 @@ begin
     Result:=P.Parse as TJSONData;
     P.Free;
   end;
+*)
 
-{
-P1:=TJSONArray.Create([ACis]);
+  P1:=TJSONArray.Create([ACis]);
 
   S1:=P1.FormatJSON;
 
@@ -639,14 +655,14 @@ P1:=TJSONArray.Create([ACis]);
 
   P1.Free;
 
-  if SendCommand(hmGET, 'cises/aggregated/list', S, FMS, [200, 400, 404], 'application/json') then
+  if SendCommand(hmPOST, InternalTrueAPIUrl3 + 'cises/aggregated/list', S, FMS, [200, 400, 404], 'application/json') then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
     Result:=P.Parse as TJSONData;
     P.Free;
   end;
-  FMS.Free; }
+  FMS.Free;
   SaveHttpData('true_api_cises_aggregated_list');
 end;
 
@@ -660,7 +676,7 @@ begin
   S:='';
   AddURLParam(S, 'pg', CRPTProductGroupStr[APG]);
 
-  if SendCommand(hmGET, 'receipt/list', S, nil, [200, 400, 401, 404]) then
+  if SendCommand(hmGET, InternalTrueAPIUrl4 + 'receipt/list', S, nil, [200, 400, 401, 404]) then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -680,7 +696,7 @@ begin
   S:='';
   //AddURLParam(S, 'pg', CRPTProductGroupStr[APG]);
 
-  if SendCommand(hmGET, 'receipt/'+AReceiptId+'/info', S, nil, [200, 400, 401, 404]) then
+  if SendCommand(hmGET, InternalTrueAPIUrl4 + 'receipt/'+AReceiptId+'/info', S, nil, [200, 400, 401, 404]) then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -700,7 +716,7 @@ begin
   S:='';
   //AddURLParam(S, 'pg', CRPTProductGroupStr[APG]);
 
-  if SendCommand(hmGET, 'doc/'+ADocId+'/info', S, nil, [200, 400, 401, 404]) then
+  if SendCommand(hmGET, InternalTrueAPIUrl4 + 'doc/'+ADocId+'/info', S, nil, [200, 400, 401, 404]) then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -725,7 +741,7 @@ begin
   if AFilterRecord.FromDate >0 then
     AddURLParam(S, 'dateTo', xsd_DateTimeToStr(AFilterRecord.ToDate, xdkDateTime));
 
-  if SendCommand(hmGET, 'doc/list', S, nil, [200, 400, 401, 404]) then
+  if SendCommand(hmGET, InternalTrueAPIUrl4 + 'doc/list', S, nil, [200, 400, 401, 404]) then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -742,7 +758,7 @@ begin
   Result:=nil;
   DoLogin;
 
-  if SendCommand(hmGET, 'elk/product-groups/balance/all', '', nil, [200, 400, 401, 404]) then
+  if SendCommand(hmGET, InternalTrueAPIUrl3 + 'elk/product-groups/balance/all', '', nil, [200, 400, 401, 404]) then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -762,7 +778,7 @@ begin
   S:='';
   AddURLParam(S, 'productGroupId', AProductGroupId);
 
-  if SendCommand(hmGET, 'elk/product-groups/balance', S, nil, [200, 400, 401, 404]) then
+  if SendCommand(hmGET, InternalTrueAPIUrl3 + 'elk/product-groups/balance', S, nil, [200, 400, 401, 404]) then
   begin
     FDocument.Position:=0;
     P:=TJSONParser.Create(FDocument, DefaultOptions);
@@ -1316,6 +1332,12 @@ begin
     FDocument.Position:=0;
   end;
   M.Free;
+end;
+
+procedure TCustomCRPTApi.SetCRPTApiType(AValue: TCRPTApiType);
+begin
+  if FCRPTApiType=AValue then Exit;
+  FCRPTApiType:=AValue;
 end;
 
 procedure TCustomCRPTApi.SetServer(AValue: string);

@@ -13,7 +13,7 @@
     </CompilerOptions>
     <Description Value="Набор объектов и структур для взаимодействия с ЦРПТ по маркировке товаров посредством True API"/>
     <License Value="LGPL"/>
-    <Version Major="1" Build="2"/>
+    <Version Major="1" Release="1" Build="4"/>
     <Files>
       <Item>
         <Filename Value="crpttrueapi.pas"/>
@@ -25,8 +25,8 @@
         <UnitName Value="CRPTTrueAPI_Consts"/>
       </Item>
       <Item>
-        <Filename Value="trueapi/trueapi_cises_info.pas"/>
-        <UnitName Value="trueapi_cises_info"/>
+        <Filename Value="trueapi/crpttrueapidataobjects.pas"/>
+        <UnitName Value="CRPTTrueAPIDataObjects"/>
       </Item>
     </Files>
     <LazDoc Paths="docs"/>
