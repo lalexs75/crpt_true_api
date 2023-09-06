@@ -40,7 +40,7 @@ uses
 procedure Register;
 
 implementation
-uses CRPTSuzIntegration, CRPTTrueAPI;
+uses CRPTSuzIntegration, CRPTTrueAPI, CRPTSuzAPI;
 
 {$R crpt_true_api.res}
 

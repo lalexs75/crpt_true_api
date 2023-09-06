@@ -41,6 +41,10 @@
         <AddToUsesPkgSection Value="False"/>
         <UnitName Value="LazCRPTRegister"/>
       </Item>
+      <Item>
+        <Filename Value="SuzIntegration/crptsuzapi.pas"/>
+        <UnitName Value="crptsuzapi"/>
+      </Item>
     </Files>
     <LazDoc Paths="docs"/>
     <i18n>
