@@ -36,7 +36,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, ExtCtrls, ocrsConnectionUnit, CRPTTrueAPI,
+  ComCtrls, ExtCtrls, ocrsConnectionUnit, CRPTTrueAPI, CRPTSuzAPI,
   RxIniPropStorage, CRPTTrueAPI_Consts;
 
 type
@@ -124,8 +124,8 @@ end;
 procedure TCRPTSuzTestForm.btnLoginClick(Sender: TObject);
 begin
   case RadioGroup1.ItemIndex of
-    0:CRPTSuzAPI1.Server:=sAPISuzURL_sandbox1;
-    1:CRPTSuzAPI1.Server:=sAPISuzURL;
+    0:CRPTSuzAPI1.CRPTApiType:=atSandbox;
+    1:CRPTSuzAPI1.CRPTApiType:=atProduction;
   end;
   CRPTSuzAPI1.OMSConnection:=edtOMSConnection.Text;
   CRPTSuzAPI1.OmsID:=edtOMSID.Text;

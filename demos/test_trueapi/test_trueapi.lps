@@ -266,8 +266,8 @@
       </Unit>
       <Unit>
         <Filename Value="../../../ETradeDocuments/crpt/crpt_cmp.pas"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="28"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
         <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit>
@@ -329,7 +329,7 @@
       <Unit>
         <Filename Value="../../crpttrueapi_consts.pas"/>
         <UnitName Value="CRPTTrueAPI_Consts"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="43"/>
         <CursorPos X="82" Y="66"/>
         <UsageCount Value="24"/>
@@ -367,12 +367,10 @@
       <Unit>
         <Filename Value="../../trueapi/crpttrueapiglobals.pas"/>
         <UnitName Value="CRPTTrueAPIGlobals"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="7"/>
-        <TopLine Value="45"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="44"/>
         <CursorPos Y="74"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../ETradeDocuments/crpt/crptglobaltypes.pas"/>
@@ -382,7 +380,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
+    <JumpHistory HistoryIndex="23">
       <Position>
         <Filename Value="../../crpttrueapi.pas"/>
         <Caret Line="669" TopLine="643"/>
@@ -476,32 +474,8 @@
         <Caret Line="31" TopLine="16"/>
       </Position>
       <Position>
-        <Filename Value="../../trueapi/crpttrueapiglobals.pas"/>
-        <Caret Line="2" Column="11"/>
-      </Position>
-      <Position>
         <Filename Value="../../../ETradeDocuments/crpt/crpt_cmp.pas"/>
         <Caret Line="591" TopLine="562"/>
-      </Position>
-      <Position>
-        <Filename Value="../../trueapi/crpttrueapiglobals.pas"/>
-        <Caret Line="44" Column="43" TopLine="27"/>
-      </Position>
-      <Position>
-        <Filename Value="../../trueapi/crpttrueapiglobals.pas"/>
-        <Caret Line="38" Column="40" TopLine="26"/>
-      </Position>
-      <Position>
-        <Filename Value="../../trueapi/crpttrueapiglobals.pas"/>
-        <Caret Line="56" Column="39" TopLine="42"/>
-      </Position>
-      <Position>
-        <Filename Value="../../trueapi/crpttrueapiglobals.pas"/>
-        <Caret Line="42" Column="53" TopLine="25"/>
-      </Position>
-      <Position>
-        <Filename Value="../../trueapi/crpttrueapiglobals.pas"/>
-        <Caret Line="44" TopLine="38"/>
       </Position>
     </JumpHistory>
     <RunParams>

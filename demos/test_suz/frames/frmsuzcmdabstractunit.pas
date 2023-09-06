@@ -35,7 +35,7 @@ unit frmSUZCmdAbstractUnit;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, CRPTTrueAPI, CRPTTrueAPI_Consts, IniFiles;
+  Classes, SysUtils, Forms, Controls, CRPTTrueAPI, CRPTTrueAPI_Consts, CRPTSuzAPI, IniFiles;
 
 type
   TSUZType = (stTest, stWork);

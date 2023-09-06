@@ -35,7 +35,7 @@ unit frmSUZCmdServiceUnit;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, IniFiles, CRPTSuzAPI,
   frmSUZCmdAbstractUnit, CRPTTrueAPI, CRPTSuzIntegration;
 
 type
@@ -119,9 +119,9 @@ begin
   CRPTSuzIntegrationAPI1.OmsID:=CRPTSuzAPI.OmsID;
 
   if APISuzType = stTest then
-    CRPTSuzIntegrationAPI1.Server:=sAPISuzIntegrator_sandbox
+    CRPTSuzIntegrationAPI1.CRPTApiType:=atSandbox
   else
-    CRPTSuzIntegrationAPI1.Server:=sAPISuzIntegrator;
+    CRPTSuzIntegrationAPI1.CRPTApiType:=atProduction;
 end;
 
 end.

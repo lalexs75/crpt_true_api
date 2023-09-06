@@ -52,15 +52,17 @@ type
     FRegistrationKey: string;
     procedure SetOmsID(AValue: string);
     procedure SetRegistrationKey(AValue: string);
+    function InternalSuzAPIUrl:string;inline;
   protected
     procedure InternalMakeClientToken; override;
+    procedure SetCRPTApiType(AValue: TCRPTApiType); override;
   public
     property AuthorizationToken;
     function IntegrationRegister(AName, AAdress:string):TJSONObject;
   published
+    property CRPTApiType default atProduction;
     property OmsID:string read FOmsID write SetOmsID;
     property RegistrationKey:string read FRegistrationKey write SetRegistrationKey;
-    property Server;
     property OnHttpStatus;
     property OnSignData;
   end;
@@ -82,6 +84,14 @@ begin
   FRegistrationKey:=AValue;
 end;
 
+function TCRPTSuzIntegrationAPI.InternalSuzAPIUrl: string;
+begin
+  if CRPTApiType = atSandbox then
+    Result:=sAPISuzIntegrator_sandbox
+  else
+    Result:=sAPISuzIntegrator;
+end;
+
 procedure TCRPTSuzIntegrationAPI.InternalMakeClientToken;
 begin
   if RegistrationKey<>'' then
@@ -89,6 +99,12 @@ begin
     FHTTP.AddHeader('X-RegistrationKey', RegistrationKey);
     RxWriteLog(etDebug, 'X-RegistrationKey: %s', [RegistrationKey]);
   end;
+end;
+
+procedure TCRPTSuzIntegrationAPI.SetCRPTApiType(AValue: TCRPTApiType);
+begin
+  inherited SetCRPTApiType(AValue);
+  FServer:=InternalSuzAPIUrl;
 end;
 
 function TCRPTSuzIntegrationAPI.IntegrationRegister(AName, AAdress: string
