@@ -267,6 +267,7 @@ var
   P: TTreeNode;
 begin
   Ini:=TIniFile.Create(GetDefaultIniName);
+
   AddCRPTOperFrame('КИЗ', TfrmTrueAPICmdCISFrame.Create(Self));
   AddCRPTOperFrame('КИЗ', TfrmTrueAPICmdCheckCISUnitFrame.Create(Self));
   AddCRPTOperFrame('Финансовое', TfrmTrueAPICmdBalanceFrame.Create(Self));
