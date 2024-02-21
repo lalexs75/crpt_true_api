@@ -120,6 +120,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmTrueAPICmdCheckCISUnit"/>
       </Unit>
+      <Unit>
+        <Filename Value="frames/frmtrueapicmdoutcisunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTrueAPICmdOutCISFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frmTrueAPICmdOutCISUnit"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -98,6 +98,7 @@ uses
   frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit, frmTrueAPICmdDocListUnit,
   frmTrueAPICmdReceiptListUnit, frmTrueAPICmdDocInfoUnit,
   frmTrueAPICmdReceiptInfoUnit, frmTrueAPICmdCheckCISUnit,
+  frmTrueAPICmdOutCISUnit,
 
   fpopenssl,
   opensslsockets
@@ -273,6 +274,7 @@ begin
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdDocInfoFrame.Create(Self));
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdReceiptListFrame.Create(Self));
   AddCRPTOperFrame('Документы', TfrmTrueAPICmdReceiptInfoFrame.Create(Self));
+  AddCRPTOperFrame('Вывод', TfrmTrueAPICmdOutCISFrame.Create(Self));
 
   for P in TreeView1.Items do
     if Assigned(P.Data) then

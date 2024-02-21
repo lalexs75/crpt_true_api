@@ -364,6 +364,70 @@ type
     property nextPage:Boolean read FnextPage write FnextPage;
   end;
 
+  { TLK_RECEIPT_ITEM }
+
+  TLK_RECEIPT_ITEM = class(TJSONSerializationObject)
+  private
+    Fcis: string;
+    Fproduct_cost: Cardinal;
+    procedure Setcis(AValue: string);
+    procedure Setproduct_cost(AValue: Cardinal);
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    destructor Destroy; override;
+  published
+    property cis:string read Fcis write Setcis;
+    property product_cost:Cardinal read Fproduct_cost write Setproduct_cost;
+  end;
+
+  TLK_RECEIPT_ITEMs = specialize GJSONSerializationObjectList<TLK_RECEIPT_ITEM>;
+
+  { TLK_RECEIPT }
+
+  TLK_RECEIPT = class(TJSONSerializationObject)
+  private
+    Faction: string;
+    Faction_date: TDate;
+    Fbuyer_inn: string;
+    Fdocument_date: TDate;
+    Fdocument_number: string;
+    Fdocument_type: string;
+    Ffias_id: string;
+    Finn: string;
+    Fprimary_document_custom_name: string;
+    Fproducts: TLK_RECEIPT_ITEMs;
+    Fwithdrawal_type_other: string;
+    procedure Setaction(AValue: string);
+    procedure Setaction_date(AValue: TDate);
+    procedure SetBuyer_inn(AValue: string);
+    procedure Setdocument_date(AValue: TDate);
+    procedure Setdocument_number(AValue: string);
+    procedure Setdocument_type(AValue: string);
+    procedure Setfias_id(AValue: string);
+    procedure SetInn(AValue: string);
+    procedure Setprimary_document_custom_name(AValue: string);
+    procedure Setwithdrawal_type_other(AValue: string);
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    destructor Destroy; override;
+  published
+    property inn:string read Finn write SetInn;
+    property buyer_inn:string read Fbuyer_inn write SetBuyer_inn;
+    property action:string read Faction  write Setaction;
+    property withdrawal_type_other:string read Fwithdrawal_type_other write Setwithdrawal_type_other;
+    property action_date:TDate read Faction_date write Setaction_date;
+    property document_type:string read Fdocument_type write Setdocument_type;
+    property document_number:string read Fdocument_number write Setdocument_number;
+    property document_date:TDate read Fdocument_date write Setdocument_date;
+    property primary_document_custom_name:string read Fprimary_document_custom_name write Setprimary_document_custom_name;
+    property fias_id:string read Ffias_id write Setfias_id;
+    property products:TLK_RECEIPT_ITEMs read Fproducts;
+  end;
+
 implementation
 uses {fpjson, jsonparser, }sdo_date_utils;
 
@@ -671,6 +735,140 @@ end;
 destructor TReceiptList.Destroy;
 begin
   FreeAndNil(FResultItems);
+  inherited Destroy;
+end;
+
+{ TLK_RECEIPT_ITEM }
+
+procedure TLK_RECEIPT_ITEM.Setcis(AValue: string);
+begin
+  if Fcis=AValue then Exit;
+  Fcis:=AValue;
+  ModifiedProperty('cis');
+end;
+
+procedure TLK_RECEIPT_ITEM.Setproduct_cost(AValue: Cardinal);
+begin
+  if Fproduct_cost=AValue then Exit;
+  Fproduct_cost:=AValue;
+  ModifiedProperty('product_cost');
+end;
+
+procedure TLK_RECEIPT_ITEM.InternalRegisterPropertys;
+begin
+  inherited InternalRegisterPropertys;
+  RegisterProperty('cis', 'cis', [], '', -1, -1);
+  RegisterProperty('product_cost', 'product_cost', [], '', -1, -1);
+end;
+
+procedure TLK_RECEIPT_ITEM.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+end;
+
+destructor TLK_RECEIPT_ITEM.Destroy;
+begin
+  inherited Destroy;
+end;
+
+{ TLK_RECEIPT }
+
+procedure TLK_RECEIPT.SetInn(AValue: string);
+begin
+  if Finn=AValue then Exit;
+  Finn:=AValue;
+  ModifiedProperty('inn');
+end;
+
+procedure TLK_RECEIPT.Setprimary_document_custom_name(AValue: string);
+begin
+  if Fprimary_document_custom_name=AValue then Exit;
+  Fprimary_document_custom_name:=AValue;
+  ModifiedProperty('primary_document_custom_name');
+end;
+
+procedure TLK_RECEIPT.Setwithdrawal_type_other(AValue: string);
+begin
+  if Fwithdrawal_type_other=AValue then Exit;
+  Fwithdrawal_type_other:=AValue;
+  ModifiedProperty('withdrawal_type_other');
+end;
+
+procedure TLK_RECEIPT.SetBuyer_inn(AValue: string);
+begin
+  if Fbuyer_inn=AValue then Exit;
+  Fbuyer_inn:=AValue;
+  ModifiedProperty('buyer_inn');
+end;
+
+procedure TLK_RECEIPT.Setdocument_date(AValue: TDate);
+begin
+  if Fdocument_date=AValue then Exit;
+  Fdocument_date:=AValue;
+  ModifiedProperty('document_date');
+end;
+
+procedure TLK_RECEIPT.Setdocument_number(AValue: string);
+begin
+  if Fdocument_number=AValue then Exit;
+  Fdocument_number:=AValue;
+  ModifiedProperty('document_number');
+end;
+
+procedure TLK_RECEIPT.Setdocument_type(AValue: string);
+begin
+  if Fdocument_type=AValue then Exit;
+  Fdocument_type:=AValue;
+  ModifiedProperty('document_type');
+end;
+
+procedure TLK_RECEIPT.Setfias_id(AValue: string);
+begin
+  if Ffias_id=AValue then Exit;
+  Ffias_id:=AValue;
+  ModifiedProperty('fias_id');
+end;
+
+procedure TLK_RECEIPT.Setaction(AValue: string);
+begin
+  if Faction=AValue then Exit;
+  Faction:=AValue;
+  ModifiedProperty('action');
+end;
+
+procedure TLK_RECEIPT.Setaction_date(AValue: TDate);
+begin
+  if Faction_date=AValue then Exit;
+  Faction_date:=AValue;
+  ModifiedProperty('action_date');
+end;
+
+procedure TLK_RECEIPT.InternalRegisterPropertys;
+begin
+  inherited InternalRegisterPropertys;
+  RegisterProperty('inn', 'inn', [], '', -1, -1);
+  RegisterProperty('buyer_inn', 'buyer_inn', [], '', -1, -1);
+  RegisterProperty('action', 'action', [], '', -1, -1);
+  RegisterProperty('withdrawal_type_other', 'withdrawal_type_other', [], '', -1, -1);
+  RegisterProperty('action_date', 'action_date', [], '', -1, -1);
+  RegisterProperty('document_type', 'document_type', [], '', -1, -1);
+  RegisterProperty('document_number', 'document_number', [], '', -1, -1);
+  RegisterProperty('document_date', 'document_date', [], '', -1, -1);
+  RegisterProperty('primary_document_custom_name', 'primary_document_custom_name', [], '', -1, -1);
+  RegisterProperty('fias_id', 'fias_id', [], '', -1, -1);
+
+  RegisterProperty('products', 'products', [], '', -1, -1);
+end;
+
+procedure TLK_RECEIPT.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+  Fproducts:=TLK_RECEIPT_ITEMs.Create;
+end;
+
+destructor TLK_RECEIPT.Destroy;
+begin
+  FreeAndNil(Fproducts);
   inherited Destroy;
 end;
 

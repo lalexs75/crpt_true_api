@@ -1,4 +1,6 @@
 inherited frmTrueAPICmdReceiptInfoFrame: TfrmTrueAPICmdReceiptInfoFrame
+  Width = 378
+  ClientWidth = 378
   object Memo1: TMemo[0]
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Button1
@@ -10,7 +12,7 @@ inherited frmTrueAPICmdReceiptInfoFrame: TfrmTrueAPICmdReceiptInfoFrame
     Left = 0
     Height = 141
     Top = 99
-    Width = 320
+    Width = 378
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabOrder = 0
   end
@@ -19,7 +21,7 @@ inherited frmTrueAPICmdReceiptInfoFrame: TfrmTrueAPICmdReceiptInfoFrame
     AnchorSideLeft.Side = asrCenter
     AnchorSideTop.Control = edtReceiptID
     AnchorSideTop.Side = asrBottom
-    Left = 98
+    Left = 127
     Height = 29
     Top = 64
     Width = 124
@@ -48,7 +50,7 @@ inherited frmTrueAPICmdReceiptInfoFrame: TfrmTrueAPICmdReceiptInfoFrame
     Left = 12
     Height = 29
     Top = 29
-    Width = 302
+    Width = 360
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 6
     TabOrder = 2

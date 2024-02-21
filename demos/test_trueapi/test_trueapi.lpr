@@ -44,7 +44,7 @@ uses
   frmTrueAPICmdAbstractUnit, frmTrueAPICmdCISUnit, frmTrueAPICmdBalanceUnit,
   frmTrueAPICmdDocListUnit, frmTrueAPICmdReceiptListUnit, 
 frmTrueAPICmdDocInfoUnit, frmTrueAPICmdReceiptInfoUnit, 
-frmTrueAPICmdCheckCISUnit
+frmTrueAPICmdCheckCISUnit, frmTrueAPICmdOutCISUnit
   { you can add units after this };
 
 {$R *.res}
