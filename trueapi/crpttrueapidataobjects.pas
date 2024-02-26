@@ -35,7 +35,7 @@ unit CRPTTrueAPIDataObjects;
 interface
 
 uses
-  Classes, SysUtils, JSONObjects, AbstractSerializationObjects;
+  Classes, SysUtils, xmlobject, JSONObjects, AbstractSerializationObjects;
 
 type
 
@@ -453,7 +453,7 @@ type
 
   { TLK_RECEIPT_ITEM_XML }
 
-  TLK_RECEIPT_ITEM_XML = class(TJSONSerializationObject)
+  TLK_RECEIPT_ITEM_XML = class(TXmlSerializationObject)
   private
     Fcis: string;
     Fprimary_document_custom_name: string;
@@ -481,13 +481,13 @@ type
     property primary_document_custom_name:string read Fprimary_document_custom_name write Setprimary_document_custom_name;
   end;
 
-  TLK_RECEIPT_ITEM_XMLs = specialize GJSONSerializationObjectList<TLK_RECEIPT_ITEM_XML>;
+  TLK_RECEIPT_ITEM_XMLs = specialize GXMLSerializationObjectList<TLK_RECEIPT_ITEM_XML>;
 
   { TLK_RECEIPT }
 
   { TLK_RECEIPT_XML }
 
-  TLK_RECEIPT_XML = class(TJSONSerializationObject)
+  TLK_RECEIPT_XML = class(TXmlSerializationObject)
   private
     Faction: string;
     Faction_date: TDate;
