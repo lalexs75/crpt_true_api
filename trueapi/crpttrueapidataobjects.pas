@@ -450,7 +450,7 @@ type
 
     property products:TLK_RECEIPT_ITEMs read Fproducts;
   end;
-
+(*
   { TLK_RECEIPT_ITEM_XML }
 
   TLK_RECEIPT_ITEM_XML = class(TXmlSerializationObject)
@@ -539,8 +539,63 @@ type
 
     property products:TLK_RECEIPT_ITEM_XMLs read Fproducts;
   end;
+*)
+
+type
+
+  { TTrueAPICreateDocumentData }
+
+  TTrueAPICreateDocumentData =  class(TJSONSerializationObject)
+  private
+    FDocumentFormat: string;
+    FDocumentType: string;
+    FProductDocument: string;
+    FSignature: string;
+    procedure SetDocumentFormat(AValue: string);
+    procedure SetDocumentType(AValue: string);
+    procedure SetProductDocument(AValue: string);
+    procedure SetSignature(AValue: string);
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    constructor Create; override;
+    destructor Destroy; override;
+    procedure LoadProductDocument(AStream:TStream);
+    procedure LoadSignature(AStream:TStream);
+  published
+    property DocumentFormat:string read FDocumentFormat write SetDocumentFormat;
+    property ProductDocument:string read FProductDocument write SetProductDocument;
+    property DocumentType:string read FDocumentType write SetDocumentType;
+    property Signature:string read FSignature write SetSignature;
+  end;
+
 implementation
-uses {fpjson, jsonparser, }sdo_date_utils;
+uses base64, sdo_date_utils;
+
+
+function EncodeStringBase64W(const S:TStream):String;
+var
+  OutStream : TStringStream;
+  Encoder   : TBase64EncodingStream;
+begin
+  if not Assigned(S) then
+    Exit('');
+
+  OutStream:=TStringStream.Create('');
+  try
+    Encoder:=TBase64EncodingStream.create(OutStream);
+    try
+      Encoder.CopyFrom(S, S.Size);
+    finally
+      Encoder.Free;
+    end;
+    Result:=OutStream.DataString;
+  finally
+    OutStream.free;
+  end;
+end;
+
 
 { TLicencesInfo }
 
@@ -1041,6 +1096,88 @@ begin
   inherited Destroy;
 end;
 
+{ TTrueAPICreateDocumentData }
+
+procedure TTrueAPICreateDocumentData.SetDocumentFormat(AValue: string);
+begin
+  if FDocumentFormat=AValue then Exit;
+  CheckLockupValue('DocumentFormat', AValue);
+  FDocumentFormat:=AValue;
+  ModifiedProperty('DocumentFormat');
+end;
+
+procedure TTrueAPICreateDocumentData.SetDocumentType(AValue: string);
+begin
+  if FDocumentType=AValue then Exit;
+  FDocumentType:=AValue;
+  ModifiedProperty('DocumentType');
+end;
+
+procedure TTrueAPICreateDocumentData.SetProductDocument(AValue: string);
+begin
+  if FProductDocument=AValue then Exit;
+  FProductDocument:=AValue;
+  ModifiedProperty('ProductDocument');
+end;
+
+procedure TTrueAPICreateDocumentData.SetSignature(AValue: string);
+begin
+  if FSignature=AValue then Exit;
+  FSignature:=AValue;
+  ModifiedProperty('Signature');
+end;
+
+procedure TTrueAPICreateDocumentData.InternalRegisterPropertys;
+var
+  P: TPropertyDef;
+begin
+  inherited InternalRegisterPropertys;
+  P:=RegisterProperty('DocumentFormat', 'document_format', [], '', -1, -1);
+    P.ValidList.Add('MANUAL');
+    P.ValidList.Add('XML');
+    P.ValidList.Add('CSV');
+  RegisterProperty('ProductDocument', 'product_document', [], '', -1, -1);
+  RegisterProperty('DocumentType', 'type', [], '', -1, -1);
+  RegisterProperty('Signature', 'signature', [], '', -1, -1);
+end;
+
+procedure TTrueAPICreateDocumentData.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+end;
+
+constructor TTrueAPICreateDocumentData.Create;
+begin
+  inherited Create;
+end;
+
+destructor TTrueAPICreateDocumentData.Destroy;
+begin
+  inherited Destroy;
+end;
+
+procedure TTrueAPICreateDocumentData.LoadProductDocument(AStream: TStream);
+begin
+  ProductDocument:=EncodeStringBase64W(AStream)
+end;
+
+procedure TTrueAPICreateDocumentData.LoadSignature(AStream: TStream);
+var
+  S: String;
+begin
+  //Signature:=EncodeStringBase64W(AStream)
+  Signature:='';
+  if not Assigned(AStream) then Exit;
+  if (AStream.Size > 0) then
+  begin
+    S:='';
+    SetLength(S, AStream.Size);
+    AStream.Read(S[1], AStream.Size);
+    Signature:=S;
+  end;
+end;
+
+(*
 { TLK_RECEIPT_ITEM_XML }
 
 procedure TLK_RECEIPT_ITEM_XML.Setcis(AValue: string);
@@ -1233,6 +1370,6 @@ begin
   FreeAndNil(Fproducts);
   inherited Destroy;
 end;
-
+*)
 end.
 

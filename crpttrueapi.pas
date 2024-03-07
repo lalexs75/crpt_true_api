@@ -149,6 +149,8 @@ type
 
     function BalanceAll:TJSONData;
     function Balance(AProductGroupId: Integer): TJSONData;
+
+    function DocCreate(const PG, ADocumentFormat, ADocumentType:string;const AProductDocument, ASignature:TStream):string;
 //КИ
 //Номер страницы вложений в агрегат первого слоя
     property AuthorizationToken;
@@ -711,6 +713,45 @@ begin
   SaveHttpData('balance_all');
 end;
 
+function TCRPTTrueAPI.DocCreate(const PG, ADocumentFormat,
+  ADocumentType: string; const AProductDocument, ASignature: TStream): string;
+var
+  S: String;
+  M: TMemoryStream;
+  V: TTrueAPICreateDocumentData;
+  P: TJSONParser;
+begin
+  Result:='';
+  DoLogin;
+
+  S:='';
+  M:=TMemoryStream.Create;
+  AddURLParam(S, 'pg', PG);
+  V:=TTrueAPICreateDocumentData.Create;
+  V.DocumentType:=ADocumentType;
+  V.DocumentFormat:=ADocumentFormat;
+  V.LoadProductDocument(AProductDocument);
+  V.LoadSignature(ASignature);
+  V.SaveToStream(M);
+  V.Free;
+  M.Position:=0;
+
+  if SendCommand(hmPOST, InternalTrueAPIUrl3 + 'lk/documents/create', S, M, [200, 201, 400, 401, 404], 'application/json') then
+  begin
+{    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;}
+    if FDocument.Size > 0 then
+    begin
+      FDocument.Position:=0;
+      SetLength(Result, FDocument.Size);
+      FDocument.Read(Result[1], FDocument.Size);
+    end;
+  end;
+  SaveHttpData('documents_create');
+  M.Free;
+end;
+
 
 { TCustomCRPTApi }
 
@@ -848,7 +889,7 @@ begin
 
   FResultCode := FHTTP.ResponseStatusCode;
   FResultString := FHTTP.ResponseStatusText;
-  Result:=FResultCode = 200;
+  Result:=(FResultCode = 200) or (FResultCode = 201) or (FResultCode = 202);
 
   if (not Result) and (FDocument.Size > 0) then
   begin
