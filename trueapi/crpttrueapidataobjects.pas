@@ -245,6 +245,8 @@ type
   TCISInfo = class(TJSONSerializationObject)
   private
     FcisInfo: TCISInfoData;
+    FerrorCode: string;
+    FerrorMessage: string;
   protected
     procedure InternalRegisterPropertys; override;
     procedure InternalInitChilds; override;
@@ -252,6 +254,8 @@ type
     destructor Destroy; override;
   published
     property cisInfo:TCISInfoData read FcisInfo;
+    property errorMessage:string read FerrorMessage write FerrorMessage;            //Сообщение об ошибке
+    property errorCode:string read FerrorCode write FerrorCode;                     //Код ошибки
   end;
   TCISInfos = specialize GJSONSerializationObjectList<TCISInfo>;
 
@@ -789,6 +793,8 @@ procedure TCISInfo.InternalRegisterPropertys;
 begin
   inherited InternalRegisterPropertys;
   RegisterProperty('cisInfo', 'cisInfo', [], '', -1, -1);
+  RegisterProperty('errorMessage');
+  RegisterProperty('errorCode');
 end;
 
 procedure TCISInfo.InternalInitChilds;

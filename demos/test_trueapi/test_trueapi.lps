@@ -19,8 +19,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="TrueAPI_MainUnit"/>
+        <IsVisibleTab Value="True"/>
         <TopLine Value="145"/>
-        <CursorPos X="33" Y="163"/>
+        <CursorPos X="102" Y="152"/>
         <UsageCount Value="117"/>
         <Bookmarks Count="1">
           <Item0 Y="144" ID="2"/>
@@ -132,7 +133,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmTrueAPICmdOutCISUnit"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="51"/>
         <CursorPos X="122" Y="69"/>
