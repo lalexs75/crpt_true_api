@@ -35,7 +35,8 @@ unit crptCDNTrueAPI;
 interface
 
 uses
-  Classes, SysUtils, CRPTTrueAPI, fpjson;
+  Classes, SysUtils, CRPTTrueAPI, fpjson,
+  crptCDNTrueAPITypes;
 
 const
   sCDNTrueAPIURL_sandbox = 'https://markirovka.sandbox.crptech.ru'; //  Хост для тестового контура
@@ -51,7 +52,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
 
-    function CDNListInfo: TJSONData;
+    function CDNListInfo(ACheckHealth:Boolean): TCDNInfo;
   published
     property AuthorizationToken;
     property Server;
@@ -75,9 +76,14 @@ begin
   FServer:=sCDNTrueAPIURL;
 end;
 
-function TCDNCrptAPI.CDNListInfo: TJSONData;
+function TCDNCrptAPI.CDNListInfo(ACheckHealth: Boolean): TCDNInfo;
+
+procedure DoCheckHealth(SI:TCDNSiteInfo);
+begin
+end;
+
 var
-  P:TJSONParser;
+  I: Integer;
 begin
   Result:=nil;
 
@@ -86,9 +92,15 @@ begin
   begin
     SaveHttpData('true_api_CDNListInfo');
     Document.Position:=0;
-    P:=TJSONParser.Create(Document, DefaultOptions);
-    Result:=P.Parse as TJSONData;
-    P.Free;
+    Result:=TCDNInfo.Create;
+    Result.LoadFromStream(Document);
+
+    if ACheckHealth and (Result.Code = 0) and (Result.Hosts.Count>0) then
+    begin
+      // CheckHealth
+      for I:=0 to Result.Hosts.Count-1 do
+        DoCheckHealth(Result.Hosts[i]);
+    end;
   end
   else
     SaveHttpData('true_api_CDNListInfo');

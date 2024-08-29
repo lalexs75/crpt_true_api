@@ -43,11 +43,15 @@
       </Item>
       <Item>
         <Filename Value="SuzIntegration/crptsuzapi.pas"/>
-        <UnitName Value="crptsuzapi"/>
+        <UnitName Value="CRPTSuzAPI"/>
       </Item>
       <Item>
         <Filename Value="cdn/crptcdntrueapi.pas"/>
         <UnitName Value="crptCDNTrueAPI"/>
+      </Item>
+      <Item>
+        <Filename Value="cdn/crptcdntrueapitypes.pas"/>
+        <UnitName Value="crptcdntrueapitypes"/>
       </Item>
     </Files>
     <LazDoc Paths="docs"/>

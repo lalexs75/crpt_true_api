@@ -11,8 +11,13 @@
 («Успешно»), иначе
 возвращается сообщение об
 ошибке
-
 </descr>
+      </element><element name="TCDNSiteInfo.Host"><short>Адрес CDN-площадки</short><descr>Адрес CDN-площадки, который
+нужно указывать при
+обращении к методу
+/codes/check
+</descr>
+      </element><element name="TCDNInfo.Hosts"><short>Список CDN-площадок</short>
       </element>
     </module>
   </package>
