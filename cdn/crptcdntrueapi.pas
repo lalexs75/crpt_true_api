@@ -38,8 +38,8 @@ uses
   Classes, SysUtils, CRPTTrueAPI, fpjson;
 
 const
-  sCDNTrueAPIURL = 'https://markirovka.sandbox.crptech.ru'; //  Хост для тестового контура
-  sCDNTrueAPIURL3_sandbox = 'https://cdn.crpt.ru';          //Хост для продуктивного контура
+  sCDNTrueAPIURL_sandbox = 'https://markirovka.sandbox.crptech.ru'; //  Хост для тестового контура
+  sCDNTrueAPIURL = 'https://cdn.crpt.ru';          //Хост для продуктивного контура
 
 type
 
@@ -82,7 +82,7 @@ begin
   Result:=nil;
 
 
-  if SendCommand(hmGET, '/api/v4/true-api/cdn/info', '', nil, [200, 400, 404], 'application/json') then
+  if SendCommand(hmGET, '/api/v4/true-api/cdn/info', '', nil, [200, 400, 401, 404], 'application/json') then
   begin
     SaveHttpData('true_api_CDNListInfo');
     Document.Position:=0;
