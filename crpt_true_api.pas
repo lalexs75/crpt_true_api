@@ -9,7 +9,8 @@ interface
 
 uses
   CRPTTrueAPI, CRPTTrueAPI_Consts, CRPTTrueAPIDataObjects, CRPTTrueAPIGlobals, 
-  CRPTSuzIntegration, LazCRPTRegister, CRPTSuzAPI, LazarusPackageIntf;
+  CRPTSuzIntegration, LazCRPTRegister, CRPTSuzAPI, crptCDNTrueAPI, 
+  LazarusPackageIntf;
 
 implementation
 

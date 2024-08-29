@@ -40,13 +40,13 @@ uses
 procedure Register;
 
 implementation
-uses CRPTSuzIntegration, CRPTTrueAPI, CRPTSuzAPI;
+uses CRPTSuzIntegration, CRPTTrueAPI, CRPTSuzAPI, crptCDNTrueAPI;
 
 {$R crpt_true_api.res}
 
 procedure Register;
 begin
-  RegisterComponents('ЦРПТ',[TCRPTTrueAPI, TCRPTSuzAPI, TCRPTSuzIntegrationAPI]);
+  RegisterComponents('ЦРПТ',[TCRPTTrueAPI, TCRPTSuzAPI, TCRPTSuzIntegrationAPI, TCDNCrptAPI]);
 end;
 
 end.

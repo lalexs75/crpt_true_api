@@ -7,7 +7,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="trueapi;SuzIntegration"/>
+        <OtherUnitFiles Value="trueapi;SuzIntegration;cdn"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
@@ -44,6 +44,10 @@
       <Item>
         <Filename Value="SuzIntegration/crptsuzapi.pas"/>
         <UnitName Value="crptsuzapi"/>
+      </Item>
+      <Item>
+        <Filename Value="cdn/crptcdntrueapi.pas"/>
+        <UnitName Value="crptCDNTrueAPI"/>
       </Item>
     </Files>
     <LazDoc Paths="docs"/>

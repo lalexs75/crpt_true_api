@@ -1,6 +1,6 @@
 { CRPT TrueAPI interface library for FPC and Lazarus
 
-  Copyright (C) 2023 Lagunov Aleksey alexs75@yandex.ru
+  Copyright (C) 2023-2024 Lagunov Aleksey alexs75@yandex.ru
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
