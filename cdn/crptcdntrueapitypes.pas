@@ -100,7 +100,6 @@ end;
 procedure TCDNInfo.InternalRegisterPropertys;
 begin
   inherited InternalRegisterPropertys;
-  RegisterProperty('applicationDate', 'applicationDate', [], '', -1, -1);
   RegisterProperty('Code', 'code', [], '', -1, -1);
   RegisterProperty('Description', 'description', [], '', -1, -1);
   RegisterProperty('Hosts', 'hosts', [], '', -1, -1);

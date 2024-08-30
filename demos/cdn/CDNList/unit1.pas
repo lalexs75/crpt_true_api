@@ -71,11 +71,11 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
-  J: TJSONData;
   P: TCDNInfo;
   PP: TCDNSiteInfo;
   I: Integer;
 begin
+  Memo1.Lines.Clear;
   rxCDNList.CloseOpen;
   if edtCDNToken.Text <> '' then
   begin
@@ -85,7 +85,6 @@ begin
     begin
       Edit1.Text:=P.Code.ToString;
       Edit2.Text:=P.Description;
-      //Memo1.Lines.:=CDNCrptAPI1.Document.;
       for I:=0 to P.Hosts.Count-1 do
       begin
         PP:=P.Hosts[i];
@@ -97,7 +96,6 @@ begin
         rxCDNList.Post;
       end;
       rxCDNList.First;
-      P.Free;
     end;
   end
   else
@@ -108,9 +106,20 @@ procedure TForm1.CDNCrptAPI1HttpStatus(Sender: TCustomCRPTApi);
 var
   S: String;
 begin
-  S:=Format('%d: %s', [Sender.ResultCode, Sender.ResultString]);
-  Memo2.Lines.Text:=S +  LineEnding + Sender.ErrorText.Text;
+  Memo2.Lines.Add('%d: %s'+LineEnding+'%s', [Sender.ResultCode, Sender.ResultString, Sender.ErrorText.Text]);
   RxWriteLog(etDebug, Memo2.Lines.Text);
+  if Sender.ResultCode = 200 then
+  begin
+    if Sender.Document.Size>0 then
+    begin
+      SetLength(S, Sender.Document.Size);
+      Sender.Document.Position:=0;
+      Sender.Document.Read(S[1], Sender.Document.Size);
+      Sender.Document.Position:=0;
+      Memo1.Lines.Add(S);
+      Memo1.Lines.Add('');
+    end;
+  end;
 end;
 
 end.
