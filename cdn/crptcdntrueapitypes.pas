@@ -50,11 +50,12 @@ type
     procedure InternalRegisterPropertys; override;
     procedure InternalInitChilds; override;
   public
-    property SiteErrorCode:integer read FSiteErrorCode write FSiteErrorCode;
-    property SiteErrorDescription:string read FSiteErrorDescription write FSiteErrorDescription;
-    property avgTimeMs:integer read FavgTimeMs write FavgTimeMs;
   published
     property Host:string read FHost write FHost; //Адрес CDN-площадки
+    //
+    property Code:integer read FSiteErrorCode write FSiteErrorCode;
+    property Description:string read FSiteErrorDescription write FSiteErrorDescription;
+    property avgTimeMs:integer read FavgTimeMs write FavgTimeMs;
   end;
   TCDNSiteInfos = specialize GJSONSerializationObjectList<TCDNSiteInfo>;
 
@@ -84,6 +85,9 @@ procedure TCDNSiteInfo.InternalRegisterPropertys;
 begin
   inherited InternalRegisterPropertys;
   RegisterProperty('Host', 'host', [], '', -1, -1);
+  RegisterProperty('Code', 'code', [], '', -1, -1);
+  RegisterProperty('Description', 'description', [], '', -1, -1);
+  RegisterProperty('avgTimeMs', 'avgTimeMs', [], '', -1, -1);
 end;
 
 procedure TCDNSiteInfo.InternalInitChilds;

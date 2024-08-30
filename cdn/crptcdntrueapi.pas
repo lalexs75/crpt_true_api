@@ -79,7 +79,15 @@ end;
 function TCDNCrptAPI.CDNListInfo(ACheckHealth: Boolean): TCDNInfo;
 
 procedure DoCheckHealth(SI:TCDNSiteInfo);
+var
+  S: String;
 begin
+  S:=SI.Host + '/api/v4/true-api/cdn/health/check';
+  if SendCommand(hmGET,  S, '', nil, [200, 400, 404], 'application/json') then
+  begin
+    Document.Position:=0;
+    SI.LoadFromStream(Document);
+  end;
 end;
 
 var
@@ -94,7 +102,6 @@ begin
     Document.Position:=0;
     Result:=TCDNInfo.Create;
     Result.LoadFromStream(Document);
-
     if ACheckHealth and (Result.Code = 0) and (Result.Hosts.Count>0) then
     begin
       // CheckHealth
