@@ -1,1 +1,0 @@
-curl -X GET "https://cdn.crpt.ru/api/v4/true-api/cdn/info" -H "Content-Type: application/json" -H "X-API-KEY: cece8458-e925-45b3-84ee-ac2c23b1332d"
