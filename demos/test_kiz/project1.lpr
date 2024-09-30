@@ -13,8 +13,8 @@ uses
   Forms,
   opensslsockets,
   rxnew,
-  ssl_openssl,
-  ssl_openssl_lib,
+  ssl_openssl3,
+  ssl_openssl3_lib,
   rxlogging,
   unit1, unit2
   { you can add units after this };

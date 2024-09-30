@@ -6,10 +6,10 @@ object CRPTTrueAPITestKIZMainForm: TCRPTTrueAPITestKIZMainForm
   Caption = 'CRPT TrueAPI TestKIZ'
   ClientHeight = 494
   ClientWidth = 641
-  OnCreate = FormCreate
   Position = poDesktopCenter
   SessionProperties = 'edtCIS.Text;edtCryptoProSrv.Text;edtUserKey.Text;edtOMSID.Text'
   LCLVersion = '3.99.0.0'
+  OnCreate = FormCreate
   object Button1: TButton
     AnchorSideLeft.Control = Owner
     AnchorSideLeft.Side = asrCenter
@@ -21,8 +21,8 @@ object CRPTTrueAPITestKIZMainForm: TCRPTTrueAPITestKIZMainForm
     AutoSize = True
     BorderSpacing.Around = 6
     Caption = 'Login'
-    OnClick = Button1Click
     TabOrder = 0
+    OnClick = Button1Click
   end
   object Label1: TLabel
     AnchorSideLeft.Control = Owner
@@ -109,8 +109,8 @@ object CRPTTrueAPITestKIZMainForm: TCRPTTrueAPITestKIZMainForm
     AutoSize = True
     BorderSpacing.Around = 6
     Caption = 'Get CIS info'
-    OnClick = Button2Click
     TabOrder = 4
+    OnClick = Button2Click
   end
   object edtCIS: TEdit
     AnchorSideLeft.Control = Label3
@@ -164,20 +164,19 @@ object CRPTTrueAPITestKIZMainForm: TCRPTTrueAPITestKIZMainForm
     Top = 10
     Width = 75
     Caption = 'Button4'
-    OnClick = Button4Click
     TabOrder = 8
+    OnClick = Button4Click
   end
   object CRPTTrueAPI1: TCRPTTrueAPI
-    Server = 'https://markirovka.crpt.ru/api/v3/true-api'
     OnHttpStatus = CRPTTrueAPI1HttpStatus
     OnSignData = CRPTTrueAPI1SignData
-    Left = 48
+    Left = 32
     Top = 8
   end
   object OptCryptoServer1: TOptCryptoServer
     Server = 'http://192.168.129.163'
     OnHttpStatus = OptCryptoServer1HttpStatus
-    Left = 88
+    Left = 64
     Top = 8
   end
   object RxIniPropStorage1: TRxIniPropStorage
@@ -187,7 +186,7 @@ object CRPTTrueAPITestKIZMainForm: TCRPTTrueAPITestKIZMainForm
     Top = 8
   end
   object CRPTComponent1: TCRPTComponent
-    Left = 131
+    Left = 152
     Top = 8
   end
 end
