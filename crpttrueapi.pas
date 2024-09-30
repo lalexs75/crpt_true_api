@@ -41,7 +41,7 @@ interface
 
 uses
   Classes, SysUtils, fphttpclient, ssockets, sslsockets, fpJSON,
-  CRPTTrueAPI_Consts,
+  AbstractSerializationObjects, CRPTTrueAPI_Consts,
 
   //
   CRPTTrueAPIDataObjects
@@ -151,6 +151,8 @@ type
     function Balance(AProductGroupId: Integer): TJSONData;
 
     function DocCreate(const PG, ADocumentFormat, ADocumentType:string;const AProductDocument, ASignature:TStream):string;
+
+    function CodesCheck(ACodes:TXSDStringArray; AFiscalDriveNumber:string = ''): TJSONData;
 //КИ
 //Номер страницы вложений в агрегат первого слоя
     property AuthorizationToken;
@@ -749,6 +751,36 @@ begin
     end;
   end;
   SaveHttpData('documents_create');
+  M.Free;
+end;
+
+function TCRPTTrueAPI.CodesCheck(ACodes: TXSDStringArray;
+  AFiscalDriveNumber: string): TJSONData;
+var
+  Rec: TTrueAPICheckCodesRequest;
+  M: TMemoryStream;
+  SUrl: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  M:=TMemoryStream.Create;
+  Rec:=TTrueAPICheckCodesRequest.Create;
+  Rec.fiscalDriveNumber:=AFiscalDriveNumber;
+  Rec.Codes:=ACodes;
+  Rec.SaveToStream(M);
+  Rec.Free;
+  M.Position:=0;
+
+//"X-API-KEY: cece8458-e925-45b3-84ee-ac2c23b1332d" -d "{\"codes\":[\"0104604278003464215*p-s2H/oL9kB\"]}"
+  SUrl:='https://cdn10.crpt.ru/api/v4/true-api/codes/check';
+  if SendCommand(hmPOST, SUrl, '', M, [200, 201, 400, 401, 404], 'application/json') then
+  begin
+    FDocument.Position:=0;
+    P:=TJSONParser.Create(FDocument, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+    SaveHttpData('CodesCheck');
+  end;
   M.Free;
 end;
 

@@ -35,7 +35,7 @@ unit crptCDNTrueAPI;
 interface
 
 uses
-  Classes, SysUtils, CRPTTrueAPI, fpjson,
+  Classes, SysUtils, CRPTTrueAPI, fpjson, AbstractSerializationObjects,
   crptCDNTrueAPITypes;
 
 const
@@ -60,8 +60,25 @@ type
     property OnSignData;
   end;
 
+  { TTrueAPICheck }
+
+  TTrueAPICheck = class(TCustomCRPTApi)
+  protected
+    procedure InternalMakeClientToken; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+
+    function CodesCheck(ACodes:TXSDStringArray; AFiscalDriveNumber:string = ''): TJSONData;
+  published
+    property AuthorizationToken;
+    property Server;
+    property OnHttpStatus;
+    property OnSignData;
+  end;
+
 implementation
-uses jsonscanner, jsonparser;
+uses jsonscanner, jsonparser,
+  CRPTTrueAPIDataObjects;
 
 { TCDNCrptAPI }
 
@@ -111,6 +128,47 @@ begin
   end
   else
     SaveHttpData('true_api_CDNListInfo');
+end;
+
+{ TTrueAPICheck }
+
+procedure TTrueAPICheck.InternalMakeClientToken;
+begin
+  FHTTP.AddHeader('X-API-KEY', AuthorizationToken);
+end;
+
+constructor TTrueAPICheck.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FServer:='https://cdn10.crpt.ru/api/v4/true-api/';
+end;
+
+function TTrueAPICheck.CodesCheck(ACodes: TXSDStringArray;
+  AFiscalDriveNumber: string): TJSONData;
+var
+  M: TMemoryStream;
+  Rec: TTrueAPICheckCodesRequest;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  M:=TMemoryStream.Create;
+  Rec:=TTrueAPICheckCodesRequest.Create;
+  Rec.fiscalDriveNumber:=AFiscalDriveNumber;
+  Rec.Codes:=ACodes;
+  Rec.SaveToStream(M);
+  Rec.Free;
+  M.Position:=0;
+
+//"X-API-KEY: cece8458-e925-45b3-84ee-ac2c23b1332d" -d "{\"codes\":[\"0104604278003464215*p-s2H/oL9kB\"]}"
+  if SendCommand(hmPOST, 'codes/check', '', M, [200, 201, 400, 401, 404], 'application/json') then
+  begin
+    Document.Position:=0;
+    P:=TJSONParser.Create(Document, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+    SaveHttpData('CodesCheck');
+  end;
+  M.Free;
 end;
 
 end.

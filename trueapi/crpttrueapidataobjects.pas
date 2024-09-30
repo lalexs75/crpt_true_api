@@ -574,6 +574,27 @@ type
     property Signature:string read FSignature write SetSignature;
   end;
 
+type
+
+  { TTrueAPICheckCodesRequest }
+
+  TTrueAPICheckCodesRequest = class(TJSONSerializationObject)
+  private
+    FCodes: TXSDStringArray;
+    FFiscalDriveNumber: string;
+    procedure SetCodes(AValue: TXSDStringArray);
+    procedure SetFiscalDriveNumber(AValue: string);
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    constructor Create; override;
+    destructor Destroy; override;
+  published
+    property fiscalDriveNumber:string read FFiscalDriveNumber write SetFiscalDriveNumber;
+    property Codes:TXSDStringArray read FCodes write SetCodes;
+  end;
+
 implementation
 uses base64, sdo_date_utils;
 
@@ -1181,6 +1202,46 @@ begin
     AStream.Read(S[1], AStream.Size);
     Signature:=S;
   end;
+end;
+
+{ TTrueAPICheckCodesRequest }
+
+procedure TTrueAPICheckCodesRequest.SetFiscalDriveNumber(AValue: string);
+begin
+  if FFiscalDriveNumber=AValue then Exit;
+  FFiscalDriveNumber:=AValue;
+  ModifiedProperty('fiscalDriveNumber');
+end;
+
+procedure TTrueAPICheckCodesRequest.SetCodes(AValue: TXSDStringArray);
+begin
+  if FCodes=AValue then Exit;
+  FCodes:=AValue;
+
+  //CheckLockupValue('Codes', AValue);
+  ModifiedProperty('Codes');
+end;
+
+procedure TTrueAPICheckCodesRequest.InternalRegisterPropertys;
+begin
+  inherited InternalRegisterPropertys;
+  RegisterProperty('fiscalDriveNumber', 'fiscalDriveNumber', [], '', -1, -1);
+  RegisterProperty('Codes', 'codes', [xsaRequared], '', -1, -1);
+end;
+
+procedure TTrueAPICheckCodesRequest.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+end;
+
+constructor TTrueAPICheckCodesRequest.Create;
+begin
+  inherited Create;
+end;
+
+destructor TTrueAPICheckCodesRequest.Destroy;
+begin
+  inherited Destroy;
 end;
 
 (*
