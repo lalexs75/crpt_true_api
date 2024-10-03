@@ -595,8 +595,139 @@ type
     property Codes:TXSDStringArray read FCodes write SetCodes;
   end;
 
+  { TTrueAPICheckCodesItem }
+
+  TTrueAPICheckCodesItem = class(TJSONSerializationObject)
+  private
+    FCis: string;
+    FeliminationState: Double;
+    FerrorCode: Boolean;
+    FexpireDate: string;
+    Ffound: Boolean;
+    FgrayZone: Boolean;
+    FgroupIds: TXSDIntegerArray;
+    Fgtin: string;
+    FinnerUnitCount: Integer;
+    FisBlocked: Boolean;
+    FisOwner: Boolean;
+    FisTracking: Boolean;
+    Fmessage: string;
+    Fmrp: Double;
+    Fogvs: TXSDIntegerArray;
+    FpackageType: string;
+    Fparent: string;
+    FprintView: string;
+    FproducerInn: string;
+    FproductionDate: string;
+    FproductWeight: Double;
+    FprVetDocument: string;
+    Frealizable: Boolean;
+    Fsmp: Double;
+    Fsold: Boolean;
+    FsoldUnitCount: Integer;
+    Futilised: Boolean;
+    Fvalid: Boolean;
+    Fverified: Boolean;
+    procedure SetCis(AValue: string);
+    procedure SeteliminationState(AValue: Double);
+    procedure SeterrorCode(AValue: Boolean);
+    procedure SetexpireDate(AValue: string);
+    procedure Setfound(AValue: Boolean);
+    procedure SetgrayZone(AValue: Boolean);
+    procedure SetgroupIds(AValue: TXSDIntegerArray);
+    procedure Setgtin(AValue: string);
+    procedure SetinnerUnitCount(AValue: Integer);
+    procedure SetisBlocked(AValue: Boolean);
+    procedure SetisOwner(AValue: Boolean);
+    procedure SetisTracking(AValue: Boolean);
+    procedure Setmessage(AValue: string);
+    procedure Setmrp(AValue: Double);
+    procedure Setogvs(AValue: TXSDIntegerArray);
+    procedure SetpackageType(AValue: string);
+    procedure Setparent(AValue: string);
+    procedure SetprintView(AValue: string);
+    procedure SetproducerInn(AValue: string);
+    procedure SetproductionDate(AValue: string);
+    procedure SetproductWeight(AValue: Double);
+    procedure SetprVetDocument(AValue: string);
+    procedure Setrealizable(AValue: Boolean);
+    procedure Setsmp(AValue: Double);
+    procedure Setsold(AValue: Boolean);
+    procedure SetsoldUnitCount(AValue: Integer);
+    procedure Setutilised(AValue: Boolean);
+    procedure Setvalid(AValue: Boolean);
+    procedure Setverified(AValue: Boolean);
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    constructor Create; override;
+    destructor Destroy; override;
+  published
+    property Cis:string read FCis write SetCis;                //КМ из запроса
+    property valid:Boolean read Fvalid write Setvalid;             //Результат проверки валидности структуры КМ Возможные значения: true — «Структура валидная»; false — «Структура не валидная»
+    property printView:string read FprintView write SetprintView;          //КМ без крипто-подписи
+    property gtin:string read Fgtin write Setgtin;               //Код товара
+    property groupIds:TXSDIntegerArray read FgroupIds write SetgroupIds; //Массив идентификаторов товарных групп
+    property verified:Boolean read Fverified write Setverified;          //Результат проверки криптоподписи КМ
+    property found:Boolean read Ffound write Setfound;             //Признак наличия кода Возможные  значения: true — «Код найден»; false — «Код не найден»
+    property realizable:Boolean read Frealizable write Setrealizable;        //Признак ввода в оборот
+    property utilised:Boolean read Futilised write Setutilised;          //Признак нанесения КИ на упаковку
+    property expireDate:string read FexpireDate write SetexpireDate;         //Дата и время истечения срока годности
+    //variableExpirations
+    property productionDate:string read FproductionDate write SetproductionDate;     //Дата производства продукции
+    property productWeight:Double read FproductWeight write SetproductWeight;      //Переменный вес продукции (в граммах)
+    property prVetDocument:string read FprVetDocument write SetprVetDocument;      //Производственный ветеринарный сопроводительный документ
+    property isBlocked:Boolean read FisBlocked write SetisBlocked;         //Признак того, что розничная продажа продукции заблокирована по решению ОГВ
+    property isOwner:Boolean read FisOwner write SetisOwner;           //Признак, определяющий что запрос направлен владельцем кода (определяется по аутентификационному токену)
+    property ogvs:TXSDIntegerArray read Fogvs write Setogvs;     //Органы государственной власти, установившие блокировку на КИ
+    property errorCode:Boolean read FerrorCode write SeterrorCode;         //Код ошибки
+    property message:string read Fmessage write Setmessage;            //Сообщение об ошибке
+    property isTracking:Boolean read FisTracking write SetisTracking;        //Признак контроля прослеживаемости в товарной группе
+    property sold:Boolean read Fsold write Setsold;              //Признак вывода из оборота товара
+    property eliminationState:Double read FeliminationState write SeteliminationState;   //Дополнительная информация по КМ
+    property mrp:Double read Fmrp write Setmrp;                //Максимальная розничная цена
+    property smp:Double read Fsmp write Setsmp;                //Минимальная из возможных единых минимальных цен
+    property packageType:string read FpackageType write SetpackageType;        //Тип упаковки
+    property producerInn:string read FproducerInn write SetproducerInn;        //ИНН производителя
+    property grayZone:Boolean read FgrayZone write SetgrayZone;          //Признак принадлежности табачной продукции к «серой зоне»
+    property innerUnitCount:Integer read FinnerUnitCount write SetinnerUnitCount;    //Количество единиц товара в потребительской упаковке / Фактический объём / Фактический вес
+    property soldUnitCount:Integer read FsoldUnitCount write SetsoldUnitCount;     //Счётчик проданного и возвращённого товара
+    property parent:string read Fparent write Setparent;             //КИ агрегата
+  end;
+  TTrueAPICheckCodesItems = specialize GJSONSerializationObjectList<TTrueAPICheckCodesItem>;
+
+
+  { TTrueAPICheckCodesResponse }
+
+  TTrueAPICheckCodesResponse = class(TJSONSerializationObject)
+  private
+    Fcode: Integer;
+    Fcodes: TTrueAPICheckCodesItems;
+    Fdescription: string;
+    FreqId: string;
+    FreqTimestamp: Int64;
+    procedure Setcode(AValue: Integer);
+    procedure Setdescription(AValue: string);
+    procedure SetreqId(AValue: string);
+    procedure SetreqTimestamp(AValue: Int64);
+  protected
+    procedure InternalRegisterPropertys; override;
+    procedure InternalInitChilds; override;
+  public
+    constructor Create; override;
+    destructor Destroy; override;
+    function reqDate:TDateTime;
+  published
+    property code:Integer read Fcode write Setcode; //Результат обработки операции
+    property description:string read Fdescription write Setdescription; //Текстовое описание результата выполнения метода
+    property codes:TTrueAPICheckCodesItems read Fcodes; //Список КМ
+    property reqId:string read FreqId write SetreqId;  //Уникальный идентификатор запроса
+    property reqTimestamp:Int64 read FreqTimestamp write SetreqTimestamp; //Дата и время регистрации запроса (в UTC)
+  end;
+
 implementation
-uses base64, sdo_date_utils;
+uses base64, DateUtils, sdo_date_utils;
 
 
 function EncodeStringBase64W(const S:TStream):String;
@@ -1242,6 +1373,321 @@ end;
 destructor TTrueAPICheckCodesRequest.Destroy;
 begin
   inherited Destroy;
+end;
+
+{ TTrueAPICheckCodesItem }
+
+procedure TTrueAPICheckCodesItem.SetCis(AValue: string);
+begin
+  if FCis=AValue then Exit;
+  FCis:=AValue;
+  ModifiedProperty('cis');
+end;
+
+procedure TTrueAPICheckCodesItem.SeteliminationState(AValue: Double);
+begin
+  if FeliminationState=AValue then Exit;
+  FeliminationState:=AValue;
+  ModifiedProperty('eliminationState');
+end;
+
+procedure TTrueAPICheckCodesItem.SeterrorCode(AValue: Boolean);
+begin
+  if FerrorCode=AValue then Exit;
+  FerrorCode:=AValue;
+  ModifiedProperty('errorCode');
+end;
+
+procedure TTrueAPICheckCodesItem.SetexpireDate(AValue: string);
+begin
+  if FexpireDate=AValue then Exit;
+  FexpireDate:=AValue;
+  ModifiedProperty('expireDate');
+end;
+
+procedure TTrueAPICheckCodesItem.Setfound(AValue: Boolean);
+begin
+  if Ffound=AValue then Exit;
+  Ffound:=AValue;
+  ModifiedProperty('found');
+end;
+
+procedure TTrueAPICheckCodesItem.SetgrayZone(AValue: Boolean);
+begin
+  if FgrayZone=AValue then Exit;
+  FgrayZone:=AValue;
+  ModifiedProperty('grayZone');
+end;
+
+procedure TTrueAPICheckCodesItem.SetgroupIds(AValue: TXSDIntegerArray);
+begin
+  if FgroupIds=AValue then Exit;
+  FgroupIds:=AValue;
+  ModifiedProperty('groupIds');
+end;
+
+procedure TTrueAPICheckCodesItem.Setgtin(AValue: string);
+begin
+  if Fgtin=AValue then Exit;
+  Fgtin:=AValue;
+  ModifiedProperty('gtin');
+end;
+
+procedure TTrueAPICheckCodesItem.SetinnerUnitCount(AValue: Integer);
+begin
+  if FinnerUnitCount=AValue then Exit;
+  FinnerUnitCount:=AValue;
+  ModifiedProperty('innerUnitCount');
+end;
+
+procedure TTrueAPICheckCodesItem.SetisBlocked(AValue: Boolean);
+begin
+  if FisBlocked=AValue then Exit;
+  FisBlocked:=AValue;
+  ModifiedProperty('isBlocked');
+end;
+
+procedure TTrueAPICheckCodesItem.SetisOwner(AValue: Boolean);
+begin
+  if FisOwner=AValue then Exit;
+  FisOwner:=AValue;
+  ModifiedProperty('isOwner');
+end;
+
+procedure TTrueAPICheckCodesItem.SetisTracking(AValue: Boolean);
+begin
+  if FisTracking=AValue then Exit;
+  FisTracking:=AValue;
+  ModifiedProperty('isTracking');
+end;
+
+procedure TTrueAPICheckCodesItem.Setmessage(AValue: string);
+begin
+  if Fmessage=AValue then Exit;
+  Fmessage:=AValue;
+  ModifiedProperty('message');
+end;
+
+procedure TTrueAPICheckCodesItem.Setmrp(AValue: Double);
+begin
+  if Fmrp=AValue then Exit;
+  Fmrp:=AValue;
+  ModifiedProperty('mrp');
+end;
+
+procedure TTrueAPICheckCodesItem.Setogvs(AValue: TXSDIntegerArray);
+begin
+  if Fogvs=AValue then Exit;
+  Fogvs:=AValue;
+  ModifiedProperty('ogvs');
+end;
+
+procedure TTrueAPICheckCodesItem.SetpackageType(AValue: string);
+begin
+  if FpackageType=AValue then Exit;
+  FpackageType:=AValue;
+  ModifiedProperty('packageType');
+end;
+
+procedure TTrueAPICheckCodesItem.Setparent(AValue: string);
+begin
+  if Fparent=AValue then Exit;
+  Fparent:=AValue;
+  ModifiedProperty('parent');
+end;
+
+procedure TTrueAPICheckCodesItem.SetprintView(AValue: string);
+begin
+  if FprintView=AValue then Exit;
+  FprintView:=AValue;
+  ModifiedProperty('printView');
+end;
+
+procedure TTrueAPICheckCodesItem.SetproducerInn(AValue: string);
+begin
+  if FproducerInn=AValue then Exit;
+  FproducerInn:=AValue;
+  ModifiedProperty('producerInn');
+end;
+
+procedure TTrueAPICheckCodesItem.SetproductionDate(AValue: string);
+begin
+  if FproductionDate=AValue then Exit;
+  FproductionDate:=AValue;
+  ModifiedProperty('productionDate');
+end;
+
+procedure TTrueAPICheckCodesItem.SetproductWeight(AValue: Double);
+begin
+  if FproductWeight=AValue then Exit;
+  FproductWeight:=AValue;
+  ModifiedProperty('productWeight');
+end;
+
+procedure TTrueAPICheckCodesItem.SetprVetDocument(AValue: string);
+begin
+  if FprVetDocument=AValue then Exit;
+  FprVetDocument:=AValue;
+  ModifiedProperty('prVetDocument');
+end;
+
+procedure TTrueAPICheckCodesItem.Setrealizable(AValue: Boolean);
+begin
+  if Frealizable=AValue then Exit;
+  Frealizable:=AValue;
+  ModifiedProperty('realizable');
+end;
+
+procedure TTrueAPICheckCodesItem.Setsmp(AValue: Double);
+begin
+  if Fsmp=AValue then Exit;
+  Fsmp:=AValue;
+  ModifiedProperty('smp');
+end;
+
+procedure TTrueAPICheckCodesItem.Setsold(AValue: Boolean);
+begin
+  if Fsold=AValue then Exit;
+  Fsold:=AValue;
+  ModifiedProperty('sold');
+end;
+
+procedure TTrueAPICheckCodesItem.SetsoldUnitCount(AValue: Integer);
+begin
+  if FsoldUnitCount=AValue then Exit;
+  FsoldUnitCount:=AValue;
+  ModifiedProperty('soldUnitCount');
+end;
+
+procedure TTrueAPICheckCodesItem.Setutilised(AValue: Boolean);
+begin
+  if Futilised=AValue then Exit;
+  Futilised:=AValue;
+  ModifiedProperty('utilised');
+end;
+
+procedure TTrueAPICheckCodesItem.Setvalid(AValue: Boolean);
+begin
+  if Fvalid=AValue then Exit;
+  Fvalid:=AValue;
+  ModifiedProperty('valid');
+end;
+
+procedure TTrueAPICheckCodesItem.Setverified(AValue: Boolean);
+begin
+  if Fverified=AValue then Exit;
+  Fverified:=AValue;
+  ModifiedProperty('verified');
+end;
+
+procedure TTrueAPICheckCodesItem.InternalRegisterPropertys;
+begin
+  inherited InternalRegisterPropertys;
+  RegisterProperty('cis', 'cis', [], '', -1, -1);
+  RegisterProperty('valid', 'valid', [], '', -1, -1);
+  RegisterProperty('printView', 'printView', [], '', -1, -1);
+  RegisterProperty('gtin', 'gtin', [], '', -1, -1);
+  RegisterProperty('groupIds', 'groupIds', [], '', -1, -1);
+  RegisterProperty('verified', 'verified', [], '', -1, -1);
+  RegisterProperty('found', 'found', [], '', -1, -1);
+  RegisterProperty('realizable', 'realizable', [], '', -1, -1);
+  RegisterProperty('utilised', 'utilised', [], '', -1, -1);
+  RegisterProperty('isBlocked', 'isBlocked', [], '', -1, -1);
+  RegisterProperty('isOwner', 'isOwner', [], '', -1, -1);
+  RegisterProperty('errorCode', 'errorCode', [], '', -1, -1);
+  RegisterProperty('isTracking', 'isTracking', [], '', -1, -1);
+  RegisterProperty('sold', 'sold', [], '', -1, -1);
+  RegisterProperty('packageType', 'packageType', [], '', -1, -1);
+  RegisterProperty('producerInn', 'producerInn', [], '', -1, -1);
+  RegisterProperty('grayZone', 'grayZone', [], '', -1, -1);
+  RegisterProperty('expireDate', 'expireDate', [], '', -1, -1);
+  RegisterProperty('productionDate', 'productionDate', [], '', -1, -1);
+  RegisterProperty('productWeight', 'productWeight', [], '', -1, -1);
+  RegisterProperty('prVetDocument', 'prVetDocument', [], '', -1, -1);
+  RegisterProperty('ogvs', 'ogvs', [], '', -1, -1);
+  RegisterProperty('errorCode', 'errorCode', [], '', -1, -1);
+  RegisterProperty('message', 'message', [], '', -1, -1);
+  RegisterProperty('isTracking', 'isTracking', [], '', -1, -1);
+  RegisterProperty('eliminationState', 'eliminationState', [], '', -1, -1);
+  RegisterProperty('sold', 'sold', [], '', -1, -1);
+  RegisterProperty('mrp', 'mrp', [], '', -1, -1);
+  RegisterProperty('smp', 'smp', [], '', -1, -1);
+  RegisterProperty('innerUnitCount', 'innerUnitCount', [], '', -1, -1);
+  RegisterProperty('soldUnitCount', 'soldUnitCount', [], '', -1, -1);
+  RegisterProperty('parent', 'parent', [], '', -1, -1);
+end;
+
+procedure TTrueAPICheckCodesItem.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+end;
+
+constructor TTrueAPICheckCodesItem.Create;
+begin
+  inherited Create;
+end;
+
+destructor TTrueAPICheckCodesItem.Destroy;
+begin
+  inherited Destroy;
+end;
+
+{ TTrueAPICheckCodesResponse }
+
+procedure TTrueAPICheckCodesResponse.Setcode(AValue: Integer);
+begin
+  if Fcode=AValue then Exit;
+  Fcode:=AValue;
+end;
+
+procedure TTrueAPICheckCodesResponse.Setdescription(AValue: string);
+begin
+  if Fdescription=AValue then Exit;
+  Fdescription:=AValue;
+end;
+
+procedure TTrueAPICheckCodesResponse.SetreqId(AValue: string);
+begin
+  if FreqId=AValue then Exit;
+  FreqId:=AValue;
+end;
+
+procedure TTrueAPICheckCodesResponse.SetreqTimestamp(AValue: Int64);
+begin
+  if FreqTimestamp=AValue then Exit;
+  FreqTimestamp:=AValue;
+end;
+
+procedure TTrueAPICheckCodesResponse.InternalRegisterPropertys;
+begin
+  inherited InternalRegisterPropertys;
+  RegisterProperty('code', 'code', [], '', -1, -1);
+  RegisterProperty('description', 'description', [], '', -1, -1);
+  RegisterProperty('codes', 'codes', [], '', -1, -1);
+  RegisterProperty('reqId', 'reqId', [], '', -1, -1);
+  RegisterProperty('reqTimestamp', 'reqTimestamp', [], '', -1, -1);
+end;
+
+procedure TTrueAPICheckCodesResponse.InternalInitChilds;
+begin
+  inherited InternalInitChilds;
+  Fcodes:=TTrueAPICheckCodesItems.Create;
+end;
+
+constructor TTrueAPICheckCodesResponse.Create;
+begin
+  inherited Create;
+end;
+
+destructor TTrueAPICheckCodesResponse.Destroy;
+begin
+  inherited Destroy;
+  FreeAndNil(Fcodes);
+end;
+
+function TTrueAPICheckCodesResponse.reqDate: TDateTime;
+begin
+  Result:=UnixToDateTime(FreqTimestamp div 1000, false);
 end;
 
 (*
