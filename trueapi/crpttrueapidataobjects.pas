@@ -601,7 +601,7 @@ type
   private
     FCis: string;
     FeliminationState: Double;
-    FerrorCode: Boolean;
+    FerrorCode: Integer;
     FexpireDate: string;
     Ffound: Boolean;
     FgrayZone: Boolean;
@@ -613,7 +613,7 @@ type
     FisTracking: Boolean;
     Fmessage: string;
     Fmrp: Double;
-    Fogvs: TXSDIntegerArray;
+    Fogvs: TXSDStringArray;
     FpackageType: string;
     Fparent: string;
     FprintView: string;
@@ -630,7 +630,7 @@ type
     Fverified: Boolean;
     procedure SetCis(AValue: string);
     procedure SeteliminationState(AValue: Double);
-    procedure SeterrorCode(AValue: Boolean);
+    procedure SeterrorCode(AValue: Integer);
     procedure SetexpireDate(AValue: string);
     procedure Setfound(AValue: Boolean);
     procedure SetgrayZone(AValue: Boolean);
@@ -642,7 +642,7 @@ type
     procedure SetisTracking(AValue: Boolean);
     procedure Setmessage(AValue: string);
     procedure Setmrp(AValue: Double);
-    procedure Setogvs(AValue: TXSDIntegerArray);
+    procedure Setogvs(AValue: TXSDStringArray);
     procedure SetpackageType(AValue: string);
     procedure Setparent(AValue: string);
     procedure SetprintView(AValue: string);
@@ -663,37 +663,39 @@ type
   public
     constructor Create; override;
     destructor Destroy; override;
+    function ExpireDateToDate:TDateTime;
+    function ProductionDateToDate:TDateTime;
   published
     property Cis:string read FCis write SetCis;                //КМ из запроса
-    property valid:Boolean read Fvalid write Setvalid;             //Результат проверки валидности структуры КМ Возможные значения: true — «Структура валидная»; false — «Структура не валидная»
-    property printView:string read FprintView write SetprintView;          //КМ без крипто-подписи
-    property gtin:string read Fgtin write Setgtin;               //Код товара
-    property groupIds:TXSDIntegerArray read FgroupIds write SetgroupIds; //Массив идентификаторов товарных групп
-    property verified:Boolean read Fverified write Setverified;          //Результат проверки криптоподписи КМ
-    property found:Boolean read Ffound write Setfound;             //Признак наличия кода Возможные  значения: true — «Код найден»; false — «Код не найден»
-    property realizable:Boolean read Frealizable write Setrealizable;        //Признак ввода в оборот
-    property utilised:Boolean read Futilised write Setutilised;          //Признак нанесения КИ на упаковку
-    property expireDate:string read FexpireDate write SetexpireDate;         //Дата и время истечения срока годности
+    property Valid:Boolean read Fvalid write Setvalid;             //Результат проверки валидности структуры КМ Возможные значения: true — «Структура валидная»; false — «Структура не валидная»
+    property PrintView:string read FprintView write SetprintView;          //КМ без крипто-подписи
+    property GTIN:string read Fgtin write Setgtin;               //Код товара
+    property GroupIds:TXSDIntegerArray read FgroupIds write SetgroupIds; //Массив идентификаторов товарных групп
+    property Verified:Boolean read Fverified write Setverified;          //Результат проверки криптоподписи КМ
+    property Found:Boolean read Ffound write Setfound;             //Признак наличия кода Возможные  значения: true — «Код найден»; false — «Код не найден»
+    property Realizable:Boolean read Frealizable write Setrealizable;        //Признак ввода в оборот
+    property Utilised:Boolean read Futilised write Setutilised;          //Признак нанесения КИ на упаковку
+    property ExpireDate:string read FexpireDate write SetexpireDate;         //Дата и время истечения срока годности
     //variableExpirations
-    property productionDate:string read FproductionDate write SetproductionDate;     //Дата производства продукции
-    property productWeight:Double read FproductWeight write SetproductWeight;      //Переменный вес продукции (в граммах)
-    property prVetDocument:string read FprVetDocument write SetprVetDocument;      //Производственный ветеринарный сопроводительный документ
-    property isBlocked:Boolean read FisBlocked write SetisBlocked;         //Признак того, что розничная продажа продукции заблокирована по решению ОГВ
-    property isOwner:Boolean read FisOwner write SetisOwner;           //Признак, определяющий что запрос направлен владельцем кода (определяется по аутентификационному токену)
-    property ogvs:TXSDIntegerArray read Fogvs write Setogvs;     //Органы государственной власти, установившие блокировку на КИ
-    property errorCode:Boolean read FerrorCode write SeterrorCode;         //Код ошибки
-    property message:string read Fmessage write Setmessage;            //Сообщение об ошибке
-    property isTracking:Boolean read FisTracking write SetisTracking;        //Признак контроля прослеживаемости в товарной группе
-    property sold:Boolean read Fsold write Setsold;              //Признак вывода из оборота товара
-    property eliminationState:Double read FeliminationState write SeteliminationState;   //Дополнительная информация по КМ
-    property mrp:Double read Fmrp write Setmrp;                //Максимальная розничная цена
-    property smp:Double read Fsmp write Setsmp;                //Минимальная из возможных единых минимальных цен
-    property packageType:string read FpackageType write SetpackageType;        //Тип упаковки
-    property producerInn:string read FproducerInn write SetproducerInn;        //ИНН производителя
-    property grayZone:Boolean read FgrayZone write SetgrayZone;          //Признак принадлежности табачной продукции к «серой зоне»
-    property innerUnitCount:Integer read FinnerUnitCount write SetinnerUnitCount;    //Количество единиц товара в потребительской упаковке / Фактический объём / Фактический вес
-    property soldUnitCount:Integer read FsoldUnitCount write SetsoldUnitCount;     //Счётчик проданного и возвращённого товара
-    property parent:string read Fparent write Setparent;             //КИ агрегата
+    property ProductionDate:string read FproductionDate write SetproductionDate;     //Дата производства продукции
+    property ProductWeight:Double read FproductWeight write SetproductWeight;      //Переменный вес продукции (в граммах)
+    property PrVetDocument:string read FprVetDocument write SetprVetDocument;      //Производственный ветеринарный сопроводительный документ
+    property IsBlocked:Boolean read FisBlocked write SetisBlocked;         //Признак того, что розничная продажа продукции заблокирована по решению ОГВ
+    property IsOwner:Boolean read FisOwner write SetisOwner;           //Признак, определяющий что запрос направлен владельцем кода (определяется по аутентификационному токену)
+    property OGVS:TXSDStringArray read Fogvs write Setogvs;     //Органы государственной власти, установившие блокировку на КИ
+    property ErrorCode:Integer read FerrorCode write SeterrorCode;         //Код ошибки
+    property Message:string read Fmessage write Setmessage;            //Сообщение об ошибке
+    property IsTracking:Boolean read FisTracking write SetisTracking;        //Признак контроля прослеживаемости в товарной группе
+    property Sold:Boolean read Fsold write Setsold;              //Признак вывода из оборота товара
+    property EliminationState:Double read FeliminationState write SeteliminationState;   //Дополнительная информация по КМ
+    property Mrp:Double read Fmrp write Setmrp;                //Максимальная розничная цена
+    property Smp:Double read Fsmp write Setsmp;                //Минимальная из возможных единых минимальных цен
+    property PackageType:string read FpackageType write SetpackageType;        //Тип упаковки
+    property ProducerInn:string read FproducerInn write SetproducerInn;        //ИНН производителя
+    property GrayZone:Boolean read FgrayZone write SetgrayZone;          //Признак принадлежности табачной продукции к «серой зоне»
+    property InnerUnitCount:Integer read FinnerUnitCount write SetinnerUnitCount;    //Количество единиц товара в потребительской упаковке / Фактический объём / Фактический вес
+    property SoldUnitCount:Integer read FsoldUnitCount write SetsoldUnitCount;     //Счётчик проданного и возвращённого товара
+    property Parent:string read Fparent write Setparent;             //КИ агрегата
   end;
   TTrueAPICheckCodesItems = specialize GJSONSerializationObjectList<TTrueAPICheckCodesItem>;
 
@@ -1391,7 +1393,7 @@ begin
   ModifiedProperty('eliminationState');
 end;
 
-procedure TTrueAPICheckCodesItem.SeterrorCode(AValue: Boolean);
+procedure TTrueAPICheckCodesItem.SeterrorCode(AValue: Integer);
 begin
   if FerrorCode=AValue then Exit;
   FerrorCode:=AValue;
@@ -1475,7 +1477,7 @@ begin
   ModifiedProperty('mrp');
 end;
 
-procedure TTrueAPICheckCodesItem.Setogvs(AValue: TXSDIntegerArray);
+procedure TTrueAPICheckCodesItem.Setogvs(AValue: TXSDStringArray);
 begin
   if Fogvs=AValue then Exit;
   Fogvs:=AValue;
@@ -1630,6 +1632,26 @@ end;
 destructor TTrueAPICheckCodesItem.Destroy;
 begin
   inherited Destroy;
+end;
+
+function TTrueAPICheckCodesItem.ExpireDateToDate: TDateTime;
+var
+  R: TDateTimeRec;
+begin
+  if xsd_TryStrToDate(FexpireDate, R, xdkDateTime) then
+    Result:=R.Date
+  else
+    Result:=0;
+end;
+
+function TTrueAPICheckCodesItem.ProductionDateToDate: TDateTime;
+var
+  R: TDateTimeRec;
+begin
+  if xsd_TryStrToDate(FproductionDate, R, xdkDateTime) then
+    Result:=R.Date
+  else
+    Result:=0;
 end;
 
 { TTrueAPICheckCodesResponse }
