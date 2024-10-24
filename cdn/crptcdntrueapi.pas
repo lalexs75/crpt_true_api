@@ -140,7 +140,7 @@ end;
 constructor TTrueAPICheck.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FServer:='https://cdn10.crpt.ru/api/v4/true-api/';
+  FServer:='https://cdn10.crpt.ru/';
 end;
 
 function TTrueAPICheck.CodesCheck(ACodes: TXSDStringArray;
@@ -159,15 +159,17 @@ begin
   Rec.Free;
   M.Position:=0;
 
-//"X-API-KEY: cece8458-e925-45b3-84ee-ac2c23b1332d" -d "{\"codes\":[\"0104604278003464215*p-s2H/oL9kB\"]}"
-  if SendCommand(hmPOST, 'codes/check', '', M, [200, 201, 400, 401, 404], 'application/json') then
+  if SendCommand(hmPOST, 'api/v4/true-api/codes/check', '', M, [200, 201, 400, 401, 404], 'application/json') then
   begin
     Document.Position:=0;
     P:=TJSONParser.Create(Document, DefaultOptions);
     Result:=P.Parse as TJSONData;
     P.Free;
     SaveHttpData('CodesCheck');
-  end;
+  end
+  else
+    SaveHttpData('true_api_CodesCheck');
+
   M.Free;
 end;
 
