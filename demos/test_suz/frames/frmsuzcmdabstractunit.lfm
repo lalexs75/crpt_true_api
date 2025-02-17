@@ -1,0 +1,10 @@
+object frmSUZCmdAbstractFrame: TfrmSUZCmdAbstractFrame
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  LCLVersion = '3.99.0.0'
+  TabOrder = 0
+  DesignLeft = 476
+  DesignTop = 336
+end

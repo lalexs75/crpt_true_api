@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions><package name="crpt_true_api"><module name="CRPTTrueAPI"><element name="TCRPTTrueAPI.Clear"><short>Очистка данных компонента</short>
+      </element><element name="TCRPTTrueAPI.Login"><short>Авторизация на сервере</short>
+      </element>
+    <element name="TCRPTTrueAPI.ClearAPIToken"><short>Очистка токена авторизации в ЦРПТ</short>
+      </element>
+    <element name="TCRPTTrueAPI.ProductsInfo.ACis"><short>Код идентификации</short><descr>Код идентификации — последовательность
+символов, представляющая собой уникальный
+номер экземпляра товара, формируемая
+Оператором информационной системы
+мониторинга для целей идентификации
+товаров, в том числе в потребительской
+упаковке
+
+</descr>
+      </element>
+    <element name="TCRPTSuzAPI.Ping"><short>Метод «Проверить доступность СУЗ»</short><descr>Этот метод проверяет доступность СУЗ и использует следующие параметры: маркер
+безопасности (token) и идентификатор СУЗ.
+</descr>
+      </element>
+    <element name="sAPISuzIntegrator"><short>базовый адрес продуктивного контура</short>
+      </element><element name="sAPISuzIntegrator_sandbox"><short>базовый адрес демонстрационногоконтура</short><descr>Для использования для тестирования на демонстрационном контуре всем участникам доступен следующий код регистрации интеграционного решения - 4344d884-7f21-456c-981e-cd68e92391e8
+</descr>
+      </element>
+    <element name="TCustomCRPTApi.CRPTApiType"><short>Тип сервера ЦРПТ</short><descr><ul><li><b>atSandbox</b> - тестовые сервера ЦРПТ (песочница)</li><li><b>atProduction</b> - промышленные сервера ЦРПТ</li>
+          </ul>
+        </descr>
+      </element><element name="TCRPTApiType.atSandbox"><short>тестовые сервера ЦРПТ (песочница)</short>
+      </element><element name="TCRPTApiType.atProduction"><short>промышленные сервера ЦРПТ</short>
+      </element><element name="TCRPTApiType"><short>Тип сервера ЦРПТ</short><descr><ul><li><b>atSandbox</b> - тестовые сервера ЦРПТ (песочница)</li><li><b>atProduction</b> - промышленные сервера ЦРПТ</li>
+          </ul>
+        </descr>
+      </element>
+    <element name="TCRPTTrueAPI.CisesCodesCheck"><short>Метод верификации кодов маркировки и получения сокращённой информации о товаре</short><descr>Метод предназначен для возможности интеграции ККТ участника оборота товаров с Системой
+маркировки в случаях верификации КМ.
+</descr>
+      </element><element name="TCRPTTrueAPI.CisesCheck"><short>Метод верификации кода маркировки</short><descr>Метод предназначен для проверки наличия в ГИС МТ указанного КИ с криптографической
+частью. Метод ограничен по частоте запросов (допустимая частота запросов метода - 2 секунды)
+и количеству КИ в запросе (максимальное количество КИ в запросе - 1000) и не предназначен
+для вызова с ККТ при сканировании КИ при розничной реализации.
+</descr>
+      </element>
+    </module>
+  </package>
+</fpdoc-descriptions>

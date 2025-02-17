@@ -1,0 +1,167 @@
+inherited frmSUZCmdOrderFrame: TfrmSUZCmdOrderFrame
+  Height = 340
+  Width = 551
+  ClientHeight = 340
+  ClientWidth = 551
+  object Button1: TButton[0]
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 498
+    Height = 29
+    Top = 305
+    Width = 47
+    Anchors = [akRight, akBottom]
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Заказ'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object PageControl1: TPageControl[1]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Button1
+    Left = 0
+    Height = 299
+    Top = 0
+    Width = 551
+    ActivePage = TabSheet1
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 0
+    TabOrder = 1
+    object TabSheet1: TTabSheet
+      Caption = 'Сформировать заказ JSON'
+      ClientHeight = 268
+      ClientWidth = 541
+      object Label8: TLabel
+        AnchorSideLeft.Control = TabSheet1
+        AnchorSideTop.Control = TabSheet1
+        Left = 6
+        Height = 17
+        Top = 6
+        Width = 112
+        BorderSpacing.Around = 6
+        Caption = 'Код товара (GTIN)'
+      end
+      object edtGTIN: TEdit
+        AnchorSideLeft.Control = Label8
+        AnchorSideTop.Control = Label8
+        AnchorSideTop.Side = asrBottom
+        Left = 12
+        Height = 29
+        Top = 29
+        Width = 147
+        BorderSpacing.Around = 6
+        TabOrder = 0
+        Text = 'edtGTIN'
+      end
+      object Label1: TLabel
+        AnchorSideLeft.Control = edtGTIN
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = TabSheet1
+        Left = 165
+        Height = 17
+        Top = 6
+        Width = 45
+        BorderSpacing.Around = 6
+        Caption = 'Кол-во'
+      end
+      object edtCnt: TEdit
+        AnchorSideLeft.Control = Label1
+        AnchorSideTop.Control = Label1
+        AnchorSideTop.Side = asrBottom
+        Left = 171
+        Height = 29
+        Top = 29
+        Width = 80
+        BorderSpacing.Around = 6
+        TabOrder = 1
+        Text = '10'
+      end
+      object Label2: TLabel
+        AnchorSideLeft.Control = TabSheet1
+        AnchorSideTop.Control = edtGTIN
+        AnchorSideTop.Side = asrBottom
+        Left = 6
+        Height = 17
+        Top = 64
+        Width = 50
+        BorderSpacing.Around = 6
+        Caption = 'ТИП CIS'
+      end
+      object edtCISType: TEdit
+        AnchorSideLeft.Control = Label2
+        AnchorSideTop.Control = Label2
+        AnchorSideTop.Side = asrBottom
+        Left = 12
+        Height = 29
+        Top = 87
+        Width = 140
+        BorderSpacing.Around = 6
+        TabOrder = 2
+        Text = 'UNIT'
+      end
+      object Label3: TLabel
+        AnchorSideLeft.Control = edtCnt
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = TabSheet1
+        Left = 257
+        Height = 17
+        Top = 6
+        Width = 102
+        BorderSpacing.Around = 6
+        Caption = 'serviceProviderId'
+      end
+      object edtServiceProviderId: TEdit
+        AnchorSideLeft.Control = Label3
+        AnchorSideTop.Control = Label3
+        AnchorSideTop.Side = asrBottom
+        Left = 263
+        Height = 29
+        Top = 29
+        Width = 272
+        BorderSpacing.Around = 6
+        TabOrder = 3
+        Text = 'c5fe527a-564a-4075-b7dd-72f08cb9a8b1'
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Тестовый JSON'
+      ClientHeight = 268
+      ClientWidth = 541
+      object Memo1: TMemo
+        Left = 0
+        Height = 268
+        Top = 0
+        Width = 541
+        Align = alClient
+        Lines.Strings = (
+          '{'
+          '  "productGroup":"tires",'
+          '  "products":[{'
+          '    "gtin": "01334567894339",'
+          '    "quantity": 2,'
+          '    "serialNumberType":"SELF_MADE",'
+          '    "serialNumbers": ["QIQ8BQCXmSJJ","GLTP9kqZn5QR"],'
+          '    "templateId": 7,'
+          '    "cisType": "UNIT"'
+          '  }],'
+          '  "serviceProviderId": "c5fe527a-564a-4075-b7dd-72f08cb9a8b1",'
+          '  "attributes": {'
+          '    "contactPerson":"Иванов П.А.",'
+          '    "releaseMethodType": "IMPORT",'
+          '    "createMethodType": "CM",'
+          '    "productionOrderId": "08528091-808a-41ba-a55d-d6230c64b332"'
+          '  }'
+          '}'
+        )
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+  end
+end

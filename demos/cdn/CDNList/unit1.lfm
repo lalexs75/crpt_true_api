@@ -1,0 +1,413 @@
+object Form1: TForm1
+  Left = 672
+  Height = 651
+  Top = 278
+  Width = 792
+  Caption = 'CDN list'
+  ClientHeight = 651
+  ClientWidth = 792
+  Position = poScreenCenter
+  SessionProperties = 'edtCDNToken.Text;cbCheckHealth.Checked'
+  LCLVersion = '3.99.0.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 95
+    Top = 0
+    Width = 792
+    Align = alTop
+    AutoSize = True
+    ClientHeight = 95
+    ClientWidth = 792
+    TabOrder = 0
+    object Button1: TButton
+      AnchorSideTop.Control = Panel1
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = Panel1
+      AnchorSideRight.Side = asrBottom
+      Left = 699
+      Height = 29
+      Top = 33
+      Width = 86
+      Anchors = [akTop, akRight]
+      AutoSize = True
+      BorderSpacing.Around = 6
+      Caption = 'Get CDN list'
+      TabOrder = 0
+      OnClick = Button1Click
+    end
+    object edtCDNToken: TEdit
+      AnchorSideLeft.Control = Label1
+      AnchorSideTop.Control = Label1
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = Button1
+      Left = 13
+      Height = 29
+      Top = 30
+      Width = 680
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Around = 6
+      TabOrder = 1
+    end
+    object Label1: TLabel
+      AnchorSideLeft.Control = Panel1
+      AnchorSideTop.Control = Panel1
+      Left = 7
+      Height = 17
+      Top = 7
+      Width = 43
+      BorderSpacing.Around = 6
+      Caption = 'API key'
+    end
+    object cbCheckHealth: TCheckBox
+      AnchorSideLeft.Control = Panel1
+      AnchorSideTop.Control = edtCDNToken
+      AnchorSideTop.Side = asrBottom
+      Left = 7
+      Height = 23
+      Top = 65
+      Width = 105
+      BorderSpacing.Around = 6
+      Caption = 'Check health'
+      TabOrder = 2
+    end
+  end
+  object GroupBox1: TGroupBox
+    Left = 0
+    Height = 105
+    Top = 546
+    Width = 792
+    Align = alBottom
+    Caption = 'Протокол'
+    ClientHeight = 87
+    ClientWidth = 790
+    TabOrder = 1
+    object Memo2: TMemo
+      Left = 0
+      Height = 87
+      Top = 0
+      Width = 790
+      Align = alClient
+      Lines.Strings = (
+        'Memo2'
+      )
+      TabOrder = 0
+    end
+  end
+  object Splitter1: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 541
+    Width = 792
+    Align = alBottom
+    ResizeAnchor = akBottom
+  end
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 446
+    Top = 95
+    Width = 792
+    ActivePage = TabSheet1
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 3
+    object TabSheet1: TTabSheet
+      Caption = 'CDN list'
+      ClientHeight = 415
+      ClientWidth = 782
+      object RxDBGrid1: TRxDBGrid
+        Left = 0
+        Height = 372
+        Top = 43
+        Width = 782
+        ColumnDefValues.BlobText = '(данные)'
+        TitleButtons = False
+        AutoSort = True
+        Columns = <        
+          item
+            Title.Alignment = taCenter
+            Title.Orientation = toHorizontal
+            Title.Caption = 'Host'
+            Width = 300
+            FieldName = 'Host'
+            EditButtons = <>
+            Filter.DropDownRows = 0
+            Filter.EmptyValue = '(Пусто)'
+            Filter.NotEmptyValue = '(Не пусто)'
+            Filter.AllValue = '(Все значения)'
+            Filter.EmptyFont.Style = [fsItalic]
+            Filter.ItemIndex = -1
+            Footers = <>
+          end        
+          item
+            Title.Alignment = taCenter
+            Title.Orientation = toHorizontal
+            Title.Caption = 'AVG Time (ms)'
+            Width = 70
+            FieldName = 'avgTimeMs'
+            EditButtons = <>
+            Filter.DropDownRows = 0
+            Filter.EmptyValue = '(Пусто)'
+            Filter.NotEmptyValue = '(Не пусто)'
+            Filter.AllValue = '(Все значения)'
+            Filter.EmptyFont.Style = [fsItalic]
+            Filter.ItemIndex = -1
+            Footers = <>
+          end        
+          item
+            Title.Alignment = taCenter
+            Title.Orientation = toHorizontal
+            Title.Caption = 'Code'
+            Width = 90
+            FieldName = 'SiteErrorCode'
+            EditButtons = <>
+            Filter.DropDownRows = 0
+            Filter.EmptyValue = '(Пусто)'
+            Filter.NotEmptyValue = '(Не пусто)'
+            Filter.AllValue = '(Все значения)'
+            Filter.EmptyFont.Style = [fsItalic]
+            Filter.ItemIndex = -1
+            Footers = <>
+          end        
+          item
+            Title.Alignment = taCenter
+            Title.Orientation = toHorizontal
+            Title.Caption = 'Description'
+            Width = 250
+            FieldName = 'SiteErrorDescription'
+            EditButtons = <>
+            Filter.DropDownRows = 0
+            Filter.EmptyValue = '(Пусто)'
+            Filter.NotEmptyValue = '(Не пусто)'
+            Filter.AllValue = '(Все значения)'
+            Filter.EmptyFont.Style = [fsItalic]
+            Filter.ItemIndex = -1
+            Footers = <>
+          end>
+        KeyStrokes = <        
+          item
+            Command = rxgcShowFindDlg
+            ShortCut = 16454
+            Enabled = True
+          end        
+          item
+            Command = rxgcShowColumnsDlg
+            ShortCut = 16471
+            Enabled = True
+          end        
+          item
+            Command = rxgcShowFilterDlg
+            ShortCut = 16468
+            Enabled = True
+          end        
+          item
+            Command = rxgcShowSortDlg
+            ShortCut = 16467
+            Enabled = True
+          end        
+          item
+            Command = rxgcShowQuickFilter
+            ShortCut = 16465
+            Enabled = True
+          end        
+          item
+            Command = rxgcHideQuickFilter
+            ShortCut = 16456
+            Enabled = True
+          end        
+          item
+            Command = rxgcSelectAll
+            ShortCut = 16449
+            Enabled = True
+          end        
+          item
+            Command = rxgcDeSelectAll
+            ShortCut = 16429
+            Enabled = True
+          end        
+          item
+            Command = rxgcInvertSelection
+            ShortCut = 16426
+            Enabled = True
+          end        
+          item
+            Command = rxgcOptimizeColumnsWidth
+            ShortCut = 16427
+            Enabled = True
+          end        
+          item
+            Command = rxgcCopyCellValue
+            ShortCut = 16451
+            Enabled = True
+          end>
+        FooterOptions.DrawFullLine = False
+        SearchOptions.QuickSearchOptions = [loCaseInsensitive, loPartialKey]
+        SearchOptions.FromStart = False
+        OptionsRx = [rdgAllowColumnsForm, rdgAllowDialogFind, rdgAllowQuickFilter]
+        Align = alClient
+        Color = clWindow
+        DrawFullLine = False
+        SelectedColor = clHighlight
+        DataSource = dsCDNList
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+        ReadOnly = True
+        TabOrder = 0
+        TitleStyle = tsNative
+      end
+      object Panel2: TPanel
+        Left = 0
+        Height = 43
+        Top = 0
+        Width = 782
+        Align = alTop
+        AutoSize = True
+        ClientHeight = 43
+        ClientWidth = 782
+        TabOrder = 1
+        object Label2: TLabel
+          AnchorSideLeft.Control = Panel2
+          AnchorSideBottom.Control = Edit1
+          AnchorSideBottom.Side = asrBottom
+          Left = 7
+          Height = 17
+          Top = 19
+          Width = 32
+          Anchors = [akLeft, akBottom]
+          BorderSpacing.Left = 6
+          Caption = 'Code'
+        end
+        object Edit1: TEdit
+          AnchorSideLeft.Control = Label2
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = Panel2
+          Left = 45
+          Height = 29
+          Top = 7
+          Width = 80
+          BorderSpacing.Around = 6
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object Label3: TLabel
+          AnchorSideLeft.Control = Edit1
+          AnchorSideLeft.Side = asrBottom
+          Left = 131
+          Height = 17
+          Top = 22
+          Width = 52
+          Caption = 'Message'
+        end
+        object Edit2: TEdit
+          AnchorSideLeft.Control = Label3
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = Panel2
+          AnchorSideRight.Control = Panel2
+          AnchorSideRight.Side = asrBottom
+          Left = 189
+          Height = 29
+          Top = 7
+          Width = 586
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 6
+          ReadOnly = True
+          TabOrder = 1
+        end
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'JSON'
+      ClientHeight = 415
+      ClientWidth = 782
+      object Memo1: TMemo
+        Left = 0
+        Height = 415
+        Top = 0
+        Width = 782
+        Align = alClient
+        Lines.Strings = (
+          'Memo1'
+        )
+        TabOrder = 0
+      end
+    end
+  end
+  object CDNCrptAPI1: TCDNCrptAPI
+    Server = 'https://cdn.crpt.ru/'
+    OnHttpStatus = CDNCrptAPI1HttpStatus
+    Left = 440
+    Top = 16
+  end
+  object RxIniPropStorage1: TRxIniPropStorage
+    StoredValues = <>
+    SeparateFiles = True
+    Left = 480
+    Top = 16
+  end
+  object rxCDNList: TRxMemoryData
+    FieldDefs = <    
+      item
+        Name = 'Host'
+        DataType = ftString
+        Size = 500
+      end    
+      item
+        Name = 'avgTimeMs'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'SiteErrorCode'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'SiteErrorDescription'
+        DataType = ftString
+        Size = 500
+      end>
+    PacketRecords = 0
+    Left = 246
+    Top = 342
+    object rxCDNListHost: TStringField
+      FieldKind = fkData
+      FieldName = 'Host'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 500
+    end
+    object rxCDNListavgTimeMs: TLongintField
+      FieldKind = fkData
+      FieldName = 'avgTimeMs'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object rxCDNListSiteErrorCode: TLongintField
+      FieldKind = fkData
+      FieldName = 'SiteErrorCode'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object rxCDNListSiteErrorDescription: TStringField
+      FieldKind = fkData
+      FieldName = 'SiteErrorDescription'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 500
+    end
+  end
+  object dsCDNList: TDataSource
+    DataSet = rxCDNList
+    Left = 208
+    Top = 344
+  end
+end

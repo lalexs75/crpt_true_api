@@ -1,0 +1,56 @@
+inherited frmTrueAPICmdDocInfoFrame: TfrmTrueAPICmdDocInfoFrame
+  object Memo1: TMemo[0]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 141
+    Top = 99
+    Width = 320
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 0
+  end
+  object Button1: TButton[1]
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideTop.Control = edtDocID
+    AnchorSideTop.Side = asrBottom
+    Left = 80
+    Height = 29
+    Top = 64
+    Width = 161
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Содержимое документа'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Label1: TLabel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 6
+    Height = 17
+    Top = 6
+    Width = 36
+    BorderSpacing.Around = 6
+    Caption = 'DocID'
+  end
+  object edtDocID: TEdit[3]
+    AnchorSideLeft.Control = Label1
+    AnchorSideTop.Control = Label1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 12
+    Height = 29
+    Top = 29
+    Width = 302
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 2
+  end
+end

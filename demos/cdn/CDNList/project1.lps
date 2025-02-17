@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="33" Y="23"/>
+        <UsageCount Value="41"/>
+      </Unit>
+      <Unit>
+        <Filename Value="unit1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit1"/>
+        <TopLine Value="97"/>
+        <CursorPos Y="103"/>
+        <UsageCount Value="41"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../ETradeDocuments/crpt/crpt_cmp.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="49"/>
+        <CursorPos X="3" Y="78"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../rsm_api/rsmapi.pas"/>
+        <UnitName Value="RSMApi"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="36"/>
+        <CursorPos X="3" Y="50"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../crpttrueapi.pas"/>
+        <UnitName Value="CRPTTrueAPI"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="467"/>
+        <CursorPos Y="497"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <UnitName Value="crptCDNTrueAPI"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="27"/>
+        <CursorPos X="29" Y="37"/>
+        <UsageCount Value="30"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../lazcrptregister.pas"/>
+        <UnitName Value="LazCRPTRegister"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="20"/>
+        <CursorPos X="39" Y="41"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../install/source/fpcsrc/packages/fcl-json/src/fpjson.pp"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="12" Y="16"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../install/source/fpcsrc/packages/fcl-json/src/jsonparser.pp"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="16" Y="18"/>
+        <UsageCount Value="12"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../install/source/fpcsrc/packages/fcl-json/src/jsonscanner.pp"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="17" Y="20"/>
+        <UsageCount Value="12"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../install/source/fpcsrc/packages/openssl/src/fpopenssl.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="795"/>
+        <CursorPos Y="828"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../install/source/fpcsrc/packages/openssl/src/opensslsockets.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="331"/>
+        <CursorPos Y="364"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../install/source/fpcsrc/packages/fcl-web/src/base/fphttpclient.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="627"/>
+        <CursorPos Y="644"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../cdn/crptcdntrueapitypes.pas"/>
+        <UnitName Value="crptCDNTrueAPITypes"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="81"/>
+        <CursorPos Y="103"/>
+        <UsageCount Value="19"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../trueapi/crpttrueapidataobjects.pas"/>
+        <UnitName Value="CRPTTrueAPIDataObjects"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="676"/>
+        <CursorPos X="11" Y="707"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../SuzIntegration/crptsuzapi.pas"/>
+        <UnitName Value="CRPTSuzAPI"/>
+        <EditorIndex Value="5"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../SuzIntegration/crptsuzintegration.pas"/>
+        <UnitName Value="CRPTSuzIntegration"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="43"/>
+        <CursorPos X="15" Y="14"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../protobuf-fpc/json/jsonobjects.pas"/>
+        <UnitName Value="JSONObjects"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="175"/>
+        <CursorPos X="3" Y="207"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../rxnew/rxtools/rxlogging.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="29"/>
+        <CursorPos X="30" Y="48"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../protobuf-fpc/xmlobject/abstractserializationobjects.pas"/>
+        <UnitName Value="AbstractSerializationObjects"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="343"/>
+        <CursorPos Y="360"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../lcl/extctrls.pp"/>
+        <UnitName Value="ExtCtrls"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="14" Y="17"/>
+        <UsageCount Value="12"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="28">
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="67" Column="21" TopLine="60"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="68" Column="21" TopLine="61"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="55" Column="38" TopLine="38"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="80" Column="7" TopLine="62"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="83" Column="53" TopLine="75"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="55" Column="14" TopLine="39"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="83" TopLine="76"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapitypes.pas"/>
+        <Caret Line="51" Column="14" TopLine="34"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapitypes.pas"/>
+        <Caret Line="92" Column="3" TopLine="86"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapitypes.pas"/>
+        <Caret Line="50" Column="15" TopLine="34"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="85" Column="3" TopLine="68"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="88" Column="5" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="85" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="86" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="88" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="89" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapi.pas"/>
+        <Caret Line="91" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="103" Column="9" TopLine="77"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="102" Column="7" TopLine="87"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="101" TopLine="86"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="102" TopLine="86"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../cdn/crptcdntrueapitypes.pas"/>
+        <Caret Line="103" TopLine="81"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="101" TopLine="86"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="102" TopLine="86"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="103" TopLine="86"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="116" Column="46" TopLine="97"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="80" Column="21" TopLine="64"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="93" Column="12" TopLine="75"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="103" TopLine="20"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

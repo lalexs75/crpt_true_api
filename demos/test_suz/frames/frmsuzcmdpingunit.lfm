@@ -1,0 +1,33 @@
+inherited frmSUZCmdPingFrame: TfrmSUZCmdPingFrame
+  DesignLeft = 601
+  DesignTop = 513
+  object Button2: TButton[0]
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideTop.Control = Owner
+    Left = 141
+    Height = 29
+    Top = 6
+    Width = 39
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Ping'
+    TabOrder = 0
+    OnClick = Button2Click
+  end
+  object Memo1: TMemo[1]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button2
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 199
+    Top = 41
+    Width = 320
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 1
+  end
+end

@@ -1,0 +1,192 @@
+object CRPTTrueAPITestKIZMainForm: TCRPTTrueAPITestKIZMainForm
+  Left = 556
+  Height = 494
+  Top = 230
+  Width = 641
+  Caption = 'CRPT TrueAPI TestKIZ'
+  ClientHeight = 494
+  ClientWidth = 641
+  Position = poDesktopCenter
+  SessionProperties = 'edtCIS.Text;edtCryptoProSrv.Text;edtUserKey.Text;edtOMSID.Text'
+  LCLVersion = '3.99.0.0'
+  OnCreate = FormCreate
+  object Button1: TButton
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideTop.Control = Owner
+    Left = 297
+    Height = 29
+    Top = 6
+    Width = 46
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Login'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Label1: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = edtCryptoProSrv
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 17
+    Top = 99
+    Width = 77
+    BorderSpacing.Around = 6
+    Caption = 'User SSH key'
+  end
+  object Label2: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 17
+    Top = 41
+    Width = 101
+    BorderSpacing.Around = 6
+    Caption = 'CryptoPro server'
+  end
+  object edtUserKey: TEdit
+    AnchorSideLeft.Control = Label1
+    AnchorSideTop.Control = Label1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 12
+    Height = 29
+    Top = 122
+    Width = 623
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 1
+  end
+  object edtCryptoProSrv: TEdit
+    AnchorSideLeft.Control = Label2
+    AnchorSideTop.Control = Label2
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 12
+    Height = 29
+    Top = 64
+    Width = 623
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 2
+  end
+  object Memo1: TMemo
+    Left = 0
+    Height = 206
+    Top = 288
+    Width = 641
+    Align = alBottom
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 3
+  end
+  object Label3: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = edtUserKey
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 17
+    Top = 157
+    Width = 20
+    BorderSpacing.Around = 6
+    Caption = 'CIS'
+  end
+  object Button2: TButton
+    AnchorSideTop.Control = Label3
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 551
+    Height = 29
+    Top = 180
+    Width = 84
+    Anchors = [akTop, akRight]
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Get CIS info'
+    TabOrder = 4
+    OnClick = Button2Click
+  end
+  object edtCIS: TEdit
+    AnchorSideLeft.Control = Label3
+    AnchorSideTop.Control = Label3
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Button2
+    Left = 12
+    Height = 29
+    Top = 180
+    Width = 533
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 5
+  end
+  object Button3: TButton
+    Left = 544
+    Height = 25
+    Top = 264
+    Width = 75
+    Caption = 'Button3'
+    TabOrder = 6
+  end
+  object Label4: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = edtCIS
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 17
+    Top = 215
+    Width = 44
+    BorderSpacing.Around = 6
+    Caption = 'OMS ID'
+  end
+  object edtOMSID: TEdit
+    AnchorSideLeft.Control = Label4
+    AnchorSideTop.Control = Label4
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Button2
+    Left = 12
+    Height = 29
+    Top = 238
+    Width = 533
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 7
+    Text = 'edtOMSID'
+  end
+  object Button4: TButton
+    Left = 512
+    Height = 25
+    Top = 10
+    Width = 75
+    Caption = 'Button4'
+    TabOrder = 8
+    OnClick = Button4Click
+  end
+  object CRPTTrueAPI1: TCRPTTrueAPI
+    OnHttpStatus = CRPTTrueAPI1HttpStatus
+    OnSignData = CRPTTrueAPI1SignData
+    Left = 32
+    Top = 8
+  end
+  object OptCryptoServer1: TOptCryptoServer
+    Server = 'http://192.168.129.163'
+    OnHttpStatus = OptCryptoServer1HttpStatus
+    Left = 64
+    Top = 8
+  end
+  object RxIniPropStorage1: TRxIniPropStorage
+    StoredValues = <>
+    SeparateFiles = True
+    Left = 232
+    Top = 8
+  end
+  object CRPTComponent1: TCRPTComponent
+    Left = 152
+    Top = 8
+  end
+end

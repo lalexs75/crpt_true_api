@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions><package name="crpt_true_api"><module name="CRPTTrueAPI_Consts"><element name="TcrptCISStatus"><short>Статусы КИ</short>
+      </element><element name="TcrptCISStatus.csEMITTED"><short>Эмитирован</short>
+      </element><element name="TcrptCISStatus.csAPPLIED"><short>Нанесён</short>
+      </element><element name="TcrptCISStatus.csINTRODUCED"><short>В обороте</short>
+      </element><element name="TcrptCISStatus.csWRITTEN_OFF"><short>Списан</short>
+      </element><element name="TcrptCISStatus.csRETIRED"><short>Выбыл</short><descr>для всех товарных групп, кроме «Альтернативная табачная продукция», «Никотиносодержащая продукция», «Табачная продукция»
+</descr>
+      </element><element name="TcrptCISStatus.csWITHDRAWN"><short>Выбыл</short><descr>только для товарных групп «Альтернативная табачная продукция», «Никотиносодержащая продукция», «Табачная продукция»
+</descr>
+      </element><element name="TcrptCISStatus.csDISAGGREGATION"><short>Расформирован</short><descr>для всех товарных групп, кроме «Альтернативная табачная продукция», «Никотиносодержащая продукция», «Табачная продукция»
+</descr>
+      </element><element name="TcrptCISStatus.csDISAGGREGATED"><short>Расформирован</short><descr>только для товарных групп «Альтернативная табачная продукция», «Никотиносодержащая продукция», «Табачная продукция»
+</descr>
+      </element><element name="TcrptCISStatus.csAPPLIED_NOT_PAID"><short>Не оплачен</short><descr>только для товарных групп «Альтернативная табачная продукция», «Никотиносодержащая продукция», «Табачная продукция»
+</descr>
+      </element>
+    </module>
+  </package>
+</fpdoc-descriptions>

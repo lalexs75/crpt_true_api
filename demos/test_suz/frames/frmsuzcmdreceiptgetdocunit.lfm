@@ -1,0 +1,80 @@
+inherited frmSUZCmdReceiptGetDocFrame: TfrmSUZCmdReceiptGetDocFrame
+  object Label2: TLabel[0]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 6
+    Height = 17
+    Top = 6
+    Width = 72
+    BorderSpacing.Around = 6
+    Caption = 'ResultDocId'
+  end
+  object edtResultDocId: TEdit[1]
+    AnchorSideLeft.Control = Label2
+    AnchorSideTop.Control = Label2
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Button1
+    Left = 12
+    Height = 29
+    Top = 29
+    Width = 154
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 0
+  end
+  object Button1: TButton[2]
+    AnchorSideTop.Control = Label2
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 172
+    Height = 29
+    Top = 29
+    Width = 142
+    Anchors = [akTop, akRight]
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Получить квитанцию'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Memo1: TMemo[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = edtDocId
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 118
+    Top = 122
+    Width = 320
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 2
+  end
+  object Label3: TLabel[4]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = edtResultDocId
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 17
+    Top = 64
+    Width = 35
+    BorderSpacing.Around = 6
+    Caption = 'DocId'
+  end
+  object edtDocId: TEdit[5]
+    AnchorSideLeft.Control = Label3
+    AnchorSideTop.Control = Label3
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Button1
+    Left = 12
+    Height = 29
+    Top = 87
+    Width = 154
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 3
+  end
+end

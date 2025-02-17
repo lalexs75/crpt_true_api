@@ -1,0 +1,123 @@
+inherited frmTrueAPICmdDocListFrame: TfrmTrueAPICmdDocListFrame
+  Height = 268
+  Width = 490
+  ClientHeight = 268
+  ClientWidth = 490
+  DesignLeft = 579
+  DesignTop = 406
+  object Memo1: TMemo[0]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 120
+    Top = 148
+    Width = 490
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 0
+  end
+  object Button1: TButton[1]
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideTop.Control = Panel1
+    AnchorSideTop.Side = asrBottom
+    Left = 178
+    Height = 29
+    Top = 113
+    Width = 134
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Список документов'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Panel1: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 0
+    Height = 107
+    Top = 0
+    Width = 490
+    Anchors = [akTop, akLeft, akRight]
+    AutoSize = True
+    ClientHeight = 107
+    ClientWidth = 490
+    TabOrder = 2
+    object Label1: TLabel
+      AnchorSideLeft.Control = Panel1
+      AnchorSideBottom.Control = RxDateEdit1
+      AnchorSideBottom.Side = asrBottom
+      Left = 7
+      Height = 17
+      Top = 48
+      Width = 41
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Left = 6
+      Caption = 'С даты'
+    end
+    object Label2: TLabel
+      AnchorSideLeft.Control = Panel1
+      AnchorSideBottom.Control = RxDateEdit2
+      AnchorSideBottom.Side = asrBottom
+      Left = 7
+      Height = 17
+      Top = 83
+      Width = 46
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Left = 6
+      Caption = 'По дату'
+    end
+    object CheckBox1: TCheckBox
+      AnchorSideLeft.Control = Panel1
+      AnchorSideTop.Control = Panel1
+      Left = 7
+      Height = 23
+      Top = 7
+      Width = 90
+      BorderSpacing.Around = 6
+      Caption = 'За период'
+      TabOrder = 0
+      OnChange = CheckBox1Change
+    end
+    object RxDateEdit1: TRxDateEdit
+      AnchorSideLeft.Control = Label2
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = CheckBox1
+      AnchorSideTop.Side = asrBottom
+      Left = 59
+      Height = 29
+      Top = 36
+      Width = 103
+      BorderSpacing.Around = 6
+      ButtonWidth = 23
+      MaxLength = 10
+      PasswordChar = #0
+      PopupColor = clWindow
+      TabOrder = 1
+      Text = '  .  .    '
+    end
+    object RxDateEdit2: TRxDateEdit
+      AnchorSideLeft.Control = Label2
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = RxDateEdit1
+      AnchorSideTop.Side = asrBottom
+      Left = 59
+      Height = 29
+      Top = 71
+      Width = 103
+      BorderSpacing.Around = 6
+      ButtonWidth = 23
+      MaxLength = 10
+      PasswordChar = #0
+      PopupColor = clWindow
+      TabOrder = 2
+      Text = '  .  .    '
+    end
+  end
+end

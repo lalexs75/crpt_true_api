@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions><package name="crpt_true_api"><module name="trueapi_cises_info"><element name="TCISInfoData.applicationDate"><short>Дата нанесения</short>
+      </element><element name="TCISInfoData.introducedDate"><short>Дата ввода в
+оборот</short>
+      </element><element name="TCISInfoData.requestedCis"><short>КИ / КиЗ из запроса</short>
+      </element><element name="TCISInfoData.cis"><short>КИ / КиЗ из ответа</short>
+      </element><element name="TCISInfoData.aptroducedDate"><short>Дата ввода воборот</short>
+      </element><element name="TCISInfoData.replicationDate"><short>Дата нанесения</short>
+      </element><element name="TCISInfoData.inquestedCis"><short>КИ / КиЗ из запроса</short>
+      </element><element name="TCISInfoData.cisWithoutBrackets"><short>КИ без скобок</short>
+      </element><element name="TCISInfoData.gtin"><short>Код товара</short>
+      </element><element name="TCISInfoData.tnVedEaes"><short>10-значный код ТН ВЭД</short>
+      </element><element name="TCISInfoData.tnVedEaesGroup"><short>4-значный код ТН ВЭД</short>
+      </element><element name="TCISInfoData.productName"><short>Наименование продукции</short>
+      </element><element name="TCISInfoData.productGroupId"><short>Идентификатор товарной группы</short>
+      </element><element name="TCISInfoData.productGroup"><short>Наименование товарной группы</short>
+      </element><element name="TCISInfoData.producedDate"><short>Дата производства</short>
+      </element><element name="TCISInfoData.emissionDate"><short>Дата эмиссии</short>
+      </element><element name="TCISInfoData.emissionType"><short>Тип эмиссии</short>
+      </element><element name="TCISInfoData.packageType"><short>Код типа упаковки</short>
+      </element><element name="TCISInfoData.ownerInn"><short>ИНН владельца товара</short>
+      </element><element name="TCISInfoData.ownerName"><short>Наименование владельца товара</short>
+      </element><element name="TCISInfoData.statusEx"><short>Актуальное особое состояние КИ / КиЗ</short>
+      </element><element name="TCISInfoData.child"><short>Список дочерних КИ в агрегате</short>
+      </element><element name="TCISInfoData.producerInn"><short>ИНН производителя</short>
+      </element><element name="TCISInfoData.status"><short>Статус КИ / КиЗ</short>
+      </element><element name="TCISInfoData.brand"><short>Бренд</short>
+      </element><element name="TCISInfoData.producerName"><short>Наименование производителя</short>
+      </element><element name="TCISInfoData.markWithdraw"><short>Признак выбытия от не владельца</short>
+      </element><element name="TCISInfoData.sertDocs"><short>Сведения о разрешительной документации</short>
+      </element><element name="TCISInfoData.parent"><short>КИ агрегата</short>
+      </element><element name="TCISInfoData.maxRetailPrice"><short>Максимальная цена розничной продажи в копейках</short>
+      </element><element name="TCISInfoData.volumeSpecialPack"><short>Фактический объём выпущенной продукции, л</short>
+      </element><element name="TCISInfoData.prVetDocument"><short>ID производственного ВСД (для продукции, произведённой в РФ) или ID транспортного ВСД (для продукции, произведённой вне РФ)</short>
+      </element><element name="TCISInfoData.exporterName"><short>Наименование экспортёра</short>
+      </element><element name="TCISInfoData.partialSaleInfo"><short>Сведения о частичном выбытии</short>
+      </element><element name="TPartialSaleInfo.innerUnitCount"><short>Общее количество (объём) товара в потребительской упаковке (для товара с возможностью частичного выбытия)</short>
+      </element><element name="TPartialSaleInfo.soldUnitCount"><short>Количество (объём) выведенного из оборота товара по КИ, шт (мл)</short>
+      </element><element name="TPartialSaleInfo.correctRest"><short>Корректность остатка товара</short>
+      </element><element name="TExpirationInfo"><short>Срок годности</short>
+      </element><element name="TExpirationInfo.expirationStorageDate"><short>Дата срока годности</short>
+      </element><element name="TExpirationInfo.storageConditionId"><short>Идентификатор условия хранения</short>
+      </element><element name="TExpirationInfo.storageConditionName"><short>Описание условий хранения</short>
+      </element><element name="TCISInfoData.withdrawReason"><short>Причина вывода из оборота</short>
+      </element><element name="TCISInfoData.withdrawReasonOther"><short>Описание другой причины вывода из оборота</short>
+      </element><element name="TCISInfoData.expirations"><short>Массив сроков годности</short>
+      </element><element name="TCISInfoData.isVarQuantity"><short>Признак переменного веса</short>
+      </element><element name="TCISInfoData.productWeightGr"><short>Вес выпущенной продукции</short>
+      </element><element name="TCISInfoData.expirationDate"><short>Дата срока годности</short>
+      </element><element name="TCISInfoData.turnoverType"><short>Вид товарооборота</short>
+      </element><element name="TCISInfoData.connectDate"><short>Дата подключения кега к оборудованию для розлива</short>
+      </element><element name="TCISInfoData.ownerMod"><short>Сведения о текущем месте осуществления деятельности</short>
+      </element><element name="TOwnerMod.modId"><short>Идентификатор текущего места осуществления деятельности</short>
+      </element><element name="TOwnerMod.kpp"><short>КПП торговой точки</short>
+      </element><element name="TOwnerMod.fiasId"><short>Идентификатор ФИАС</short>
+      </element><element name="TOwnerMod.address"><short>Адрес места осуществления деятельности</short>
+      </element><element name="TCISInfoData.licences"><short>Массив лицензий на пользование недрами</short>
+      </element><element name="TLicencesInfo.licenceNumber"><short>Номер лицензии на пользование недрами</short>
+      </element><element name="TLicencesInfo.licenceDate"><short>Дата выдачи лицензии</short>
+      </element><element name="TCISInfoData.errorMessage"><short>Сообщение об ошибке</short>
+      </element><element name="TCISInfoData.errorCode"><short>Код ошибки</short>
+      </element>
+    </module>
+  </package>
+</fpdoc-descriptions>

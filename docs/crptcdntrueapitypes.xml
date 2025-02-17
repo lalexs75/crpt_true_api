@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions><package name="crpt_true_api"><module name="crptCDNTrueAPITypes"><element name="TCDNInfo.Code"><short>Результат обработки операции</short><descr>Возможные значения:
+0 — «Успешно»;
+4хх, 5хх — «Получен неверный
+запрос»
+</descr>
+      </element><element name="TCDNInfo.Description"><short>Текстовое описание результата выполнения метода</short><descr>Возвращается значение «ok»,
+если значение параметра «code»
+(«Результат обработки
+операции») равно 0
+(«Успешно»), иначе
+возвращается сообщение об
+ошибке
+</descr>
+      </element><element name="TCDNSiteInfo.Host"><short>Адрес CDN-площадки</short><descr>Адрес CDN-площадки, который
+нужно указывать при
+обращении к методу
+/codes/check
+</descr>
+      </element><element name="TCDNInfo.Hosts"><short>Список CDN-площадок</short>
+      </element>
+    </module>
+  </package>
+</fpdoc-descriptions>

@@ -1,0 +1,11 @@
+inherited frmTrueAPICmdOutCISFrame: TfrmTrueAPICmdOutCISFrame
+  object Button1: TButton[0]
+    Left = 120
+    Height = 25
+    Top = 120
+    Width = 75
+    Caption = 'Test'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+end

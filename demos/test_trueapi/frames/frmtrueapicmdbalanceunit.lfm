@@ -1,0 +1,72 @@
+inherited frmTrueAPICmdBalanceFrame: TfrmTrueAPICmdBalanceFrame
+  DesignLeft = 511
+  DesignTop = 308
+  object Button1: TButton[0]
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideTop.Control = RadioButton2
+    AnchorSideTop.Side = asrBottom
+    Left = 102
+    Height = 29
+    Top = 64
+    Width = 117
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Получить баланс'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Memo1: TMemo[1]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 141
+    Top = 99
+    Width = 320
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 1
+  end
+  object edtProdGroupID: TEdit[2]
+    AnchorSideLeft.Control = RadioButton2
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideBottom.Control = RadioButton2
+    AnchorSideBottom.Side = asrBottom
+    Left = 210
+    Height = 29
+    Top = 29
+    Width = 80
+    Anchors = [akLeft, akBottom]
+    TabOrder = 2
+    Text = '0'
+  end
+  object RadioButton1: TRadioButton[3]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 6
+    Height = 23
+    Top = 6
+    Width = 116
+    BorderSpacing.Around = 6
+    Caption = 'Общий баланс'
+    Checked = True
+    TabOrder = 3
+    TabStop = True
+  end
+  object RadioButton2: TRadioButton[4]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = RadioButton1
+    AnchorSideTop.Side = asrBottom
+    Left = 6
+    Height = 23
+    Top = 35
+    Width = 198
+    BorderSpacing.Around = 6
+    Caption = 'Баланс по товарной группе'
+    TabOrder = 4
+  end
+end

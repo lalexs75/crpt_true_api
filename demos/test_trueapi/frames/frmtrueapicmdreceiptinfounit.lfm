@@ -1,0 +1,58 @@
+inherited frmTrueAPICmdReceiptInfoFrame: TfrmTrueAPICmdReceiptInfoFrame
+  Width = 378
+  ClientWidth = 378
+  object Memo1: TMemo[0]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 141
+    Top = 99
+    Width = 378
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 0
+  end
+  object Button1: TButton[1]
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideTop.Control = edtReceiptID
+    AnchorSideTop.Side = asrBottom
+    Left = 127
+    Height = 29
+    Top = 64
+    Width = 124
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Содержимое чека'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Label1: TLabel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 6
+    Height = 17
+    Top = 6
+    Width = 57
+    BorderSpacing.Around = 6
+    Caption = 'ReceiptID'
+  end
+  object edtReceiptID: TEdit[3]
+    AnchorSideLeft.Control = Label1
+    AnchorSideTop.Control = Label1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 12
+    Height = 29
+    Top = 29
+    Width = 360
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 6
+    TabOrder = 2
+  end
+end

@@ -1,0 +1,227 @@
+inherited frmSUZCmdReceiptSearchFrame: TfrmSUZCmdReceiptSearchFrame
+  Height = 373
+  Width = 542
+  ClientHeight = 373
+  ClientWidth = 542
+  DesignLeft = 495
+  DesignTop = 373
+  object PageControl1: TPageControl[0]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Panel1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Button1
+    Left = 0
+    Height = 282
+    Top = 50
+    Width = 542
+    ActivePage = TabSheet1
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 0
+    TabOrder = 0
+    object TabSheet1: TTabSheet
+      Caption = 'Сформировать заказ JSON'
+      ClientHeight = 251
+      ClientWidth = 532
+      object Label8: TLabel
+        AnchorSideLeft.Control = TabSheet1
+        AnchorSideTop.Control = TabSheet1
+        Left = 6
+        Height = 17
+        Top = 6
+        Width = 112
+        BorderSpacing.Around = 6
+        Caption = 'Код товара (GTIN)'
+      end
+      object edtGTIN: TEdit
+        AnchorSideLeft.Control = Label8
+        AnchorSideTop.Control = Label8
+        AnchorSideTop.Side = asrBottom
+        Left = 12
+        Height = 29
+        Top = 29
+        Width = 147
+        BorderSpacing.Around = 6
+        TabOrder = 0
+        Text = 'edtGTIN'
+      end
+      object Label1: TLabel
+        AnchorSideLeft.Control = edtGTIN
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = TabSheet1
+        Left = 165
+        Height = 17
+        Top = 6
+        Width = 45
+        BorderSpacing.Around = 6
+        Caption = 'Кол-во'
+      end
+      object edtCnt11: TEdit
+        AnchorSideLeft.Control = Label1
+        AnchorSideTop.Control = Label1
+        AnchorSideTop.Side = asrBottom
+        Left = 171
+        Height = 29
+        Top = 29
+        Width = 80
+        BorderSpacing.Around = 6
+        TabOrder = 1
+        Text = '10'
+      end
+      object Label2: TLabel
+        AnchorSideLeft.Control = TabSheet1
+        AnchorSideTop.Control = edtGTIN
+        AnchorSideTop.Side = asrBottom
+        Left = 6
+        Height = 17
+        Top = 64
+        Width = 50
+        BorderSpacing.Around = 6
+        Caption = 'ТИП CIS'
+      end
+      object edtCISType: TEdit
+        AnchorSideLeft.Control = Label2
+        AnchorSideTop.Control = Label2
+        AnchorSideTop.Side = asrBottom
+        Left = 12
+        Height = 29
+        Top = 87
+        Width = 140
+        BorderSpacing.Around = 6
+        TabOrder = 2
+        Text = 'UNIT'
+      end
+      object Label3: TLabel
+        AnchorSideLeft.Control = edtCnt11
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = TabSheet1
+        Left = 257
+        Height = 17
+        Top = 6
+        Width = 102
+        BorderSpacing.Around = 6
+        Caption = 'serviceProviderId'
+      end
+      object edtServiceProviderId: TEdit
+        AnchorSideLeft.Control = Label3
+        AnchorSideTop.Control = Label3
+        AnchorSideTop.Side = asrBottom
+        Left = 263
+        Height = 29
+        Top = 29
+        Width = 272
+        BorderSpacing.Around = 6
+        TabOrder = 3
+        Text = 'c5fe527a-564a-4075-b7dd-72f08cb9a8b1'
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Тестовый JSON'
+      ClientHeight = 251
+      ClientWidth = 532
+      object Memo1: TMemo
+        Left = 0
+        Height = 251
+        Top = 0
+        Width = 532
+        Align = alClient
+        Lines.Strings = (
+          '{'
+          '  "startCreateDocDate": 1632480396000,'
+          '  "endCreateDocDate": 1632480396000,'
+          '  "startStartDocDate": 1632480396000,'
+          '  "endStartDocDate": 1632480397000,'
+          '  "resultDocIds": ["f49075a7-e997-4642-89da-6b6facc15f0a", "f49077a7-e997-4642-89da-6b6facc15f0a"],'
+          '  "sourceDocIds": ["f49075a7-e997-4642-89da-6b6facc15f0a"],'
+          '  "orderIds": ["f49077a7-e997-4642-89da-6b6facc15f0a"],'
+          '  "serviceProviderIds": ["f49075a7-e997-4642-89da-6b6facc15f0a"],'
+          '  "resultCodes": [0, 1, 4],'
+          '  "productGroups": ["milk"],'
+          '  "productionOrderIds": ["af5fb948-d0c5-4e52-96d6-6af442798085"]'
+          '}'
+        )
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+  end
+  object Button1: TButton[1]
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 486
+    Height = 29
+    Top = 338
+    Width = 50
+    Anchors = [akRight, akBottom]
+    AutoSize = True
+    BorderSpacing.Around = 6
+    Caption = 'Поиск'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Panel1: TPanel[2]
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 542
+    Anchors = [akTop, akLeft, akRight]
+    ClientHeight = 50
+    ClientWidth = 542
+    TabOrder = 2
+    object Label4: TLabel
+      AnchorSideLeft.Control = Panel1
+      AnchorSideBottom.Control = edtLimit
+      AnchorSideBottom.Side = asrBottom
+      Left = 6
+      Height = 17
+      Top = 19
+      Width = 41
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Left = 5
+      Caption = 'Лимит'
+    end
+    object edtLimit: TEdit
+      AnchorSideLeft.Control = Label4
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = Panel1
+      Left = 53
+      Height = 29
+      Top = 7
+      Width = 80
+      BorderSpacing.Around = 6
+      TabOrder = 0
+      Text = '100'
+    end
+    object Label5: TLabel
+      AnchorSideLeft.Control = edtLimit
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideBottom.Control = edtSkip
+      AnchorSideBottom.Side = asrBottom
+      Left = 139
+      Height = 17
+      Top = 19
+      Width = 72
+      Anchors = [akLeft, akBottom]
+      Caption = 'Пропустить'
+    end
+    object edtSkip: TEdit
+      AnchorSideLeft.Control = Label5
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = Panel1
+      Left = 217
+      Height = 29
+      Top = 7
+      Width = 80
+      BorderSpacing.Around = 6
+      TabOrder = 1
+      Text = '0'
+    end
+  end
+end

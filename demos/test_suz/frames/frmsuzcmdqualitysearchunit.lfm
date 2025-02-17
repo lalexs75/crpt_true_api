@@ -1,0 +1,119 @@
+inherited frmSUZCmdQualitySearchFrame: TfrmSUZCmdQualitySearchFrame
+  Width = 416
+  ClientWidth = 416
+  object Panel1: TPanel[0]
+    Left = 0
+    Height = 78
+    Top = 0
+    Width = 416
+    Align = alTop
+    AutoSize = True
+    ClientHeight = 78
+    ClientWidth = 416
+    TabOrder = 0
+    object Label1: TLabel
+      AnchorSideLeft.Control = Panel1
+      AnchorSideTop.Control = Panel1
+      AnchorSideBottom.Control = edtLimit
+      AnchorSideBottom.Side = asrBottom
+      Left = 7
+      Height = 17
+      Top = 54
+      Width = 30
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Left = 6
+      Caption = 'Limit'
+    end
+    object Label2: TLabel
+      AnchorSideLeft.Control = edtLimit
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = edtLimit
+      AnchorSideTop.Side = asrBottom
+      AnchorSideBottom.Control = edtSkip
+      AnchorSideBottom.Side = asrBottom
+      Left = 142
+      Height = 17
+      Top = 48
+      Width = 25
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Right = 6
+      BorderSpacing.Around = 6
+      Caption = 'Skip'
+    end
+    object edtLimit: TEdit
+      AnchorSideLeft.Control = Label1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = edtOrderID
+      AnchorSideTop.Side = asrBottom
+      Left = 43
+      Height = 29
+      Top = 42
+      Width = 93
+      BorderSpacing.Around = 6
+      TabOrder = 0
+      Text = '0'
+    end
+    object edtSkip: TEdit
+      AnchorSideLeft.Control = Label2
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = edtOrderID
+      AnchorSideTop.Side = asrBottom
+      Left = 179
+      Height = 29
+      Top = 42
+      Width = 80
+      BorderSpacing.Around = 6
+      TabOrder = 1
+      Text = '0'
+    end
+    object Button1: TButton
+      AnchorSideLeft.Control = edtSkip
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = edtOrderID
+      AnchorSideTop.Side = asrBottom
+      Left = 265
+      Height = 29
+      Top = 42
+      Width = 118
+      AutoSize = True
+      BorderSpacing.Around = 6
+      Caption = 'Поиск документа'
+      TabOrder = 2
+      OnClick = Button1Click
+    end
+    object lblOrderID: TLabel
+      AnchorSideLeft.Control = Panel1
+      AnchorSideBottom.Control = edtOrderID
+      AnchorSideBottom.Side = asrBottom
+      Left = 7
+      Height = 17
+      Top = 19
+      Width = 48
+      Anchors = [akLeft, akBottom]
+      BorderSpacing.Left = 6
+      Caption = 'OrderID'
+    end
+    object edtOrderID: TEdit
+      AnchorSideLeft.Control = lblOrderID
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = Panel1
+      AnchorSideRight.Control = Panel1
+      AnchorSideRight.Side = asrBottom
+      Left = 61
+      Height = 29
+      Top = 7
+      Width = 348
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Around = 6
+      TabOrder = 3
+    end
+  end
+  object Memo1: TMemo[1]
+    Left = 0
+    Height = 162
+    Top = 78
+    Width = 416
+    Align = alClient
+    TabOrder = 1
+  end
+end
