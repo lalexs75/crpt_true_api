@@ -53,6 +53,10 @@
         <Filename Value="cdn/crptcdntrueapitypes.pas"/>
         <UnitName Value="crptcdntrueapitypes"/>
       </Item>
+      <Item>
+        <Filename Value="trueapi/crptlocaltrueapitypesunit.pas"/>
+        <UnitName Value="crptlocaltrueapitypesunit"/>
+      </Item>
     </Files>
     <LazDoc Paths="docs"/>
     <i18n>
