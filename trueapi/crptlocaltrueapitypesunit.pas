@@ -70,6 +70,7 @@ type
     procedure InternalInitChilds; override;
   public
     destructor Destroy; override;
+    function reqDate:TDateTime;
   published
     property reqId:string read FreqId write FreqId;
     property reqTimestamp :Int64 read FreqTimestamp write FreqTimestamp;
@@ -93,6 +94,7 @@ type
   end;
 
 implementation
+uses DateUtils;
 
 procedure TLCCodeInfo.InternalRegisterPropertys;
 begin
@@ -129,6 +131,11 @@ destructor TLCResultItem.Destroy;
 begin
   FreeAndNil(Fcodes);
   inherited Destroy;
+end;
+
+function TLCResultItem.reqDate : TDateTime;
+begin
+  Result:=UnixToDateTime(FreqTimestamp div 1000, false);
 end;
 
 procedure TLCResult.InternalRegisterPropertys;
