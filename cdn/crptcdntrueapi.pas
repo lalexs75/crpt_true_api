@@ -35,7 +35,7 @@ unit crptCDNTrueAPI;
 interface
 
 uses
-  Classes, SysUtils, CRPTTrueAPI, fpjson, AbstractSerializationObjects,
+  Classes, SysUtils, CRPTTrueAPI, fpjson, AbstractSerializationObjects, crptLocalTrueAPITypesUnit,
   crptCDNTrueAPITypes;
 
 const
@@ -88,6 +88,7 @@ type
     constructor Create(AOwner: TComponent); override;
 
     function ServerStatus:TJSONData;
+    function ServerStatusExt:TLCServerStatus;
     function CodeCheck(ACis:string; AFiscalDriveNumber:string = ''): TJSONData;
     function CodesCheck(ACodes:TXSDStringArray; AFiscalDriveNumber:string = ''): TJSONData;
   published
@@ -99,7 +100,7 @@ type
   end;
 
 implementation
-uses base64, jsonscanner, jsonparser, CRPTTrueAPIDataObjects, rxlogging;
+uses base64, jsonscanner, jsonparser, CRPTTrueAPIDataObjects, rxlogging, rxstrutils;
 
 { TCDNCrptAPI }
 
@@ -121,10 +122,20 @@ var
   S: String;
 begin
   S:=SI.Host + '/api/v4/true-api/cdn/health/check';
-  if SendCommand(hmGET,  S, '', nil, [200, 400, 404], 'application/json') then
+  SI.Code := -1;
+  if SendCommand(hmGET,  S, '', nil, [200, 400, 404, 418], 'application/json') then
   begin
     Document.Position:=0;
     SI.LoadFromStream(Document);
+  end;
+
+  RxWriteLog(etDebug, 'DoCheckHealth %s :  ResultCode=%d; ResultString=%s', [SI.Host, ResultCode, ResultString]);
+  Document.Position:=0;
+  if Document.Size>0 then
+  begin
+    SetLength(S, Document.Size);
+    Document.Read(S[1], Document.Size);
+    RxWriteLog(etDebug, S);
   end;
 end;
 
@@ -233,6 +244,20 @@ begin
     P:=TJSONParser.Create(Document, DefaultOptions);
     Result:=P.Parse as TJSONData;
     P.Free;
+    SaveHttpData('local_server_stat');
+  end
+  else
+    SaveHttpData('local_server_stat');
+end;
+
+function TLocalTrueAPICheck.ServerStatusExt : TLCServerStatus;
+begin
+  Result:=nil;
+  if SendCommand(hmGET, 'api/v1/status', '', nil, [200, 201, 400, 401, 404], 'application/json') then
+  begin
+    Document.Position:=0;
+    Result:=TLCServerStatus.Create;
+    Result.LoadFromStream(Document);
     SaveHttpData('local_server_stat');
   end
   else

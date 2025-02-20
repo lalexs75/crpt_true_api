@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions><package name="crpt_true_api"><module name="crptLocalTrueAPITypesUnit"><element name="TLCStatusDocCount.localDocCount"><short>Количество документов в локальной базе данных</short>
+      </element><element name="TLCStatusDocCount.serverDocCount"><short>Количество документов в базе данных серверной стороны</short>
+      </element><element name="TLCStatusDocCount.timeLag"><short>Интервал времени отставания при репликации данных по отношению к текущему времени.</short><descr>Указывается в миллисекундах
+</descr>
+      </element><element name="TLCStatusReplicationStatus"><short>Состояние репликации</short><descr><p>Данные по состоянию репликации доступны только после инициализации СПО «Локальный модуль «Честный ЗНАК».</p><p>Словарь, состоящий из пар «ключ-значение», каждый ключ — это уникальный идентификатор в пределах (словаря).</p>
+В качестве ключа используются имена баз данных
+(допустимые значения ключа: <b>cis</b>, <b>blocked_gtin</b>, <b>blocked_cis</b> и <b>blocked_series</b>), в качестве значения
+используется экземпляр объекта «ReplicationState»
+
+</descr>
+      </element><element name="TLCServerStatus.replicationStatus"><short>Состояние репликации</short>
+      </element><element name="TLCServerStatus.lastSync"><short>Дата и время последней синхронизации.</short>
+      </element><element name="TLCServerStatus.version"><short>Версия СПО «Локальный модуль «Честный ЗНАК»</short>
+      </element><element name="TLCServerStatus.inst"><short>Идентификатор экземпляра СПО «Локальный модуль «Честный ЗНАК»</short>
+      </element><element name="TLCServerStatus.name"><short>Наименование программного обеспечения</short>
+      </element><element name="TLCServerStatus.status"><short>Статус СПО «Локальный модуль «Честный ЗНАК»</short><descr><p>Возможные значения:</p><ul><li><b>not_configured</b> – не отконфигурирован.</li><li><b>initialization</b> – инициализация.</li><li><b>ready</b> – готов к работе.</li><li><b>sync_error</b> – ошибка синхронизации.</li>
+          </ul>
+        </descr>
+      </element><element name="TLCServerStatus.operationMode"><short>Тип режима обслуживания</short><descr><p>Возможные значения:</p><ul><li><b>аctive</b> – штатный режим обслуживания.</li><li><b>service</b> – сервисный режим обслуживания.</li>
+          </ul>
+        </descr>
+      </element><element name="TLCServerStatus.requiresDownload"><short>Признак, что Системе требуется загрузка БД</short><descr>Для загрузки файла необходимо вызвать метод «Передать токен для загрузки данных»
+</descr>
+      </element>
+    </module>
+  </package>
+</fpdoc-descriptions>
