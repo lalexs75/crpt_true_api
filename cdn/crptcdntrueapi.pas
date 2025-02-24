@@ -202,7 +202,7 @@ begin
   else
     SaveHttpData('true_api_CodesCheck');
 
-  M.Free;
+//  M.Free;
 end;
 
 procedure TLocalTrueAPICheck.SetUserName(AUserName : string);
@@ -319,7 +319,7 @@ begin
     SaveHttpData('local_cises_check');
     RxWriteLog(etDebug, 'TLocalTrueAPICheck.CodesCheck - error : %d %s', [ResultCode, ResultString]);
   end;
-  M.Free;
+//  M.Free;
 end;
 
 end.
