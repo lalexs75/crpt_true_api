@@ -312,9 +312,13 @@ begin
     Result:=P.Parse as TJSONData;
     P.Free;
     SaveHttpData('local_cises_check');
+    RxWriteLog(etDebug, 'TLocalTrueAPICheck.CodesCheck - ok');
   end
   else
+  begin
     SaveHttpData('local_cises_check');
+    RxWriteLog(etDebug, 'TLocalTrueAPICheck.CodesCheck - error : %d %s', [ResultCode, ResultString]);
+  end;
   M.Free;
 end;
 
