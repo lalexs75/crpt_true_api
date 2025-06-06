@@ -444,8 +444,10 @@ begin
   FMS:=TMemoryStream.Create;
   FMS.Write(S1[1], Length(S1));
   {$IFDEF DebugTrueAPI}
+  {$IFDEF LINUX}
   FMS.Position:=0;
   FMS.SaveToFile('/tmp/true_api_cises_info.json');
+  {$ENDIF}
   {$ENDIF}
   FMS.Position:=0;
 

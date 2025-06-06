@@ -914,6 +914,7 @@ procedure TCISInfoData.InternalInitChilds;
 begin
   inherited InternalInitChilds;
   FsertDocs:=TCertDocs.Create;
+  FpartialSaleInfo:=TPartialSaleInfo.Create;
 end;
 
 constructor TCISInfoData.Create;
@@ -925,6 +926,7 @@ end;
 destructor TCISInfoData.Destroy;
 begin
   FreeAndNil(FsertDocs);
+  FreeAndNil(FpartialSaleInfo );
   inherited Destroy;
 end;
 

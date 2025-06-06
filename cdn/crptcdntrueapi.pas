@@ -144,6 +144,9 @@ var
 begin
   Result:=nil;
 
+{$IFDEF LINUX}
+//  raise Exception.Create('Error');
+{$ENDIF}
 
   if SendCommand(hmGET, '/api/v4/true-api/cdn/info', '', nil, [200, 400, 401, 404], 'application/json') then
   begin
@@ -183,6 +186,10 @@ var
   P: TJSONParser;
 begin
   Result:=nil;
+{$IFDEF LINUX}
+//  raise Exception.Create('Error');
+{$ENDIF}
+
   M:=TMemoryStream.Create;
   Rec:=TTrueAPICheckCodesRequest.Create;
   Rec.fiscalDriveNumber:=AFiscalDriveNumber;
