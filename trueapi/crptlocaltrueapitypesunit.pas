@@ -171,6 +171,7 @@ end;
 procedure TLCCodeInfo.InternalInitChilds;
 begin
   inherited InternalInitChilds;
+  FIgnoreReadUndefProps:=true;
 end;
 
 procedure TLCResultItem.InternalRegisterPropertys;
@@ -188,6 +189,7 @@ procedure TLCResultItem.InternalInitChilds;
 begin
   inherited InternalInitChilds;
   Fcodes := TLCCodeInfos.Create;
+  FIgnoreReadUndefProps:=true;
 end;
 
 destructor TLCResultItem.Destroy;
@@ -211,6 +213,7 @@ procedure TLCResult.InternalInitChilds;
 begin
   inherited InternalInitChilds;
   Fresults:=TLCResultItems.Create;
+  FIgnoreReadUndefProps:=true;
 end;
 
 destructor TLCResult.Destroy;
@@ -231,6 +234,7 @@ end;
 procedure TLCStatusDocCount.InternalInitChilds;
 begin
   inherited InternalInitChilds;
+  FIgnoreReadUndefProps:=true;
 end;
 
   {  TLCStatusReplicationStatus  }
@@ -242,6 +246,7 @@ end;
 procedure TLCStatusReplicationStatus.InternalInitChilds;
 begin
   inherited InternalInitChilds;
+  FIgnoreReadUndefProps:=true;
   Fblocked_cis := TLCStatusDocCount.Create;
   Fblocked_gtin := TLCStatusDocCount.Create;
   Fblocked_series := TLCStatusDocCount.Create;
@@ -273,6 +278,7 @@ end;
 procedure TLCServerStatus.InternalInitChilds;
 begin
   inherited InternalInitChilds;
+  FIgnoreReadUndefProps:=true;
   FreplicationStatus :=TLCStatusReplicationStatus.Create;
 end;
 

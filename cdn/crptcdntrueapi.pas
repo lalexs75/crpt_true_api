@@ -262,10 +262,10 @@ begin
   Result:=nil;
   if SendCommand(hmGET, 'api/v1/status', '', nil, [200, 201, 400, 401, 404], 'application/json') then
   begin
+    SaveHttpData('local_server_stat');
     Document.Position:=0;
     Result:=TLCServerStatus.Create;
     Result.LoadFromStream(Document);
-    SaveHttpData('local_server_stat');
   end
   else
     SaveHttpData('local_server_stat');
