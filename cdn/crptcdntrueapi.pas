@@ -304,7 +304,8 @@ begin
 
   J:=TJSONArray.Create;
   for S1 in ACodes do
-    J.Add(S1);
+    J.Add(Copy(S1, 1, 31));
+    //J.Add(S1);
   J1:=TJSONObject.Create;
   J1.Add('cis_list', J);
 

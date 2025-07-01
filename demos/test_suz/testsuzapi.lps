@@ -47,7 +47,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdServiceUnit"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="97"/>
         <CursorPos X="53" Y="124"/>
         <UsageCount Value="57"/>
@@ -89,7 +89,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdOrderStatusUnit"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <TopLine Value="52"/>
         <CursorPos X="7" Y="69"/>
@@ -128,10 +127,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdCodesBlocksRetryUnit"/>
-        <EditorIndex Value="-1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="57"/>
         <CursorPos Y="78"/>
         <UsageCount Value="48"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdcodesblocksunit.pas"/>
@@ -140,10 +142,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frmSUZCmdCodesBlocksUnit"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="55"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="58"/>
         <CursorPos X="7" Y="72"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="frames/frmsuzcmdordercloseunit.pas"/>
@@ -264,7 +268,7 @@
       <Unit>
         <Filename Value="../../crpttrueapi.pas"/>
         <UnitName Value="CRPTTrueAPI"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="13"/>
         <TopLine Value="59"/>
         <CursorPos Y="90"/>
         <UsageCount Value="30"/>
@@ -347,7 +351,7 @@
       <Unit>
         <Filename Value="../../SuzIntegration/crptsuzintegration.pas"/>
         <UnitName Value="CRPTSuzIntegration"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="15"/>
         <TopLine Value="104"/>
         <CursorPos Y="108"/>
         <UsageCount Value="10"/>
@@ -377,7 +381,7 @@
       <Unit>
         <Filename Value="../../SuzIntegration/crptsuzapi.pas"/>
         <UnitName Value="CRPTSuzAPI"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="14"/>
         <TopLine Value="125"/>
         <CursorPos Y="129"/>
         <UsageCount Value="10"/>
