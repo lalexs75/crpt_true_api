@@ -128,6 +128,7 @@ type
     procedure InternalRegisterPropertys; override;
     procedure InternalInitChilds; override;
   public
+    constructor Create; override;
     destructor Destroy; override;
   published
     property CertType:string read FCertType write FCertType;
@@ -177,7 +178,7 @@ type
     FproductWeightGr: integer;
     FprVetDocument: string;
     FrequestedCis: string;
-    FsertDocs: TCertDocs;
+    FcertDoc: TCertDocs;
     Fstatus: string;
     FstatusEx: string;
     FtnVedEaes: string;
@@ -223,7 +224,7 @@ type
     property turnoverType:string read FturnoverType write FturnoverType;            //Вид товарооборота
     property exporterName:string read FexporterName write FexporterName;            //Наименование экспортёра
     property withdrawReason:string read FwithdrawReason write FwithdrawReason;      //Причина вывода из оборота
-    property sertDocs:TCertDocs read FsertDocs;                                     //Сведения о разрешительной документации
+    property certDoc:TCertDocs read FcertDoc;                                       //Сведения о разрешительной документации
     property parent:string read Fparent write Fparent;                              //КИ агрегата
     property maxRetailPrice:string read FmaxRetailPrice write FmaxRetailPrice;      //Максимальная цена розничной продажи в копейках
     property volumeSpecialPack:string read FvolumeSpecialPack write FvolumeSpecialPack; //Фактический объём выпущенной продукции, л
@@ -854,6 +855,12 @@ begin
   inherited InternalInitChilds;
 end;
 
+constructor TCertDoc.Create;
+begin
+  inherited Create;
+  FIgnoreReadUndefProps:=true;
+end;
+
 destructor TCertDoc.Destroy;
 begin
   inherited Destroy;
@@ -891,7 +898,7 @@ begin
   RegisterProperty('withdrawReason', 'withdrawReason', [], '', -1, -1);
   RegisterProperty('exporterName');
   RegisterProperty('turnoverType');
-  RegisterProperty('sertDocs');
+  RegisterProperty('certDoc');
 
   RegisterProperty('parent');
   RegisterProperty('maxRetailPrice');
@@ -913,7 +920,7 @@ end;
 procedure TCISInfoData.InternalInitChilds;
 begin
   inherited InternalInitChilds;
-  FsertDocs:=TCertDocs.Create;
+  FcertDoc:=TCertDocs.Create;
   FpartialSaleInfo:=TPartialSaleInfo.Create;
 end;
 
@@ -925,7 +932,7 @@ end;
 
 destructor TCISInfoData.Destroy;
 begin
-  FreeAndNil(FsertDocs);
+  FreeAndNil(FcertDoc);
   FreeAndNil(FpartialSaleInfo );
   inherited Destroy;
 end;

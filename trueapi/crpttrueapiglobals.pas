@@ -41,6 +41,7 @@ uses
 function DecodeCISStatus(AStatusStr:string):TcrptCISStatus;
 function CISStatusStr(AStatus:TcrptCISStatus):string;
 
+function CertTypeToStr(ACertType:string):string;
 implementation
 
 function DecodeCISStatus(AStatusStr: string): TcrptCISStatus;
@@ -70,6 +71,17 @@ begin
     csDISAGGREGATION:Result:='Расформирован';
     csDISAGGREGATED:Result:='Расформирован';
     csAPPLIED_NOT_PAID:Result:='Не оплачен';
+  end;
+end;
+
+function CertTypeToStr(ACertType : string) : string;
+begin
+  case ACertType of
+    'CONFORMITY_CERTIFICATE':Result:='Сертификат соответствия';
+    'CONFORMITY_DECLARATION':Result:='Декларация о соответствии';
+    'STATE_REGISTRATION_CERTIFICATE':Result:='Свидетельство о государственной регистрации';
+  else
+    Result:='Прочее (' + ACertType + ')';
   end;
 end;
 
