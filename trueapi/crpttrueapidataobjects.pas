@@ -195,6 +195,7 @@ type
     destructor Destroy; override;
     function EmissionDateToDate:TDateTime;
     function ProducedDateToDate:TDateTime;
+    function ExpirationDateToDate:TDateTime;
   published
     property applicationDate : string read FapplicationDate write FapplicationDate; //Дата нанесения
     property introducedDate:string read FintroducedDate write FintroducedDate;      //Дата ввода воборот
@@ -952,6 +953,16 @@ var
   R: TDateTimeRec;
 begin
   if xsd_TryStrToDate(FproducedDate, R, xdkDateTime) then
+    Result:=R.Date
+  else
+    Result:=0;
+end;
+
+function TCISInfoData.ExpirationDateToDate : TDateTime;
+var
+  R : TDateTimeRec;
+begin
+  if xsd_TryStrToDate(FexpirationDate, R, xdkDateTime) then
     Result:=R.Date
   else
     Result:=0;
