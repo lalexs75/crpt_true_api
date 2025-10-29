@@ -65,6 +65,7 @@ type
     Finst : string;
     FreqId : string;
     FreqTimestamp : Int64;
+    Fversion : string;
   protected
     procedure InternalRegisterPropertys; override;
     procedure InternalInitChilds; override;
@@ -75,6 +76,7 @@ type
     property reqId:string read FreqId write FreqId;
     property reqTimestamp :Int64 read FreqTimestamp write FreqTimestamp;
     property inst:string read Finst write Finst;
+    property version:string read Fversion write Fversion;
     property description:string read Fdescription write Fdescription;
     property codes : TLCCodeInfos read Fcodes;
     property code:Integer read Fcode write Fcode;
@@ -131,12 +133,17 @@ type
   { TLCServerStatus }
   TLCServerStatus = class(TJSONSerializationObject)
   private
+    FdbVersion : string;
+    Finn : string;
     Finst : string;
+    FisGreyGtin : boolean;
     FlastSync : Int64;
+    FlastUpdate : Int64;
     Fname : string;
     FoperationMode : string;
     FreplicationStatus : TLCStatusReplicationStatus;
     FrequiresDownload : string;
+    FserviceUrl : string;
     Fstatus : string;
     Fversion : string;
   protected
@@ -149,12 +156,18 @@ type
     property version:string read Fversion write Fversion;
     property status:string read Fstatus write Fstatus;
     property requiresDownload:string read FrequiresDownload write FrequiresDownload;
+    property serviceUrl:string read FserviceUrl write FserviceUrl;
     property replicationStatus:TLCStatusReplicationStatus read FreplicationStatus;
     property operationMode:string read FoperationMode write FoperationMode;
     property name:string read Fname write Fname;
+    property lastUpdate: Int64 read FlastUpdate write FlastUpdate;
     property lastSync : Int64 read FlastSync write FlastSync;
+    property isGreyGtin:boolean read FisGreyGtin write FisGreyGtin;
     property inst:string read Finst write Finst;
+    property inn:string read Finn write Finn;
+    property dbVersion:string read FdbVersion write FdbVersion;
   end;
+
 
 implementation
 uses DateUtils;
@@ -180,6 +193,7 @@ begin
   RegisterProperty('reqId', 'reqId', [], '', -1, -1);
   RegisterProperty('reqTimestamp', 'reqTimestamp', [], '', -1, -1);
   RegisterProperty('inst', 'inst', [], '', -1, -1);
+  RegisterProperty('version', 'version', [], '', -1, -1);
   RegisterProperty('description', 'description', [], '', -1, -1);
   RegisterProperty('codes', 'codes', [], '', -1, -1);
   RegisterProperty('code', 'code', [], '', -1, -1);

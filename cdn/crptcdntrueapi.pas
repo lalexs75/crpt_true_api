@@ -89,8 +89,10 @@ type
 
     function ServerStatus:TJSONData;
     function ServerStatusExt:TLCServerStatus;
-    function CodeCheck(ACis:string; AFiscalDriveNumber:string = ''): TJSONData;
-    function CodesCheck(ACodes:TXSDStringArray; AFiscalDriveNumber:string = ''): TJSONData;
+    function CodeCheck(ACis:string; AFiscalDriveNumber:string = ''): TJSONData; DEPRECATED;
+    function CodesCheck(ACodes:TXSDStringArray; AFiscalDriveNumber:string = ''): TJSONData;DEPRECATED;
+
+    function CodesOutCheck(ACodes:TXSDStringArray; AFiscalDriveNumber:string = ''): TJSONData;
   published
     property UserName:string read FUserName write SetUserName;
     property Password:string read FPassword write SetPassword;
@@ -328,6 +330,42 @@ begin
     RxWriteLog(etDebug, 'TLocalTrueAPICheck.CodesCheck - error : %d %s', [ResultCode, ResultString]);
   end;
 //  M.Free;
+end;
+
+function TLocalTrueAPICheck.CodesOutCheck(ACodes : TXSDStringArray; AFiscalDriveNumber : string) : TJSONData;
+var
+  J : TJSONArray;
+  S1 : String;
+  J1 : TJSONObject;
+  M : TStringStream;
+  P : TJSONParser;
+begin
+  Result:=nil;
+
+  J:=TJSONArray.Create;
+  for S1 in ACodes do
+    J.Add(Copy(S1, 1, 31));
+  J1:=TJSONObject.Create;
+  J1.Add('cis_list', J);
+
+  M:=TStringStream.Create(J1.FormatJSON);
+  J1.Free;
+  M.Position:=0;
+
+  if SendCommand(hmPOST, 'api/v1/cis/outCheck', '', M, [200, 201, 400, 401, 404], 'application/json') then
+  begin
+    Document.Position:=0;
+    P:=TJSONParser.Create(Document, DefaultOptions);
+    Result:=P.Parse as TJSONData;
+    P.Free;
+    SaveHttpData('local_cises_outCheck.json');
+    RxWriteLog(etDebug, 'TLocalTrueAPICheck.CodesOutCheck - ok');
+  end
+  else
+  begin
+    SaveHttpData('local_cises_check');
+    RxWriteLog(etDebug, 'TLocalTrueAPICheck.CodesOutCheck - error : %d %s', [ResultCode, ResultString]);
+  end;
 end;
 
 end.
