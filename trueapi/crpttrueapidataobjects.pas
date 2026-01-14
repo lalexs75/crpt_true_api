@@ -923,6 +923,7 @@ begin
   inherited InternalInitChilds;
   FcertDoc:=TCertDocs.Create;
   FpartialSaleInfo:=TPartialSaleInfo.Create;
+  Flicences:=TLicencesInfos.Create;
 end;
 
 constructor TCISInfoData.Create;
@@ -935,6 +936,7 @@ destructor TCISInfoData.Destroy;
 begin
   FreeAndNil(FcertDoc);
   FreeAndNil(FpartialSaleInfo );
+  FreeAndNil(Flicences);
   inherited Destroy;
 end;
 
