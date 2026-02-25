@@ -924,6 +924,7 @@ begin
   FcertDoc:=TCertDocs.Create;
   FpartialSaleInfo:=TPartialSaleInfo.Create;
   Flicences:=TLicencesInfos.Create;
+  FownerMod:=TOwnerMod.Create;
 end;
 
 constructor TCISInfoData.Create;
@@ -937,6 +938,7 @@ begin
   FreeAndNil(FcertDoc);
   FreeAndNil(FpartialSaleInfo );
   FreeAndNil(Flicences);
+  FreeAndNil(FownerMod);
   inherited Destroy;
 end;
 
