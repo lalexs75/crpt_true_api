@@ -8,7 +8,7 @@
       <Version Value="11"/>
       <SearchPaths>
         <OtherUnitFiles Value="trueapi;SuzIntegration;cdn"/>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
     <Description Value="Набор объектов и структур для взаимодействия с ЦРПТ по маркировке товаров посредством True API"/>
@@ -51,11 +51,11 @@
       </Item>
       <Item>
         <Filename Value="cdn/crptcdntrueapitypes.pas"/>
-        <UnitName Value="crptcdntrueapitypes"/>
+        <UnitName Value="crptCDNTrueAPITypes"/>
       </Item>
       <Item>
         <Filename Value="trueapi/crptlocaltrueapitypesunit.pas"/>
-        <UnitName Value="crptlocaltrueapitypesunit"/>
+        <UnitName Value="crptLocalTrueAPITypesUnit"/>
       </Item>
     </Files>
     <LazDoc Paths="docs"/>
