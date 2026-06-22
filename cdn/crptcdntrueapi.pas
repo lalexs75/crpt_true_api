@@ -262,7 +262,8 @@ end;
 function TLocalTrueAPICheck.ServerStatusExt : TLCServerStatus;
 begin
   Result:=nil;
-  if SendCommand(hmGET, 'api/v1/status', '', nil, [200, 201, 400, 401, 404], 'application/json') then
+//  if SendCommand(hmGET, 'api/v1/status', '', nil, [200, 201, 400, 401, 404], 'application/json') then
+  if SendCommand(hmGET, 'api/v2/status', '', nil, [200, 201, 400, 401, 404], 'application/json') then
   begin
     SaveHttpData('local_server_stat');
     Document.Position:=0;
