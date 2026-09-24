@@ -149,6 +149,7 @@ type
     Fcis: string;
     FcisWithoutBrackets: string;
     FconnectDate: string;
+    Fcountry: string;
     FemissionDate: string;
     FemissionType: string;
     FerrorCode: string;
@@ -158,8 +159,13 @@ type
     FexporterName: string;
     FgeneralPackageType: string;
     Fgtin: string;
+    FimporterInn: string;
+    FimporterName: string;
     FintroducedDate: string;
+    FisMultipleSales: Boolean;
+    FisTracking: Boolean;
     FisVarQuantity: Boolean;
+    Fkpp: string;
     Flicences: TLicencesInfos;
     FmarkWithdraw: boolean;
     FmaxRetailPrice: string;
@@ -177,6 +183,7 @@ type
     FproductName: string;
     FproductWeightGr: integer;
     FprVetDocument: string;
+    FquantityInPack: Integer;
     FrequestedCis: string;
     FcertDoc: TCertDocs;
     Fstatus: string;
@@ -241,6 +248,14 @@ type
     property licences:TLicencesInfos read Flicences;                                //Массив лицензий на пользование недрами
     property errorMessage:string read FerrorMessage write FerrorMessage;            //Сообщение об ошибке
     property errorCode:string read FerrorCode write FerrorCode;                     //Код ошибки
+
+    property quantityInPack:Integer read FquantityInPack write FquantityInPack;
+    property country:string read Fcountry write Fcountry;
+    property kpp:string read Fkpp write Fkpp;
+    property isMultipleSales:Boolean read FisMultipleSales write FisMultipleSales;
+    property isTracking:Boolean read FisTracking write FisTracking;
+    property importerInn:string read FimporterInn write FimporterInn;
+    property importerName:string read FimporterName write FimporterName;
   end;
 
   { TCISInfo }
@@ -916,6 +931,14 @@ begin
   RegisterProperty('licences');
   RegisterProperty('errorMessage');
   RegisterProperty('errorCode');
+
+  RegisterProperty('quantityInPack');
+  RegisterProperty('country');
+  RegisterProperty('kpp');
+  RegisterProperty('isMultipleSales');
+  RegisterProperty('isTracking');
+  RegisterProperty('importerInn');
+  RegisterProperty('importerName');
 end;
 
 procedure TCISInfoData.InternalInitChilds;
