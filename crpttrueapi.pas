@@ -133,6 +133,7 @@ type
     function CisesList(ACis:string):TJSONData;
 
     function CisesInfo(ACISList:TStringArray; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
+    function CisesInfo(ACISList:TStrings; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
     function CisesInfo(ACIS:string; APG:string = ''; childsWithoutBrackets:Boolean = false):TCISInfos;
     function CisesCodesCheck(ACISList: TStringArray; AInn: string = ''): TJSONData;
     function CisesCheck(ACISList: TStringArray): TJSONData;
@@ -421,6 +422,51 @@ begin
 end;
 
 function TCRPTTrueAPI.CisesInfo(ACISList: TStringArray; APG:string = ''; childsWithoutBrackets:Boolean = false): TCISInfos;
+var
+  P1: TJSONArray;
+  S1: TJSONStringType;
+  FMS: TMemoryStream;
+  S, S2: String;
+  P: TJSONParser;
+begin
+  Result:=nil;
+  DoLogin;
+
+  S:='';
+  if APG <> '' then
+    AddURLParam(S, 'pg', APG);
+
+  P1:=TJSONArray.Create;
+  for S2 in ACISList do
+    P1.Add(S2);
+
+  S1:=P1.FormatJSON;
+
+  FMS:=TMemoryStream.Create;
+  FMS.Write(S1[1], Length(S1));
+  {$IFDEF DebugTrueAPI}
+  {$IFDEF LINUX}
+  FMS.Position:=0;
+  FMS.SaveToFile('/tmp/true_api_cises_info.json');
+  {$ENDIF}
+  {$ENDIF}
+  FMS.Position:=0;
+
+  P1.Free;
+  if SendCommand(hmPOST, InternalTrueAPIUrl3 + 'cises/info', S, FMS, [200, 400, 404], 'application/json') then
+  begin
+    SaveHttpData('true_api_cises_info');
+    FDocument.Position:=0;
+    Result:=TCISInfos.Create;
+    Result.LoadFromStream(FDocument);
+  end
+  else
+    SaveHttpData('true_api_cises_info');
+  FMS.Free;
+end;
+
+function TCRPTTrueAPI.CisesInfo(ACISList: TStrings; APG: string;
+  childsWithoutBrackets: Boolean): TCISInfos;
 var
   P1: TJSONArray;
   S1: TJSONStringType;
